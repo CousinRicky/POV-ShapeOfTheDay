@@ -182,6 +182,14 @@ var
   letter-spacing:0;
 }
 
+dl.compact
+{ margin:0.3em 0em 0.6em 0.9em;
+}
+.compact dt
+{ float:left;
+  width:2.0em;
+  clear:left;
+}
 .compact dd
 { margin:0 0em 0 2.0em;
 }

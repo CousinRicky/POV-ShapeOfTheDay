@@ -6,7 +6,7 @@
  * Copyright © 2012 - 2022 Richard Callwood III.  All rights reserved.
  *
  * Version 2.0    20??-???-??
- * Updated        2022-Sep-17
+ * Updated        2022-Oct-13
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -16,7 +16,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.0;
-#declare SOTD__S_INCV = "-20220917-alpha"
+#declare SOTD__S_INCV = "-20221013-alpha"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -286,11 +286,11 @@
 #declare SOTD__RAMP = 12;    // 1 / ramp slope
 
 // DeskLamp (cm)
-#declare SOTD__RBULB = 3;                   // light source recessed into hood
+#declare SOTD__RBULB = 3;                // light source recessed into hood
 #declare SOTD__DLAMP = 5 * SOTD__CM_PER_IN - SOTD__RBULB; // light src to neck
-#declare SOTD__ZLAMP = -SOTD__CM_PER_IN;    // lamp neck off-center position
-#declare SOTD__HLAMP = 30;                  // minimum height
-#declare SOTD__HRIGID =                     // rigid upper end of neck
+#declare SOTD__ZLAMP = -SOTD__CM_PER_IN; // lamp neck off-center position
+#declare SOTD__HLAMP = 30;               // minimum height
+#declare SOTD__HRIGID =                  // rigid upper end of neck
   (sqrt (pow (1.25, 2) - pow (9/32, 2)) + 0.75) * SOTD__CM_PER_IN;
 #declare SOTD__HFLEX = 8 * SOTD__CM_PER_IN; // flexible part of neck
 #declare SOTD__HUPPER = SOTD__HRIGID + SOTD__HFLEX;
@@ -2671,14 +2671,17 @@
 #end // Sotd__Grow_forest
 
 /***********************************************************
- * Returns a light fixture.
+ * Returns an indoor light, with optional lamp fixture.
  * Arguments:
  *   v_Where   - Light source location
  *   c_Color   - Color of the light
  *   HueSat    - -1 for a standard illuminant, otherwise <hue, saturation>
- *   t_Fixture - A texture for brass parts
+ *   t_Fixture - A texture for the hood exterior and base
  *   Quality   - 0 = no fixture, shadowless, no attenuation, no photons
  *               1 = fixture, shadows, inverse-squared attenuation
+        proposed change:
+ *               1 = spotlight, shadows, inverse-squared attenuation, no fixture
+ *               2 = fixture, shadows, inverse-squared attenuation
  *   Area      - If true and area lights are indicated, will be an area light
  *   Photons   - If false, photons will not be shot.
  */
@@ -2688,14 +2691,19 @@
   #if (Quality >= 1)
     #local sotd_HS = HueSat + <0, 0>;
     #local sotd_Dist = vlength (v_Where - sotd_v_Aim);
-#if(sotd__Dbg_lamp) //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#if(sotd__Dbg_lamp) //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 /*
-#declare SOTD__RBULB = 3;  // light source recessed into hood
-#declare SOTD__DLAMP =     // light source to lamp neck
-#declare SOTD__ZLAMP =     // lamp neck off-center position
-#declare SOTD__HLAMP = 30;//@@ 35; // minimum height
-#declare SOTD__HRIGID =    // rigid upper end of neck
-#declare SOTD__HFLEX =     // flexible part of neck
+// DeskLamp (cm)
+#declare SOTD__RBULB = 3;                // light source recessed into hood
+#declare SOTD__DLAMP = 5 * SOTD__CM_PER_IN - SOTD__RBULB; // light src to neck
+#declare SOTD__ZLAMP = -SOTD__CM_PER_IN; // lamp neck off-center position
+#declare SOTD__HLAMP = 30;               // minimum height
+#declare SOTD__HRIGID =                  // rigid upper end of neck
+  (sqrt (pow (1.25, 2) - pow (9/32, 2)) + 0.75) * SOTD__CM_PER_IN;
+#declare SOTD__HFLEX = 8 * SOTD__CM_PER_IN; // flexible part of neck
+#declare SOTD__HUPPER = SOTD__HRIGID + SOTD__HFLEX;
+// DeskLamp (feet)
+#declare SOTD__HFILL = 14 * SOTD__FT_PER_IN;
 
 #declare HLIGHT = 35; // Arbitrary height for testing
 #if (Angle = 0)
@@ -2713,7 +2721,9 @@
 #declare H = HLIGHT + AnchorPt.y + HUPPER;
 #declare Base = <(AnchorPt.x - ZLAMP) / LAMP_FOOT, 0, 0>;
 */
-    #local sotd_From_ceil = (v_Where.y > sotd_v_Room_size.y * 0.5);
+   // Is lamp hung from ceiling?
+    #local sotd_From_ceil = (v_Where.y > sotd_v_Room_size.y * 0.75);
+   // angle from light source to aim position:
     #local sotd_Angle = sgn (sotd_v_Aim.y - v_Where.y)
       * VAngle (v_Where - sotd_v_Aim, (v_Where - sotd_v_Aim) * <1, 0, 1>);
     #if (sotd_Angle = 0)
@@ -2722,24 +2732,41 @@
       #local sotd_Sin = sin (sotd_Angle);
       #local sotd_Cos = cos (sotd_Angle);
       #local sotd_AnchorPt = // centimeters
-      < 0,
-        -SOTD__DLAMP * sotd_Sin - SOTD__HRIGID * sotd_Cos
-        - SOTD__HFLEX * sotd_Sin / sotd_Angle,
-        -SOTD__DLAMP * sotd_Cos + SOTD__HRIGID * sotd_Sin
-        + SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - SOTD__ZLAMP,
-      >;
+        #if (sotd_From_ceil)
+          < 0,
+            -SOTD__DLAMP * sotd_Sin + SOTD__HRIGID * sotd_Cos
+            + SOTD__HFLEX * sotd_Sin / sotd_Angle,
+            -SOTD__DLAMP * sotd_Cos - SOTD__HRIGID * sotd_Sin
+            - SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - SOTD__ZLAMP,
+          >;
+        #else
+          < 0,
+            -SOTD__DLAMP * sotd_Sin - SOTD__HRIGID * sotd_Cos
+            - SOTD__HFLEX * sotd_Sin / sotd_Angle,
+            -SOTD__DLAMP * sotd_Cos + SOTD__HRIGID * sotd_Sin
+            + SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - SOTD__ZLAMP,
+          >;
+        #end
     #end
+    #local sotd_Cm = sotd_Unit * 100;
+    #local sotd_Basexz =
+      #if (v_Where.x = 0 & v_Where.z = 0)
+        <0, 0, 0>;
+      #else
+        vrotate (sotd_AnchorPt, degrees (atan2 (-v_Where.x, -v_Where.z)) * y);
+      #end
     #local sotd_Basexz = // POV units
-    ( vrotate
-      ( sotd_AnchorPt,
-        degrees (atan2 (-v_Where.x, -v_Where.z)) * y
-      ) / (sotd_Unit * 100) + v_Where
-    ) * <1, 0, 1>;
+      (sotd_Basexz / sotd_Cm + v_Where) * <1, 0, 1>
+    + (sotd_From_ceil? sotd_v_Room_size: 0) * y;
     #local sotd_hLamp =  // centimeters
-      v_Where.y * sotd_Unit * 100 + sotd_AnchorPt.y + SOTD__HUPPER;
+    ( sotd_From_ceil?
+      sotd_v_Room_size.y * sotd_Cm - (v_Where.y * sotd_Cm + sotd_AnchorPt.y)
+        + SOTD__HUPPER:
+      v_Where.y * sotd_Cm + sotd_AnchorPt.y + SOTD__HUPPER
+    );
     #if (sotd_hLamp < SOTD__HLAMP)
       #if (degrees (sotd_Angle) = -sotd_Light_alt)
-        #error concat (str (sotd_Light_alt, 0, 2) " is to low a value for sotd_Light_alt.")
+        #error concat (str (sotd_Light_alt, 0, 2) " is too low a value for sotd_Light_alt.")
       #else
         #warning concat ("sotd_Unit ", Sotd__Str (sotd_Unit, 6))
         #warning concat ("sotd_Height ", Sotd__Str (sotd_Height, 6))
@@ -2757,7 +2784,7 @@
     Sotd__DebugF ("Height  ", sotd_hLamp, 6)*/
     #local sotd_Max = VMax (c_Color);
     #local sotd_c_Bulb =
-    #if (sotd_HS.x < 0)
+    #if (sotd_HS.y < 0)
       rgb 1;
     #else #if (sotd_Max = 0)
       CHSV2RGB (<sotd_HS.x, sotd_HS.y, 1>);
@@ -2768,7 +2795,7 @@
 
     object
     { Lamp_Flexneck
-      ( sotd_hLamp, sotd_Basexz, y, sotd_v_Aim,
+      ( sotd_hLamp, sotd_Basexz, (sotd_From_ceil? -y: y), sotd_v_Aim,
         !VZero (c_Color),
         #if (sotd_HS.x < 0)
           c_Color, SOTD__LM_UNIT * Lamp_Luminance (c_Color) / sotd_Exposure,

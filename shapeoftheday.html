@@ -4,25 +4,6 @@
 <meta charset="UTF-8">
 <title>ShapeOfTheDay User Manual</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
-<style type="text/css">
-dl.compact
-{ margin:0.3em 0em 0.3em 0.9em;
-}
-.compact dt
-{ float:left;
-  width:2.0em;
-  clear:left;
-}
-.compact dd
-{ margin:0 0em 0 2.0em;
-}
-.args1 dt
-{ width:3.5em;
-}
-.args1 dd
-{ margin-left:3.5em;
-}
-</style>
 </head>
 
 <body>
@@ -387,7 +368,7 @@ dl.compact
     <dt>2 <dd>Indoors over a checkered floor with the window shutters completely open
     <dt>3 <dd>Indoors over a checkered floor with the window shutters completely shut
    </dl>
-   Values between 2.0 and 3.0 will set the window shutters partially open.
+   <p>Values between 2.0 and 3.0 will set the window shutters partially open.
   </td>
   <td>3 (indoors with the window shutters closed)</td>
  </tr><tr>
@@ -979,7 +960,7 @@ dl.compact
     <dt>65 <dd>D65
     <dt>75 <dd>D75
    </dl>
-   This parameter applies to the light sources, lighting environment, and sky set by ShapeOfTheDay. It will not directly impact pigments or user-defined colors. If you use DeskLamp to create your own lamp, the lumens calculation may be affected.
+   This parameter applies to the light sources, lighting environment, and sky created by ShapeOfTheDay. It will not directly impact pigments or user-defined colors. If you use DeskLamp to create your own lamp, the lumens calculation may be affected.
   </td>
   <td>50</td>
  </tr>
@@ -1698,6 +1679,7 @@ union
 
 <ul>
  <li>The lighting of the interior hood and/or bulb of colored lamps is incorrect when radiosity is not used. It is not known whether the bug is in ShapeOfTheDay or in DeskLamp.
+ <li>Lamps with <code>sotd_Light_alt</code> near 90 are not positioned properly.
 </ul>
 
 <h3>Possible Future Development</h3>
@@ -1711,21 +1693,15 @@ union
  <li>Vary the Sun and sky colors according to the Sun’s altitude.
  <li>Re-implement the sky with scattering and absorbing media.
  <li>Make ShapeOfTheDay compatible with LilySoft’s SpectralRender.
+ <li>Find some way for ShapeOfTheDay to use Rune’s grass texture.
 </ul>
 
 <h3>Acknowledgments</h3>
 
 <ul>
  <li>Michael Horvath’s <a href="http://lib.povray.org/searchcollection/index2.php?objectName=ColorSolid&amp;contributorTag=SharkD">ColorSolid</a> (<a href="https://github.com/LeForgeron/PovContributions/tree/master/colorsolid">ColorSolid mirror</a>) was used to generate the HSV cylinder illustration.
- <li><a href="http://www.ignorancia.org/index.php/technical/lightsys/">Lightsys IV</a>, in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments. Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the color of the Sun.
+ <li><a href="http://www.ignorancia.org/index.php/technical/lightsys/">Lightsys IV</a>, in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments. Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the colors of the Sun and sky.
 </ul>
-
-<h3>Links</h3>
-
-<p><a href="../doc_drafts.html">Object Collection development</a>
-| <a href="../../povnotes.html">POV-Ray notes</a>
-
-<p><a href="#toc">Table of contents</a>
 
 </body>
 </html>
