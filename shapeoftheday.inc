@@ -3,7 +3,19 @@
  *
  * A prefab environment for prototypes and experiments.
  *
- * Copyright © 2012 - 2022 Richard Callwood III.  All rights reserved.
+ * Copyright © 2012 - 2022 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the CC-LGPL
+ * a.k.a. the GNU Lesser General Public License version 2.1.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1 as published by the Free Software Foundation.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  Please
+ * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
+ * the text of the GNU Lesser General Public License version 2.1.
  *
  * Version 2.0    20??-???-??
  * Updated        2022-Oct-13
