@@ -333,8 +333,6 @@ Vers.  Date         Comments
 1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
        2022-Sep-18  With the incorporation of max_sample, the Sun can now have a
                     realistic surface brightness for POV-Ray < 3.7.
-       20??-???-??  Bug fix: fill lights inherit the main light if it's a
-                    standard illuminant.
 2.0    20??-???-??  The DeskLamp module is utilized.  The color macros
                     (and therefore, assumed_gamma) will remain in
                     shapeoftheday_ref.inc, on the principle that the user
