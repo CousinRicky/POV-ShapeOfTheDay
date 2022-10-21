@@ -333,7 +333,13 @@ Vers.  Date         Comments
 1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
        2022-Sep-18  With the incorporation of max_sample, the Sun can now have a
                     realistic surface brightness for POV-Ray < 3.7.
-2.0    20??-???-??  The DeskLamp module is utilized.  The color macros
-                    (and therefore, assumed_gamma) will remain in
-                    shapeoftheday_ref.inc, on the principle that the user
+2.0-beta
+       2022-Oct-13  The DeskLamp module is utilized.
+       2022-Oct-20  A completely fixture-less quality setting is added,
+                    requiring a shifting of quality setting codes.
+       20??-???-??  The brightnesses of the fill lamps are adjusted to account
+                    for differing distances from the rest position.
+2.0    20??-???-??  Preparation for future Object Collection upload is complete.
+                    The color macros (and therefore, assumed_gamma) will remain
+                    in shapeoftheday_ref.inc, on the principle that the user
                     should not be forced to deal directly with DeskLamp.

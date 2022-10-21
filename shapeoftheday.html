@@ -503,28 +503,35 @@
   <td>A quality setting, with effects as follows:
    <table>
     <tr>
-     <th>Value</th> <th>Windows</th> <th>Fill Lights</th>
+     <th>Value</th> <th>Windows</th> <th>Main Light</th> <th>Fill Lights</th>
     </tr><tr>
      <td>0</td>
-     <td>No pane.</td>
+     <td>No pane</td>
+     <td>A floodlight with attenuation and shadows, but no fixture</td>
      <td>Shadowless, parallel, with no attenuation and no fixture</td>
     </tr><tr>
      <td>1</td>
-     <td>No pane.</td>
-     <td rowspan="4">A regular flood lamp with shadows, inverse squared attenuation, and a fixture.</td>
+     <td>No pane</td>
+     <td>A regular lamp fixture</td>
+     <td>Shadowless, parallel, with no attenuation and no fixture</td>
     </tr><tr>
      <td>2</td>
-     <td>Single pane (slow).</td>
+     <td>No pane</td>
+     <td rowspan="4">A regular lamp fixture</td>
+     <td rowspan="4">A regular lamp fixture</td>
     </tr><tr>
      <td>3</td>
-     <td>Double pane (very slow).</td>
+     <td>Single pane (slow)</td>
     </tr><tr>
      <td>4</td>
-     <td>Triple pane (interminable).</td>
+     <td>Double pane (very slow)</td>
+    </tr><tr>
+     <td>5</td>
+     <td>Triple pane (interminable)</td>
     </tr>
    </table>
   </td>
-  <td>1</td>
+  <td>2</td>
  </tr><tr>
   <td><code>sotd_Right</code></td>
   <td>float</td>
