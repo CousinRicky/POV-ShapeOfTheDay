@@ -18,7 +18,7 @@
  * the text of the GNU Lesser General Public License version 2.1.
  *
  * Version 2.0    20??-???-??
- * Updated        2022-Oct-20
+ * Updated        2022-Oct-21
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,7 +28,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.0;
-#declare SOTD__S_INCV = "-20221020-beta"
+#declare SOTD__S_INCV = "-20221021-beta"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -1306,7 +1306,7 @@
 ( v_Where, v_Aim, c_Color, IsFill, rFade, Radius, Tight, dArea, Photons
 )
   #debug concat
-  ( "light_source\n{ ", Sotd__VStr (v_Where, 5), ",\n  rgb ",
+  ( "light_source\n{ ", Sotd__VStr (v_Where, 5), ", rgb ",
     Sotd__VStr (c_Color, 4), "\n"
   )
   #if (IsFill)
@@ -3957,20 +3957,34 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
     /*#debug concat ("@@ Light input ", str (sotd_Light, -8, 3), "\n")
     Sotd__DebugV ("Light RGB ", sotd_c_Light, 4)
     Sotd__DebugV ("Light HSV ", <sotd_hLight, sotd_sLight, sotd_vLight>, 4)*/
+    #local sotd_v_Rest = sotd_Height/2 * y;
+    #local sotd_dMain = vlength (sotd_v_Light - sotd_v_Rest);
+    #local sotd_Shadowless = (sotd_Quality < 2? 0: 2);
+    #if (sotd_Shadowless = 0)
+      #local sotd_Fill1_factor = 1;
+      #local sotd_Fill2_factor = 1;
+    #else // Adjust brightnesses for differing distances from rest point.
+      #local sotd_v_Rest = sotd_Height/2 * y;
+      #local sotd_dMain = vlength (sotd_v_Light - sotd_v_Rest);
+      #local sotd_Fill1_factor =
+        pow (vlength (sotd_v_Fill1 - sotd_v_Rest) / sotd_dMain, 2);
+      #local sotd_Fill2_factor =
+        pow (vlength (sotd_v_Fill2 - sotd_v_Rest) / sotd_dMain, 2);
+    #end
     Sotd__Lamp
     ( sotd_v_Light, sotd_c_Light,
       (sotd_Light < 0 ? -1: <sotd_hLight, sotd_sLight>),
       sotd_t_Lamp, (sotd_Quality = 0? 1: 2), yes, yes
     )
     Sotd__Lamp
-    ( sotd_v_Fill1, sotd_c_Fill1,
+    ( sotd_v_Fill1, sotd_c_Fill1 * sotd_Fill1_factor,
       (sotd_Fill1 < 0 ? -1: <sotd_hFill1, sotd_sFill1>),
-      sotd_t_Lamp, (sotd_Quality < 2? 0: 2), sotd_Fill_area, sotd_Fill_ph
+      sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
     )
     Sotd__Lamp
-    ( sotd_v_Fill2, sotd_c_Fill2,
+    ( sotd_v_Fill2, sotd_c_Fill2 * sotd_Fill2_factor,
       (sotd_Fill2 < 0 ? -1: <sotd_hFill2, sotd_sFill2>),
-      sotd_t_Lamp, (sotd_Quality < 2? 0: 2), sotd_Fill_area, sotd_Fill_ph
+      sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
     )
     #declare Lamp_Debug = sotd_Lamp_debug; // restore user's DeskLamp setting
 

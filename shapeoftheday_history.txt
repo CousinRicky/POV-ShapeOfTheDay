@@ -335,10 +335,16 @@ Vers.  Date         Comments
                     realistic surface brightness for POV-Ray < 3.7.
 2.0-beta
        2022-Oct-13  The DeskLamp module is utilized.
+       2022-Oct-14  The GNU LGPL 2.1 is applied.
        2022-Oct-20  A completely fixture-less quality setting is added,
                     requiring a shifting of quality setting codes.
-       20??-???-??  The brightnesses of the fill lamps are adjusted to account
-                    for differing distances from the rest position.
+       2022-Oct-21  The brightnesses of the fill lamps are adjusted at call time
+                    to account for differing distances from the rest position.
+                    (Previously this was handled within Sotd__Lamp(), but this
+                    was no longer feasible when Lamp_Lumen started controlling
+                    global lamp brightness.)
+       20??-???-??  Ambients, HSV light colors, and light color outputs all
+                    adjust correctly to the white point.
 2.0    20??-???-??  Preparation for future Object Collection upload is complete.
                     The color macros (and therefore, assumed_gamma) will remain
                     in shapeoftheday_ref.inc, on the principle that the user
