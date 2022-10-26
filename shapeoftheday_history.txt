@@ -343,7 +343,7 @@ Vers.  Date         Comments
                     (Previously this was handled within Sotd__Lamp(), but this
                     was no longer feasible when Lamp_Lumen started controlling
                     global lamp brightness.)
-       20??-???-??  Ambients, HSV light colors, and light color outputs all
+       2022-Oct-25  Ambients, HSV light colors, and light color text outputs all
                     adjust correctly to the white point.
 2.0    20??-???-??  Preparation for future Object Collection upload is complete.
                     The color macros (and therefore, assumed_gamma) will remain

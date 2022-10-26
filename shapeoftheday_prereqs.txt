@@ -1,0 +1,3 @@
+DeskLamp, proposed for the Object Collection
+RoundEdge, from the Object Collection
+PipeMrg (optional), from the Object Collection

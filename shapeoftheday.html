@@ -104,8 +104,17 @@
   <td><code>shapeoftheday.css</code></td>
   <td>A style sheet</td>
  </tr><tr>
+  <td><code>shapeoftheday_description.txt</code></td>
+  <td>A brief description of ShapeOfTheDay</td>
+ </tr><tr>
   <td><code>shapeoftheday_history.txt</code></td>
   <td>A detailed history of ShapeOfTheDay and its predecessors</td>
+ </tr><tr>
+  <td><code>shapeoftheday_keywords.txt</code></td>
+  <td>A list of keywords</td>
+ </tr><tr>
+  <td><code>shapeoftheday_prereqs.txt</code></td>
+  <td>Prerequisites</td>
  </tr>
 </table>
 
@@ -118,7 +127,7 @@
  <li>POV-Ray version 3.5 or later
  <li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=RoundEdge&amp;contributorTag=Cousin%20Ricky">RoundEdge</a> (<a href="https://github.com/CousinRicky/POV-RoundEdge">RoundEdge mirror</a>), from the POV-Ray Object Collection
  <li><a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp</a>, a proposed POV-Ray Object Collection module
- <!--li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky">DeskLamp</a> (<a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp mirror</a>), a proposed POV-Ray Object Collection module-->
+ <!--li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky">DeskLamp</a> (<a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp mirror</a>), from the POV-Ray Object Collection-->
 </ul>
 
 <p>ShapeOfTheDay will use this if it is in your library path:
@@ -130,7 +139,7 @@
 
 <h3 id="namespace">Namespace</h3>
 
-<p>All global and local identifiers defined in <code>shapeoftheday.inc</code> begin with “<code>ShapeOfTheDay_</code>” or “<code>sotd_</code>,” or uppercase and lowercase variations thereof. All identifiers include at least one captial letter.
+<p>All global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> begin with “<code>ShapeOfTheDay_</code>” or “<code>sotd_</code>,” or uppercase and lowercase variations thereof. All identifiers include at least one capital letter.
 
 <p>In addition to identifiers from the prerequisites listed above, the standard include files <code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used, and RoundEdge uses <code>shapes.inc</code>. If <code>screen.inc</code> is included by the user, then macros from that file are called. The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
 

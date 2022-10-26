@@ -18,7 +18,7 @@
  * the text of the GNU Lesser General Public License version 2.1.
  *
  * Version 2.0    20??-???-??
- * Updated        2022-Oct-21
+ * Updated        2022-Oct-25
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,7 +28,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.0;
-#declare SOTD__S_INCV = "-20221021-beta"
+#declare SOTD__S_INCV = "-20221025-beta"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -477,6 +477,22 @@
 #end
 
 /***********************************************************
+ * Returns a white point filter for an indoor light.
+ *   IsStd      - Whether of not the light is a standard illuminant
+ *   HasFixture - Whether or not the light has a fixture
+ * Comments:
+ *   Standard illuminants are pre-filtered, so don't need filtering.
+ *   Sotd__Lamp() calls DeskLamp with a white point, so fixtured HSV lights
+ *    don't need filtering either.
+ */
+#macro Sotd__Filter (IsStd, HasFixture)
+( #if (IsStd | HasFixture) 1
+  #else sotd__c_Illums [sotd__Whitex][SOTD__HSV_IX]
+  #end
+)
+#end
+
+/***********************************************************
  * Returns the color of an indoor light.
  *   Code  - The float-encoded HSV color or standard illuminant code
  *   Hue   - The hue of an HSV color
@@ -492,9 +508,6 @@
     sotd__c_Illums [sotd__Whitex] [sotd_I] * Value * sotd_Exposure
   #else // HSV
     CHSV2RGB (<Hue, Sat, Value>) * sotd_Exposure
-    /*@@CHSV2RGB (<Hue, Sat, Value>) * sotd_Exposure
-      * sotd__c_Illums [sotd__Whitex][SOTD__HSV_IX] //@@ a hack until DeskLamp is completed
-    @@*/
   #end
 )
 #end
@@ -952,12 +965,20 @@
 
  //-------------------- light sources -----------------------
 
-  #declare sotd_c_Light =
+  // unfiltered by white point
+  #declare sotd__c_Light_unf =
     Sotd__Get_lamp (sotd_Light, sotd_hLight, sotd_sLight, sotd_vLight);
-  #declare sotd_c_Fill1 =
+  #declare sotd__c_Fill1_unf =
     Sotd__Get_lamp (sotd_Fill1, sotd_hFill1, sotd_sFill1, sotd_vFill1);
-  #declare sotd_c_Fill2 =
+  #declare sotd__c_Fill2_unf =
     Sotd__Get_lamp (sotd_Fill2, sotd_hFill2, sotd_sFill2, sotd_vFill2);
+  // filtered by white point
+  #declare sotd_c_Light =
+    sotd__c_Light_unf * Sotd__Filter ((sotd_Light < 0), no);
+  #declare sotd_c_Fill1 =
+    sotd__c_Fill1_unf * Sotd__Filter ((sotd_Fill1 < 0), no);
+  #declare sotd_c_Fill2 =
+    sotd__c_Fill2_unf * Sotd__Filter ((sotd_Fill2 < 0), no);
   #declare sotd__Sun_dist =
     max (1000 * sotd_v_Room_size.y, 200 * sotd_Hills_max / sotd_Unit, 1000000);
   #if (sotd__Debug_unit)
@@ -2680,7 +2701,8 @@
 #end // Sotd__Grow_forest
 
 /***********************************************************
- * Returns an indoor light, with optional lamp fixture.
+ * Returns an indoor light, with optional lamp fixture. If there is a fixture,
+ * standard illumnants get a white bulb, and HSV lights get a colored bulb.
  * Arguments:
  *   v_Where   - Light source location
  *   c_Color   - Color of the light
@@ -3150,21 +3172,6 @@
     }
     translate -rMajor * z
   }
-#end
-
-/***********************************************************
- * Returns a multiplier for a light color suitable for light source
- * attenuation, but not so bright that it interferes with radiosity.
- */
-#macro Sotd__Surface_brightness (c_Color)
-( #local sotd_Max = max (c_Color.red, c_Color.green, c_Color.blue);
-//@@ this test may not be necessary when DeskLamp is used.
-  #if (sotd_Max = 0)
-    1
-  #else
-    SOTD__LIGHT_MAX * max (1, 1 / sotd_Max)
-  #end
-)
 #end
 
 /***********************************************************
@@ -3954,9 +3961,6 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
         }
       }
     #end
-    /*#debug concat ("@@ Light input ", str (sotd_Light, -8, 3), "\n")
-    Sotd__DebugV ("Light RGB ", sotd_c_Light, 4)
-    Sotd__DebugV ("Light HSV ", <sotd_hLight, sotd_sLight, sotd_vLight>, 4)*/
     #local sotd_v_Rest = sotd_Height/2 * y;
     #local sotd_dMain = vlength (sotd_v_Light - sotd_v_Rest);
     #local sotd_Shadowless = (sotd_Quality < 2? 0: 2);
@@ -3972,17 +3976,22 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
         pow (vlength (sotd_v_Fill2 - sotd_v_Rest) / sotd_dMain, 2);
     #end
     Sotd__Lamp
-    ( sotd_v_Light, sotd_c_Light,
+    ( sotd_v_Light,
+      sotd__c_Light_unf * Sotd__Filter ((sotd_Light < 0), (sotd_Quality != 0)),
       (sotd_Light < 0 ? -1: <sotd_hLight, sotd_sLight>),
       sotd_t_Lamp, (sotd_Quality = 0? 1: 2), yes, yes
     )
     Sotd__Lamp
-    ( sotd_v_Fill1, sotd_c_Fill1 * sotd_Fill1_factor,
+    ( sotd_v_Fill1,
+      sotd__c_Fill1_unf * sotd_Fill1_factor
+        * Sotd__Filter ((sotd_Fill1 < 0), (sotd_Shadowless = 2)),
       (sotd_Fill1 < 0 ? -1: <sotd_hFill1, sotd_sFill1>),
       sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
     )
     Sotd__Lamp
-    ( sotd_v_Fill2, sotd_c_Fill2 * sotd_Fill2_factor,
+    ( sotd_v_Fill2,
+      sotd__c_Fill2_unf * sotd_Fill2_factor
+        * Sotd__Filter ((sotd_Fill2 < 0), (sotd_Shadowless = 2)),
       (sotd_Fill2 < 0 ? -1: <sotd_hFill2, sotd_sFill2>),
       sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
     )
