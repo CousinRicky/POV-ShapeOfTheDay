@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShapeOfTheDay User Manual</title>
+<title>ShapeOfTheDay 2.0 User Manual | POV-Ray Object Collection (Proposed)</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
 </head>
 
@@ -12,9 +12,11 @@
 
 <h2>Abstract</h2>
 
-<p>ShapeOfTheDay is a library module for the
- <a href="http://www.povray.org/">Persistence of Vision Raytracer (POV-Ray)</a>
- that creates a prefabricated environment in which one can showcase or examine experimental models and prototypes.
+<p>
+<a href="shapeoftheday.jpg" class="demo"><img src="shapeoftheday_thumbnail.jpg" title="Larger demo image" alt="[Thumbnail which links to a larger demo image]"></a>
+ShapeOfTheDay is a library module proposed for the
+<a href="https://www.povray.org/">Persistence of Vision Raytracer (POV-Ray)</a>
+<a href="http://lib.povray.org/">Object Collection</a> that creates prefabricated virtual environments in which one can showcase or examine experimental models and prototypes.
 
 <h2 id="toc">Table of Contents</h2>
 
@@ -87,11 +89,22 @@
   <td><code>shapeoftheday.inc</code></td>
   <td>The main ShapeOfTheDay include file</td>
  </tr><tr>
-  <td><code>shapeoftheday_cloudy.pov</code></td>
-  <td>A scene for the convenience of coordinating the Sun position with the clouds.</td>
- </tr><tr>
   <td><code>shapeoftheday_ref.inc</code></td>
   <td>An include file containing reference codes for ShapeOfTheDay parameters</td>
+ </tr><tr>
+  <td><code>shapeoftheday.pov</code></td>
+  <td>A scene description file demonstrating the use of ShapeOfTheDay</td>
+ </tr><tr>
+  <td><code>shapeoftheday.ini</code></td>
+  <td>An INI file with several examples of user parameter settings</td>
+ </tr><tr>
+  <td><code>shapeoftheday.jpg</code></td>
+  <td rowspan="2">Example output images</td>
+ </tr><tr>
+  <td><code>shapeoftheday_thumbnail.jpg</code></td>
+ </tr><tr>
+  <td><code>shapeoftheday_cloudy.pov</code></td>
+  <td>A scene for the convenience of coordinating the Sun position with the clouds</td>
  </tr><tr>
   <td><code>shapeoftheday_hsv.png</code></td>
   <td>An illustration for the user manual</td>
@@ -101,8 +114,8 @@
   <th>File</th>
   <th>Description</th>
  </tr><tr>
-  <td><code>shapeoftheday.css</code></td>
-  <td>A style sheet</td>
+  <td><code>README<var>nnnnnn</var>.html</code></td>
+  <td>Important information about using the POV-Ray Object Collection</td>
  </tr><tr>
   <td><code>shapeoftheday_description.txt</code></td>
   <td>A brief description of ShapeOfTheDay</td>
@@ -115,8 +128,17 @@
  </tr><tr>
   <td><code>shapeoftheday_prereqs.txt</code></td>
   <td>Prerequisites</td>
+ </tr><tr>
+  <td><code>shapeoftheday.css</code></td>
+  <td rowspan="3">Other administrative files</td>
+ </tr><tr>
+  <td><code>cc-LGPL-a.png</code></td>
+ </tr><tr>
+  <td><code>Version<var>nnnnnn</var>.js</code></td>
  </tr>
 </table>
+
+<p>The italicized <var>nnnnnn</var> in some of the file names represents the 6-digit number that is in the name of the <code>.zip</code> file as downloaded from <a href="http://lib.povray.org/">lib.povray.org</a>. If you downloaded this module from some other repository, the files <code>cc-LGPL-a.png</code>, <code>README<var>nnnnnn</var>.html</code>, and <code>Version<var>nnnnnn</var>.js</code> may not be present. Please see the <a href="https://web.archive.org/web/20120419111948/http://lib.povray.org/usersguide/02using.html">Object Collection User’s Guide</a> if <code>README<var>nnnnnn</var>.html</code> is not present.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -126,7 +148,7 @@
 <ul>
  <li>POV-Ray version 3.5 or later
  <li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=RoundEdge&amp;contributorTag=Cousin%20Ricky">RoundEdge</a> (<a href="https://github.com/CousinRicky/POV-RoundEdge">RoundEdge mirror</a>), from the POV-Ray Object Collection
- <li><a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp</a>, a proposed POV-Ray Object Collection module
+ <li><a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp</a>, a module proposed for POV-Ray Object Collection
  <!--li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky">DeskLamp</a> (<a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp mirror</a>), from the POV-Ray Object Collection-->
 </ul>
 
@@ -139,11 +161,26 @@
 
 <h3 id="namespace">Namespace</h3>
 
-<p>All global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> begin with “<code>ShapeOfTheDay_</code>” or “<code>sotd_</code>,” or uppercase and lowercase variations thereof. All identifiers include at least one capital letter.
+<h4>Compliance</h4>
+
+<p>All file names in this module and all global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> comply fully with the <a href="https://news.povray.org/470b46cb%241%40news.povray.org">Object Collection naming standards</a>, as <a href="https://news.povray.org/48ba92e8%241%40news.povray.org">revised August 2008</a> and <a href="https://news.povray.org/povray.object-collection/thread/%3Cweb.5018a69dae7e89cb85de7b680%40news.povray.org%3E/">proposed August 2012</a>. The files in this module may be safely stored in the same folder as other fully compliant Object Collection modules.
+
+<p>The following prefixes, including any uppercase and lowercase variants, are reserved by ShapeOfTheDay and its prerequisites:
+<ul>
+ <li>DeskLamp
+ <li>Lamp
+ <li>PipeMrg
+ <li>RE
+ <li>RoundEdge
+ <li>ShapeOfTheDay
+ <li>sotd
+</ul>
+<p>To avoid conflicts, do not introduce into your scene description file any identifiers with any of these prefixes as names, or any identifiers that start with any of these prefixes plus an underscore.
 
 <p>In addition to identifiers from the prerequisites listed above, the standard include files <code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used, and RoundEdge uses <code>shapes.inc</code>. If <code>screen.inc</code> is included by the user, then macros from that file are called. The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
 
 <h4>Prefix Conventions for Public Identifiers</h4>
+<p>These conventions are specific to ShapeOfTheDay, and do not apply to other Object Collection modules.
 <dl>
  <dt><code>SHAPEOFTHEDAY_</code>, <code>SOTD_</code> (all caps)
  <dd>Fixed reference codes and “magic” numbers.
@@ -153,14 +190,14 @@
  <dd>User-set parameters and automatically calculated values.
  <dt><code>sotd_c_</code>
  <dd>Calculated colors.
- <!--dt><code>sotd_h</code>
+ <dt><code>sotd_h</code>
  <dd>Hue parameter.
  <dt><code>sotd_s</code>
- <dd>Color saturation parameter.-->
+ <dd>Color saturation parameter.
  <dt><code>sotd_s_</code>
  <dd>Calculated strings.
- <!--dt><code>sotd_v</code>
- <dd>Color value or illuminance parameter.-->
+ <dt><code>sotd_v</code>
+ <dd>Color value or illuminance parameter.
  <dt><code>sotd_v_</code>
  <dd>Calculated points or 3D vectors.
 </dl>
@@ -171,10 +208,10 @@
 <h3 id="usage">Usage</h3>
 
 <ol>
- <li><p>To override the defaults for any of the <a href="#parameters">ShapeOfTheDay parameters</a>, you may set them at the top of your scene file or, for numeric parameters, on the command line. If you wish to use some of the <a href="#reference">declared reference codes</a> in your scene file prior to including the main include file, you can include the following file:
+ <li><p>To override the defaults for any of the <a href="#parameters">ShapeOfTheDay parameters</a>, you may set them at the top of your scene file, in an INI file, or on the command line. If you wish to use some of the <a href="#reference">declared reference codes</a> in your scene file prior to including the main include file, you can include the following file:
   <pre>#include "shapeoftheday_ref.inc"</pre>
   <p>Including this file automatically sets <code>assumed_gamma</code> to 1.
-  <p>Because the main include file <code>shapeoftheday.inc</code> also calls this file, it is not necessary to include it manually unless you want to use some of its identifiers at this early stage.
+  <p>Because the main include file <code>shapeoftheday.inc</code> also calls this file, it is not necessary to manually include it unless you want to use some of its identifiers at this early stage.
 
  <li><p>You may optionally include <code>screen.inc</code>. If you do so, then ShapeOfTheDay will detect it and use it to set the camera. Be sure to include it <em>before</em> calling macro <code>Sotd_Setup()</code>, or it will interfere with ShapeOfTheDay.
 
@@ -192,8 +229,7 @@
   </ul>
 
  <li><p>Create your shape of the day and place it in the scene.
-  <p>Because ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/
-" target="_blank">linear color space</a>, in order to get the colors you expect from <code>colors.inc</code> or from third party color pickers, you may have to use macro <a href="#Sotd_Color"><code>Sotd_Color()</code></a>. <!--To achieve traditional gradients with color maps, <code>poly_wave 2.2</code> can work for certain simple color maps, but for more complex color maps, POV-Ray 3.8’s <a href="http://wiki.povray.org/content/Reference:Color_Map"><code>blend_mode</code></a> will be necessary.-->
+  <p>Because ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/" target="_blank">linear color space</a>, in order to get the colors you expect from <code>colors.inc</code> or from third party color pickers, you may have to use macro <a href="#Sotd_Color"><code>Sotd_Color()</code></a>.
 </ol>
 
 <p><a href="#toc">Table of contents</a>
@@ -206,9 +242,9 @@
 
 <p>Color parameters apply to the light sources and physical structures, such as floor tiles, that are created by ShapeOfTheDay. They do not apply to any objects or light sources you may create.
 
-<p>In order to accommodate command line input, color parameters are encoded as floats. There are two methods of specifying them: by <a href="https://en.wikipedia.org/wiki/HSL_and_HSV">HSV</a> or by <a href="https://en.wikipedia.org/wiki/Standard_illuminant">standard illuminant</a>. Pigment colors must be specified by HSV. Light source colors may be specified by either method.
+<p>In order to accommodate command line input, color parameters are encoded as floats. There are two methods of specifying them: by <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> or by <a href="https://en.wikipedia.org/wiki/Standard_illuminant" target="_blank">standard illuminant</a>. Pigment colors must be specified by HSV. Light source colors may be specified by either method.
 
-<h4>HSV Encoding
+<h4 id="hsv">HSV Encoding
 <img src="shapeoftheday_hsv.png" alt="[Illustration of an HSV color cylinder]" class="demo"></h4>
 
 <p>The format for HSV (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>v</strong>alue) encoding is <var>hhhsss.vvv</var>, with <var>sss</var> and <var>vvv</var> each having an implied decimal point after the first digit. For example, 120085.045 translates to HSV &lt;120, 0.85, 0.45>. Gradients are linear; that is, the gamma is 1.0.
@@ -217,11 +253,11 @@
 
 <p>The auxiliary parameters have no implied decimal point; their values are used as-is.
 
-<p>The value channel is not restricted to 3 digits, and the value auxiliary parameters are unrestricted in magnitude. For a light source color, value represents the illuminance of the lamp on a perpendicular surface at the <a href="#camera_dfn">rest position</a>.
+<p>The value channel is not restricted to 3 digits, and the value auxiliary parameters are unrestricted in magnitude. For a light source color, value represents the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>.
 
 <h4>Standard Illuminant Encoding</h4>
 
-<p>The format for standard illuminant encoding is <var>-iii.lll</var>, where <var>-iii</var> is an illuminant code (see the table below) and <var>lll</var> is the illuminance of the lamp on a perpendicular surface at the <a href="#camera_dfn">rest position</a>, with an implied decimal point after the first digit. For example, -602.050 represents a cool white fluorescent light at half brightness.
+<p>The format for standard illuminant encoding is <var>-iii.lll</var>, where <var>-iii</var> is an illuminant code (see the table below) and <var>lll</var> is the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>, with an implied decimal point after the first digit. For example, -602.050 represents a cool white fluorescent light at half brightness.
 
 <p>If an auxiliary value parameter (prefixed with <code>sotd_v</code>) is specified, it is interpreted as illuminance and overrides the <var>lll</var> of the main parameter. Any auxiliary hue or saturation parameter is ignored.
 
@@ -336,11 +372,11 @@
  </tr>
 </table>
 
-<p>*CCT is the <dfn>correlated color temperature</dfn>. The lower the CCT, the redder the illuminant, and the warmer its mood; the higher the CCT, the bluer the illuminant, and the cooler its mood. If this seems backwards to you, remember that color temperature is a physics concept, not an art concept.
+<p>*CCT is the <dfn>correlated color temperature</dfn>. The lower the CCT, the redder the illuminant, and the warmer its mood; the higher the CCT, the bluer the illuminant, and the cooler its mood. (If this seems backwards to you, remember that color temperature is a concept from physics, not art.)
 
 <p>&dagger;Presumably south sky in the southern hemisphere.
 
-<p>These illuminant codes are available as <a href="#ref_illuminants">declared reference identifiers</a>.
+<p>These <a href="#ref_illuminants">illuminant codes are available as declared reference identifiers</a>.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -388,7 +424,7 @@
  </tr><tr>
   <td><code>sotd_Ceiling</code></td>
   <td>float</td>
-  <td>The color of the ceiling, in <a href="#color_inputs">float-encoded HSV</a> format.</td>
+  <td>The color of the ceiling, in <a href="#hsv">float-encoded HSV</a> format.</td>
   <td>0.1 (white)</td>
  </tr><tr>
   <td><code>sotd_hCeiling</code></td>
@@ -408,7 +444,7 @@
  </tr><tr>
   <td><code>sotd_Check1</code></td>
   <td>float</td>
-  <td>One of the alternating colors of the floor tiles, in <a href="#color_inputs">float-encoded HSV</a> format.</td>
+  <td>One of the alternating colors of the floor tiles, in <a href="#hsv">float-encoded HSV</a> format.</td>
   <td>0.005 (near black)</td>
  </tr><tr>
   <td><code>sotd_hCheck1</code></td>
@@ -428,7 +464,7 @@
  </tr><tr>
   <td><code>sotd_Check2</code></td>
   <td>float</td>
-  <td>The other of the alternating colors of the floor tiles, in <a href="#color_inputs">float-encoded HSV</a> format.</td>
+  <td>The other of the alternating colors of the floor tiles, in <a href="#hsv">float-encoded HSV</a> format.</td>
   <td>0.1 (white)</td>
  </tr><tr>
   <td><code>sotd_hCheck2</code></td>
@@ -456,7 +492,7 @@
   <td><code>sotd_Cloudy</code></td>
   <td>float</td>
   <td>The amount of cloud cover. This parameter is roughly, though not exactly, linear.
-   <p><strong>Warning:</strong> Overcast lighting is not finalized, and is subject to change. In future versions, your value for <a href="#lighting"><code>sotd_Exposure</code></a> may need to be increased for high values of <code>sotd_Cloudy</code>.
+   <p><strong>Warning:</strong> Overcast lighting is not finalized, and is subject to change. In future versions, your value for <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> may need to be increased for high values of <code>sotd_Cloudy</code>.
   </td>
   <td>0.5</td>
  </tr><tr>
@@ -586,7 +622,7 @@
  </tr><tr>
   <td><code>sotd_Wall</code></td>
   <td>float</td>
-  <td>The color of the indoor walls, in <a href="#color_inputs">float-encoded HSV</a> format. This color will also be used for the baseboards, doors, shutters, and window trim, and a darkened version will be used for the lamp fixtures. If <code>sotd_p_Wall</code> is defined, then this parameter defaults to an estimate sampled from <code>sotd_p_Wall</code>; otherwise, it defaults to 0.1 (white).</td>
+  <td>The color of the indoor walls, in <a href="#hsv">float-encoded HSV</a> format. This color will also be used for the baseboards, doors, shutters, and window trim, and a darkened version will be used for the lamp fixtures. If <code>sotd_p_Wall</code> is defined, then this parameter defaults to an estimate sampled from <code>sotd_p_Wall</code>; otherwise, it defaults to 0.1 (white).</td>
   <td>(see description)</td>
  </tr><tr>
   <td><code>sotd_hWall</code></td>
@@ -643,12 +679,12 @@
 
 <h3 id="camera">Camera Parameters</h3>
 
-<h4>Definitions</h4>
+<h4 id="camera_dfn">Definitions</h4>
 
-<dl id="camera_dfn">
+<dl>
  <dt>Origin
  <dd>The point &lt;0, 0, 0&gt;.
- <dt>Rest position
+ <dt id="rest_position">Rest position
  <dd>The camera <code>look_at</code> prior to any transformations. This point is a distance of one half <code>sotd_Height</code> (described below) directly above the origin.
 </dl>
 
@@ -738,7 +774,7 @@
 </table>
 
 <h4>Room Size</h4>
-<p>The size of the room or patio expands automatically to incorporate the camera. Parameter <code>sotd_FOV</code> affects the distance from the camera to the rest position, and can therefore change the size of the room or patio. Parameter <code>sotd_Margin</code> does not change the camera position, and therefore does not affect the room or patio size.
+<p>There is a minimum wall length of 12 feet or approximately 3.66 meters, but the room or patio expands automatically to incorporate the camera. Parameter <code>sotd_FOV</code> affects the distance from the camera to the rest position, and can therefore change the size of the room or patio. Parameter <code>sotd_Margin</code> does not change the camera position, and therefore does not affect the room or patio size.
 
 <h4>screen.inc</h4>
 <p>If <code>screen.inc</code> is used, then depth of field is disabled and the orthographic camera cannot be used.
@@ -843,12 +879,12 @@
  </tr><tr>
   <td><code>sotd_Light_alt</code></td>
   <td>float</td>
-  <td>The altitude in degrees of the main indoor light, as measured vertically around the <a href="#camera_dfn">rest position</a>. If the setting is outdoors and <code>sotd_Sun_alt</code> has not been set, then this controls the Sun’s altitude instead.</td>
+  <td>The altitude in degrees of the main indoor light, as measured vertically around the <a href="#rest_position">rest position</a>. If the setting is outdoors and <code>sotd_Sun_alt</code> has not been set, then this controls the Sun’s altitude instead.</td>
   <td>45</td>
  </tr><tr>
   <td><code>sotd_Light_az</code></td>
   <td>float</td>
-  <td>The azimuth in degrees of the main indoor light, as measured horizontally around the <a href="#camera_dfn">rest position</a>, with zero in the minus <var>z</var> direction. If the setting is outdoors and <code>sotd_Sun_az</code> has not been set, then this controls the Sun’s azimuth instead.</td>
+  <td>The azimuth in degrees of the main indoor light, as measured horizontally around the <a href="#rest_position">rest position</a>, with zero in the minus <var>z</var> direction. If the setting is outdoors and <code>sotd_Sun_az</code> has not been set, then this controls the Sun’s azimuth instead.</td>
   <td>-30</td>
  </tr><tr>
   <td><code>sotd_Sun_alt</code></td>
@@ -864,7 +900,7 @@
 </table>
 
 <p>*The color of the main indoor light is copied, with the value/illuminance divided by 10 or set at 9.99, whichever is smaller.
-<p>&dagger;This parameter will be interpreted as <em>value</em> if float-encoded HSV is used, and <em>illuminance</em> if a standard illuminant is used.
+<p>&dagger;This parameter will be interpreted as <em>value</em> if float-encoded HSV is used, or <em>illuminance</em> if a standard illuminant is used.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -888,10 +924,10 @@
   <td>float</td>
   <td>The resolution of the area light.</td>
   <td>9</td>
- </tr><tr>
+ </tr><tr id="sotd_Exposure">
   <td><code>sotd_Exposure</code></td>
   <td>float</td>
-  <td>The illuminance of a light source of rgb 1 on an object at the <a href="#camera_dfn">rest position</a>. A low exposure (around 0.05) is useful for indoor scenes with open windows. Exposures of 1.5 to 2.0 are good for outdoor scenes.</td>
+  <td>The illuminance of a light source of rgb 1 on an object at the <a href="#rest_position">rest position</a>. A low exposure (around 0.05) is useful for indoor scenes with open windows. Exposures of 1.5 to 2.0 are good for outdoor scenes.</td>
   <td>1</td>
  </tr><tr>
   <td><code>sotd_Max_sample</code></td>
@@ -984,7 +1020,7 @@
 
 <p>*For indoor scenes with open window shutters, the default may be higher than 20. The default is scaled according to <code>sotd_Exposure</code>.
 
-<p>&dagger;For indoor scenes, the default solar value is calculated assuming 1600 lumens for <code>rgb 1</code>. This value varies with the distance from the light source to the <a href="#camera_dfn">rest position</a>. With the default setup, the default is about 2770.
+<p>&dagger;For indoor scenes, the default solar value is calculated as the ratio of the Sun’s brightness to the illuminance by an <code>rgb 1</code> main indoor light upon the <a href="#rest_position">rest position</a>, assuming 1600 lumens for the main indoor light, and taking the lamp interior’s into account. This ratio varies with the distance from the light source to the rest position. With the default setup, the default is about 2770.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -1072,7 +1108,7 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_Boom_final</code></td>
   <td>float</td>
-  <td>The final camera height in degrees, as measured vertically around the <a href="#camera_dfn">rest position</a>.</td>
+  <td>The final camera height in degrees, as measured vertically around the <a href="#rest_position">rest position</a>.</td>
  </tr><tr>
   <td><code>sotd_Camera_angle</code></td>
   <td>float</td>
@@ -1084,7 +1120,7 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_Camera_distance</code></td>
   <td>float</td>
-  <td>The distance from the camera to the <a href="#camera_dfn">rest position</a>. This distance varies according to the <code>sotd_FOV</code> and <code>sotd_Height</code> parameters.</td>
+  <td>The distance from the camera to the <a href="#rest_position">rest position</a>. This distance varies according to the <code>sotd_FOV</code> and <code>sotd_Height</code> parameters.</td>
  </tr><tr>
   <td><code>sotd_v_Camera_location</code></td>
   <td>3-D vector</td>
@@ -1116,7 +1152,7 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_Dolly_final</code></td>
   <td>float</td>
-  <td>The final camera azimuth in degrees, as measured horizontally around the <a href="#camera_dfn">rest position</a>, with zero in the minus <var>z</var> direction. A positive value is to the right; a negative value is to the left.</td>
+  <td>The final camera azimuth in degrees, as measured horizontally around the <a href="#rest_position">rest position</a>, with zero in the minus <var>z</var> direction. A positive value is to the right; a negative value is to the left.</td>
  </tr><tr>
   <td><code>sotd_c_Fill1</code></td>
   <td>color</td>
@@ -1206,7 +1242,7 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
 <h3 id="Sotd_Color">Sotd_Color (Color), Sotd_Colour (Colour), </h3>
 
 <p>ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/
-" target="_blank">linear color space</a>, but colors are traditionally specified with non-linear <a href="http://wiki.povray.org/content/Documentation:Tutorial_Section_3.3#Gamma_Handling">gamma 2.2 or sRGB</a> formats. This tends to make colors look washed out in ShapeOfTheDay. These macros convert a traditional color specification so that it looks correct with ShapeOfTheDay. Use either one of them on colors from <code>colors.inc</code>, on RGB values from color pickers, or on X11 color values before using them in the pigments applied to your shape of the day. The macros are the same, except for the spelling.
+" target="_blank">linear color space</a>, but colors are traditionally specified with non-linear <a href="https://wiki.povray.org/content/Documentation:Tutorial_Section_3.3#Gamma_Handling">gamma 2.2 or sRGB</a> formats. This tends to make colors look washed out in ShapeOfTheDay. These macros convert a traditional color specification so that it looks correct with ShapeOfTheDay. Use either one of them on colors from <code>colors.inc</code>, on RGB values from color pickers, or on X11 color values before using them in the pigments applied to your shape of the day. The macros are the same, except for the spelling.
 
 <p>These macros are defined in <code>shapeoftheday_ref.inc</code>, and thus may be used prior to including <code>shapeoftheday.inc</code>.
 
@@ -1248,7 +1284,7 @@ union
 <p>Returns a transformation, which is typically used to position a user-defined shape.
 
 <h4>Arguments</h4>
-<p>The transformations specified by these arguments are applied in the order listed, followed by a translation to the  <a href="#camera_dfn">rest position</a>.
+<p>The transformations specified by these arguments are applied in the order listed, followed by a translation to the  <a href="#rest_position">rest position</a>.
 <table>
  <tr><th>Formal Parameter</th> <th>Type</th> <th>Description</th></tr>
  <tr>
@@ -1282,7 +1318,7 @@ union
 
 <h3 id="Sotd_Position_std">Sotd_Position_std ()</h3>
 
-<p>Returns a transformation that transforms according to the <a href="#positioning">object positioning global parameters</a>, with a final translation to the <a href="#camera_dfn">rest position</a>. It is typically used to position a user-defined shape.
+<p>Returns a transformation that transforms according to the <a href="#positioning">object positioning global parameters</a>, with a final translation to the <a href="#rest_position">rest position</a>. It is typically used to position a user-defined shape.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -1651,6 +1687,8 @@ union
  <li><code>Lamp_Debug</code>
 </ul>
 
+<p>ShapeOfTheDay does not call any DeskLamp macros that reference Lightsys IV.
+
 <p><a href="#toc">Table of contents</a>
 
 <h2 id="about">About ShapeOfTheDay</h2>
@@ -1660,6 +1698,20 @@ union
  <p>This library is free software; you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" target="_blank">GNU Lesser General Public License version 2.1</a> as published by the Free Software Foundation.
  <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </address>
+
+<h3 id="Categories">Object Collection Categories</h3>
+
+<ul>
+ <li><strong>Areas of Interest</strong>
+  <ul>
+   <li>Buildings
+   <li>Landscapes
+  </ul>
+ <li><strong>Contribution Types</strong>
+  <ul>
+   <li>Macros
+  </ul>
+</ul>
 
 <h3 id="changes">Change Log</h3>
 
@@ -1685,7 +1737,7 @@ union
   </td>
  </tr><tr>
   <td>2.0</td>
-  <td>20?? ??? ??</td>
+  <td>2022 November 1</td>
   <td>
    <ul>
     <li>Most features are complete.
@@ -1720,7 +1772,7 @@ union
 
 <ul>
  <li>Michael Horvath’s <a href="http://lib.povray.org/searchcollection/index2.php?objectName=ColorSolid&amp;contributorTag=SharkD">ColorSolid</a> (<a href="https://github.com/LeForgeron/PovContributions/tree/master/colorsolid">ColorSolid mirror</a>) was used to generate the HSV cylinder illustration.
- <li><a href="http://www.ignorancia.org/index.php/technical/lightsys/">Lightsys IV</a>, in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments. Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the colors of the Sun and sky.
+ <li><a href="http://www.ignorancia.org/index.php/technical/lightsys/" target="_blank">Lightsys IV</a>, in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments. Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the colors of the Sun and sky.
 </ul>
 
 <p><a href="#toc">Table of contents</a>

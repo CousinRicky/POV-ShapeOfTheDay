@@ -3,7 +3,7 @@
  *
  * A mirrored dome for coordinating ShapeOfTheDay clouds with solar position.
  *
- * Copyright © 2019, 2021 Richard Callwood III.  Some rights reserved.
+ * Copyright  2019, 2021 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the CC-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
@@ -20,7 +20,7 @@
  * 2019-Sep-30  Created.
  * 2021-Jan-02  The z-shift is echoed.
  */
-#version 3.5;
+#version max (3.5, min (3.8, version));
 
 #declare sotd_Setting = 0;
 #ifndef (sotd_Exposure) #declare sotd_Exposure = 2; #end
@@ -51,3 +51,5 @@ Text (concat ("sotd_Sun_alt = ", str (sotd_Sun_alt, 0, 1)), <0, 1>)
 Text (concat ("sotd_Sun_az = ", str (sotd_Sun_az, 0, 1)), <0, 0.92>)
 Text (concat ("sotd_xClouds = ", str (sotd_xClouds, 0, 0)), <1, 1>)
 Text (concat ("sotd_zClouds = ", str (sotd_zClouds, 0, 0)), <1, 0.92>)
+
+// end of shapeoftheday_cloudy.pov

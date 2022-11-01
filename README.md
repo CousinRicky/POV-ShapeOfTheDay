@@ -1,5 +1,7 @@
 # ShapeOfTheDay
 
+![Thumbnail](shapeoftheday_thumbnail.jpg)
+
 A prefab environment for POV-Ray prototypes and experiments.
 
-This project is currently pre-release; existing files are not yet in their final form, and some files are yet to be created.
+This project is a module proposed for the Persistence of Vision Raytracer (POV-Ray) Object Collection.

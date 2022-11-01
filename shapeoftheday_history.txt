@@ -321,7 +321,7 @@ Vers.  Date         Comments
                     for future DeskLamp usage.
        2021-Jul-13  A test is made for whether RE_Evaluate() is defined, thus
                     allowing for RoundEdge versions prior to 2.0.
-1.9.4  2022-Jan-01  HSV lamps are sensitive to color temperature.
+1.9.4  2022-Jan-01  HSV lamps are sensitive to the white point.
 1.9.5  2022-Mar-18  The focal plane is adjustable.
        2022-Mar-18  A warning is given if aperture or orthographic camera is set
                     with screen.inc.
@@ -345,7 +345,9 @@ Vers.  Date         Comments
                     global lamp brightness.)
        2022-Oct-25  Ambients, HSV light colors, and light color text outputs all
                     adjust correctly to the white point.
-2.0    20??-???-??  Preparation for future Object Collection upload is complete.
+       2022-Nov-01  Function Sotd_fn_Grad() is modified to avoid a domain error
+                    in POV-Ray 3.5, maybe caused by floating point fuzz.
+2.0    2022-Nov-01  Preparation for future Object Collection upload is complete.
                     The color macros (and therefore, assumed_gamma) will remain
                     in shapeoftheday_ref.inc, on the principle that the user
                     should not be forced to deal directly with DeskLamp.

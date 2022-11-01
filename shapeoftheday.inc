@@ -1,9 +1,10 @@
 /* shapeoftheday.inc
  * Persistence of Vision Raytracer scene description include file
+ * A proposed POV-Ray Object Collection module
  *
- * A prefab environment for prototypes and experiments.
+ * A prefab virtual environment for prototypes and experiments.
  *
- * Copyright © 2012 - 2022 Richard Callwood III.  Some rights reserved.
+ * Copyright (C) 2012 - 2022 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the CC-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
@@ -17,8 +18,8 @@
  * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
  * the text of the GNU Lesser General Public License version 2.1.
  *
- * Version 2.0    20??-???-??
- * Updated        2022-Oct-25
+ * Version 2.0    2022-Nov-01
+ * Updated        2022-Nov-01
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,7 +29,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.0;
-#declare SOTD__S_INCV = "-20221025-beta"
+#declare SOTD__S_INCV = "-20221101"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -3418,7 +3419,7 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
         // either figure out what's going on in Trace::ComputeGroundFogColour()
         // or integrate the fog formula myself:
         #local Sotd_fn_Grad = function (y)
-        { 0.4286 / (0.4286 + pow (y / 0.35, 1.1 + pow (1 - y, 10)))
+        { 0.4286 / (0.4286 + pow (max (y, 0) / 0.35, 1.1 + pow (1 - y, 10)))
         }
         #break // sotd__Sky_trial = 1
 
@@ -3894,7 +3895,7 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
   #if (sotd_Setting >= SOTD_INDOORS_OPEN)
 
     #local sotd_t_Brass = texture
-    { pigment { rgb <0.81, 0.61, 0.30> }
+    { pigment { rgb <0.80, 0.57, 0.23> }
       finish
       { reflection { 0.9 metallic }
         diffuse 0.05 ambient sotd_c_Ambient * 0.05

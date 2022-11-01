@@ -3,7 +3,7 @@
  *
  * ShapeOfTheDay tools that may be needed prior to #including shapeoftheday.inc.
  *
- * Copyright © 2020 - 2022 Richard Callwood III.  Some rights reserved.
+ * Copyright (C) 2020 - 2022 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the CC-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
@@ -21,7 +21,7 @@
  * -----  ----         --------
  * 1.8    2020-Nov-08  Created.
  * 1.9.7  2022-Sep-13  Last update.
- * 2.0    2022-Sep-15  Version match
+ * 2.0    2022-Oct-14  Version match
  *
  * Implementation note: due to POV-Ray namespace scope leakage, local variables
  * and function parameters (other than x, y, and z) *must* be prefixed.

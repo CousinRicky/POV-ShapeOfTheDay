@@ -1,1 +1,1 @@
-A prefabricated environment in which one can showcase or examine experimental models and prototypes.
+Prefabricated virtual environments in which one can showcase or examine experimental models and prototypes.
