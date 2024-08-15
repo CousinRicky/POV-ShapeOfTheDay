@@ -1,11 +1,11 @@
-/* shapeoftheday.inc
+/* shapeoftheday.inc version 2.1
  * Persistence of Vision Raytracer scene description include file
- * A proposed POV-Ray Object Collection module
+ * POV-Ray Object Collection
  *
  * A prefab virtual environment for prototypes and experiments.
  *
- * Copyright (C) 2012 - 2022 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the CC-LGPL
+ * Copyright (C) 2012 - 2024 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
  * This library is free software; you can redistribute it and/or
@@ -18,8 +18,7 @@
  * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
  * the text of the GNU Lesser General Public License version 2.1.
  *
- * Version 2.0    2022-Nov-01
- * Updated        2022-Nov-01
+ * Version 2.1  2024-Aug-14
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,8 +27,8 @@
  */
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY_VERSION = 2.0;
-#declare SOTD__S_INCV = "-20221101"
+#declare SHAPEOFTHEDAY_VERSION = 2.1;
+#declare SOTD__S_INCV = "-20240813"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -48,6 +47,12 @@
 #include "functions.inc"
 #include "transforms.inc"
 #include "desklamp.inc"
+#if (DESKLAMP_VERSION < 2.0)
+  #error concat
+  ( "ShapeOfTheDay ", SHAPEOFTHEDAY_S_VERSION,
+    " requires DeskLamp 2.0 or later."
+  )
+#end
 #include "roundedge.inc"
 #declare sotd__PipeMrg = file_exists ("pipemrg.inc");
 #if (sotd__PipeMrg) #include "pipemrg.inc" #end
@@ -76,6 +81,8 @@
 #declare SOTD_ULTRA_WIDE_ANGLE = 5;
 
 //========================= PRIVATE REFERENCE VALUES ===========================
+
+#declare sotd__s_Lamps = array[3] { "hooded", "square panel", "round panel", }
 
 #declare sotd__s_Settings = array[5]
 { "outdoors",
@@ -122,8 +129,9 @@
 #declare SOTD__C_BRICK = <0.6, 0.15, 0.15> * 0.6; //brick pigment default
 #declare SOTD__C_MORTAR = <0.5, 0.5, 0.5> * 0.6; //brick pigment default
 
-// Maximum light intensity, to avoid radiosity artifacts:
-#declare SOTD__LIGHT_MAX = 20;
+#declare SOTD__LIGHT_MAX = 20;          // avoid radiosity artifacts
+#declare SOTD__PANEL_TIGHTNESS = 2;     // arbitrary
+#declare SOTD__HOODED_TIGHTNESS = 0.25; // resembles DeskLamp area light render
 // Lumens at rgb 1.0:
 #declare SOTD__LM_UNIT = 1600;
 #declare SOTD__HOOD_FACTOR = 1.0201; // #debug'd from DeskLamp
@@ -297,17 +305,29 @@
 #declare SOTD__NBRICKS = 6;  // number of brick layers above checkered floor
 #declare SOTD__RAMP = 12;    // 1 / ramp slope
 
-// DeskLamp (cm)
+//----- Lamps -----
+// Common (feet)
+#declare SOTD__HFILL = 14 * SOTD__FT_PER_IN; // fill lamp height
+// Common (cm)
+#declare SOTD__HLAMP = 30;                  // minimum height
+#declare SOTD__HFLEX = 8 * SOTD__CM_PER_IN; // flexible part of neck
+// Hooded (cm)
 #declare SOTD__RBULB = 3;                // light source recessed into hood
 #declare SOTD__DLAMP = 5 * SOTD__CM_PER_IN - SOTD__RBULB; // light src to neck
-#declare SOTD__ZLAMP = -SOTD__CM_PER_IN; // lamp neck off-center position
-#declare SOTD__HLAMP = 30;               // minimum height
-#declare SOTD__HRIGID =                  // rigid upper end of neck
+#declare SOTD__ZLAMP = -SOTD__CM_PER_IN; // lamp neck off-center z-position
+#declare SOTD__HRIGID =                  // hood rear radius + rigid upper neck
   (sqrt (pow (1.25, 2) - pow (9/32, 2)) + 0.75) * SOTD__CM_PER_IN;
-#declare SOTD__HFLEX = 8 * SOTD__CM_PER_IN; // flexible part of neck
 #declare SOTD__HUPPER = SOTD__HRIGID + SOTD__HFLEX;
-// DeskLamp (feet)
-#declare SOTD__HFILL = 14 * SOTD__FT_PER_IN;
+#declare SOTD__HOODED_RADIUS =           // span where entire bulb is visible
+  90 - 2 * degrees (atan2 (3, 2.5 * SOTD__CM_PER_IN - 0.08));
+// Panel (cm)
+#declare SOTD__DPANEL = SOTD__CM_PER_IN / 4; // light source to lamp neck
+#declare SOTD__DEMIT = 4 * SOTD__CM_PER_IN;  // emitting panel diameter
+#declare SOTD__ZPANEL = -1.25 * SOTD__CM_PER_IN; // lamp neck z-position
+#declare SOTD__HRIGIDP =
+  SOTD__DEMIT / 2 + 1.25 * SOTD__CM_PER_IN;  // panel radius + rigid upper neck
+#declare SOTD__HUPPERP = SOTD__HRIGIDP + SOTD__HFLEX;
+#declare SOTD__DBASE = 5 * SOTD__CM_PER_IN;  // diameter of lamp base
 
 // Railings (inches)
 #declare SOTD__RRAIL = 5/6;
@@ -447,7 +467,11 @@
 #end
 
 /***********************************************************
- * Estimates the flux of a light source on a surface.
+ * Returns an estimate of the flux of a light source on a surface.
+ * N.B. Estimate of a non-parallel light will be very rough, as only 1 point is
+ * sampled.
+ * Warning: I'm unsure of the calculation if -90 < radius <= 0.  At this time,
+ * ShapeOfTheDay does not invoke those scenarios.
  * Arguments:
  *   v_Light     - Location of light source
  *   v_Target    - Location of light source's target
@@ -456,22 +480,33 @@
  *   Is_parallel - If true, light rays are parallel, with no distance
  *                 attenuation; if false, the light is a 45-90 spotlight,
  *                 with inverse squared attenuation
+ *   Is_parallel - If true, light rays are parallel, with no distance
+ *                 attenuation; if false, the light is a spotlight with inverse
+ *                 squared attenuation
+ *   v_Spotlt    - Spotlight parameters <radius, falloff, tightness>
  */
-#macro Sotd__Estimate_flux (v_Light, v_Target, v_Surface, v_Normal, Is_parallel)
+#macro Sotd__Estimate_flux
+( v_Light, v_Target, v_Surface, v_Normal, Is_parallel, v_Spotlt
+)
 ( #local sotd_v_From_target = vnormalize (v_Light - v_Target);
-  #local sotd_v_From_surface = vnormalize (v_Light - v_Surface);
-  #local sotd_InvSq =
-    pow (vlength (v_Light - v_Target) / vlength (v_Light - v_Surface), 2);
   #if (Is_parallel)
     max (0, vdot (sotd_v_From_target, vnormalize (v_Normal)))
   #else
-    #local sotd_AoI_ill = vdot (sotd_v_From_surface, vnormalize (v_Normal));
-    #local sotd_Spread =
-      degrees (acos (vdot (sotd_v_From_target, sotd_v_From_surface)));
-    sotd_AoI_ill * sotd_InvSq
-    #switch (sotd_Spread)
-      #range (90, 180) * 0 #break
-      #range (45, 90) * (90 - sotd_Spread) / 45 #break
+    #local sotd_v_From_surface = vnormalize (v_Light - v_Surface);
+    #local sotd_cosSpread = vdot (sotd_v_From_target, sotd_v_From_surface);
+    #local sotd_Spread = degrees (acos (sotd_cosSpread));
+    #if (sotd_Spread >= 90 | (sotd_Spread >= v_Spotlt.y & v_Spotlt.x >= 0))
+      0 // outside the spotlight
+    #else
+      #local sotd_InvSq =
+        pow (vlength (v_Light - v_Target) / vlength (v_Light - v_Surface), 2);
+      #local sotd_AoI_ill = vdot (sotd_v_From_surface, vnormalize (v_Normal));
+      sotd_AoI_ill * sotd_InvSq * pow (sotd_cosSpread, v_Spotlt.z)
+      #if (v_Spotlt.x > 0 & sotd_Spread > v_Spotlt.x) // non-cosine
+        * ( cos ((sotd_Spread - v_Spotlt.x) / (v_Spotlt.y - v_Spotlt.x) * pi)
+            + 1
+          ) / 2
+      #end
     #end
   #end
 )
@@ -553,13 +588,16 @@
  */
 #macro Sotd__Indoor_c (v_Surface, v_Normal)
 (   Sotd__Estimate_flux
-    ( sotd_v_Light, sotd_Height/2 * y, v_Surface, v_Normal, no
+    ( sotd_v_Light, sotd_Height/2 * y, v_Surface, v_Normal, no,
+      Sotd__SpotLt (sotd_Lamp_style)
     ) * sotd_c_Light
   + Sotd__Estimate_flux
-    ( sotd_v_Fill1, sotd_Height/2 * y, v_Surface, v_Normal, (sotd_Quality < 2)
+    ( sotd_v_Fill1, sotd_Height/2 * y, v_Surface, v_Normal, (sotd_Quality < 2),
+      Sotd__SpotLt (sotd_Fill_style)
     ) * sotd_c_Fill1
   + Sotd__Estimate_flux
-    ( sotd_v_Fill2, sotd_Height/2 * y, v_Surface, v_Normal, (sotd_Quality < 2)
+    ( sotd_v_Fill2, sotd_Height/2 * y, v_Surface, v_Normal, (sotd_Quality < 2),
+      Sotd__SpotLt (sotd_Fill_style)
     ) * sotd_c_Fill2
 )
 #end
@@ -587,6 +625,45 @@
     )
   / (SOTD__WWINDOW + SOTD__WWINMINSPACE)
   )
+#end
+
+/**************************************************************************
+ * Calculates area light vectors.
+ * Arguments:
+ *   v_Where - (input) the location of the light source
+ *   v_Aim   - (input) the aim point of the light
+ *   dArea   - (input) the physical diameter of the area light
+ *   v_Axis1 - (output) one of the area light vectors
+ *   v_Axis2 - (output) the other area light vector
+ */
+#macro Sotd__Orient (v_Where, v_Aim, dArea, v_Axis1, v_Axis2)
+  #if (v_Where.x = v_Aim.x & v_Where.y = v_Aim.y)
+    #local v_Axis1 = dArea * x;
+    #local v_Axis2 = dArea * y;
+  #else
+    #local sotd_V = v_Aim - v_Where;
+    #local sotd_Th = degrees (atan2 (sotd_V.x, sotd_V.z));
+    #local v_Axis1 = vrotate (dArea * x, sotd_Th * y);
+    #local v_Axis2 = vrotate
+    ( dArea * y,
+      < sotd_Ph,
+        degrees (atan2 (-sotd_V.y, vlength (<sotd_V.x, 0, sotd_V.z>))),
+        0
+      >
+    );
+  #end
+#end
+
+/**************************************************************************
+ * Returns spotlight parameters in a 3-tuple.
+ * Argument:
+ *   Style - the lamp style
+ */
+#macro Sotd__SpotLt (Style)
+( Style = SOTD_HOODED_LAMP?
+  <SOTD__HOODED_RADIUS, 90, SOTD__HOODED_TIGHTNESS>:
+  <-90, 90, SOTD__PANEL_TIGHTNESS>
+)
 #end
 
 /**************************************************************************
@@ -733,6 +810,9 @@
   #end
   #ifndef (sotd_Light_alt) #declare sotd_Light_alt = 45; #end
   #ifndef (sotd_Light_az) #declare sotd_Light_az = -30; #end
+  #ifndef (sotd_Lamp_style)
+    #declare sotd_Lamp_style = SOTD_ROUND_PANEL_LAMP;
+  #end
   #if (sotd_Setting < SOTD_INDOORS_OPEN)
     #ifndef (sotd_Sun_alt) #declare sotd_Sun_alt = sotd_Light_alt; #end
     #ifndef (sotd_Sun_az) #declare sotd_Sun_az = sotd_Light_az; #end
@@ -742,6 +822,7 @@
   #end
 
  //+++++++++++ fill lights ++++++++++++++
+  #ifndef (sotd_Fill_style) #declare sotd_Fill_style = sotd_Lamp_style; #end
   #ifndef (sotd_Fill)
     #declare sotd_Fill = Sotd__Encode_light
     ( sotd_Light, sotd_hLight, sotd_sLight, sotd_vLight * 0.1
@@ -1007,8 +1088,21 @@
  //---------------- brightness calibration ------------------
 
   #local sotd_Dist = vlength (sotd_v_Light - sotd_Height/2 * y) * sotd_Unit;
-  #local sotd_Lux =
-    SOTD__LM_UNIT * (1 + SOTD__HOOD_FACTOR) / (4 * pi * pow (sotd_Dist, 2));
+  #local sotd_Hooded_factor = (1 + SOTD__HOOD_FACTOR) / (4 * pi);
+  #local sotd_Panel_factor = (SOTD__PANEL_TIGHTNESS + 1) / (2 * pi);
+  #if (sotd_Lamp_style = SOTD_HOODED_LAMP)
+    #local sotd_Lux = SOTD__LM_UNIT * sotd_Hooded_factor / pow (sotd_Dist, 2);
+    #declare sotd__Fill_adj =
+    ( sotd_Fill_style = SOTD_HOODED_LAMP?
+      1: sotd_Hooded_factor / sotd_Panel_factor
+    );
+  #else
+    #local sotd_Lux = SOTD__LM_UNIT * sotd_Panel_factor / pow (sotd_Dist, 2);
+    #declare sotd__Fill_adj =
+    ( sotd_Fill_style = SOTD_HOODED_LAMP?
+      sotd_Panel_factor / sotd_Hooded_factor: 1
+    );
+  #end
   #local sotd_Solar_lux = 87799; // sqrt(2) air mass assumed
   #declare Lamp_Lumen = sotd_Exposure / sotd_Lux;
   #ifndef (sotd_Solar)
@@ -1085,7 +1179,7 @@
    // Prefix convention: A = area, c_F = flux, c_I = illuminated average color
     #declare sotd_c_Ground_ambient = sotd_c_Sky;
     #local sotd_c_Fground =
-       Sotd__Estimate_flux (sotd_v_Sun, 0, 0, y, yes) * sotd_c_Sun
+       Sotd__Estimate_flux (sotd_v_Sun, 0, 0, y, yes, 0) * sotd_c_Sun
      + sotd_c_Ground_ambient;
     #if (sotd_Setting = SOTD_OUTDOOR_CHECK)
       #local sotd_c_Iground =
@@ -1156,13 +1250,13 @@
         #local sotd_yMid = sotd_hPatio / 2;
         #local sotd_c_Iwalls =
         (  (  Sotd__Estimate_flux
-                (sotd_v_Sun, 0, <0, sotd_yMid, sotd_v_Room_size.z>, -z, yes)
+                (sotd_v_Sun, 0, <0, sotd_yMid, sotd_v_Room_size.z>, -z, yes, 0)
             + Sotd__Estimate_flux
-                (sotd_v_Sun, 0, <sotd_v_Room_size.x, sotd_yMid, 0>, -x, yes)
+                (sotd_v_Sun, 0, <sotd_v_Room_size.x, sotd_yMid, 0>, -x, yes, 0)
             + Sotd__Estimate_flux
-                (sotd_v_Sun, 0, <0, sotd_yMid, -sotd_v_Room_size.z>, z, yes)
+                (sotd_v_Sun, 0, <0, sotd_yMid, -sotd_v_Room_size.z>, z, yes, 0)
             + Sotd__Estimate_flux
-                (sotd_v_Sun, 0, <-sotd_v_Room_size.x, sotd_yMid, 0>, x, yes)
+                (sotd_v_Sun, 0, <-sotd_v_Room_size.x, sotd_yMid, 0>, x, yes, 0)
            ) / 4 * sotd_c_Sun
          + (sotd_c_Sky + sotd_c_Ifloor) / 2 //rough cut ambient
         ) * sotd_c_Wallpaper;
@@ -1286,6 +1380,21 @@
 #end
 
 /***********************************************************
+ * Writes lamp style inputs to debug stream.
+ */
+#macro Sotd__Echo_lamp_style (s_Name, Code)
+  #debug concat
+  ( "  ", s_Name, " = ", Sotd__Str (Code, 6), " (",
+    #if (Code < 0 | Code >= dimension_size (sotd__s_Lamps, 1))
+      "undefined",
+    #else
+      sotd__s_Lamps [Code],
+    #end
+    ")\n"
+  )
+#end
+
+/***********************************************************
  * Writes HSV color inputs to debug stream.
  */
 #macro Sotd__Echo_color_input (s_Name, Code, Hue, Sat, Value)
@@ -1325,7 +1434,8 @@
  *   Photons - Whether or not to use photons
  */
 #macro Sotd__Echo_light_source
-( v_Where, v_Aim, c_Color, IsFill, rFade, Radius, Tight, dArea, Photons
+( v_Where, v_Aim, c_Color, IsFill, rFade, Radius, Tight,
+  dArea, Circular, Orient, Photons
 )
   #debug concat
   ( "light_source\n{ ", Sotd__VStr (v_Where, 5), ", rgb ",
@@ -1349,11 +1459,25 @@
       )
     #end
     #if (dArea)
+      #debug "  area_light"
+      #if (Orient)
+        #debug concat
+        ( " ", Sotd__Str (dArea, 4), " * x, ", Sotd__Str (dArea, 4), " * y"
+        )
+      #else
+        #local sotd_V1 = 0;
+        #local sotd_V2 = 0;
+        Sotd__Orient (v_Where, v_Aim, dArea, sotd_V1, sotd_V2)
+        #debug concat
+        ( "\n    ", Sotd__VStr (sotd_V1, 6), ", ", Sotd__VStr (sotd_V2, 6)
+        )
+      #end
       #debug concat
-      ( "  area_light ", Sotd__Str (dArea, 5), " * x, ", Sotd__Str (dArea, 5),
-        " * z, ", str (sotd_Area_res, 0, 0), ", ", str (sotd_Area_res, 0, 0),
-        "\n  circular orient adaptive ", str (sotd_Area_adaptive, 0, 0),
-        " jitter\n"
+      ( ",\n    ", str (sotd_Area_res, 0, 0), ", ", str (sotd_Area_res, 0, 0),
+        "\n  ",
+        #if (Circular) "circular ", #end
+        #if (Orient) "orient ", #end
+        "adaptive ", str (sotd_Area_adaptive, 0, 0), " jitter\n"
       )
     #end
   #end
@@ -1522,6 +1646,7 @@
       ("Fill2", sotd_Fill2, sotd_hFill2, sotd_sFill2, sotd_vFill2)
     Sotd__EchoB ("Fill_area", sotd_Fill_area)
     Sotd__EchoB ("Fill_ph", sotd_Fill_ph)
+    Sotd__Echo_lamp_style ("Fill_style", sotd_Fill_style)
     Sotd__EchoF ("Focus", sotd_Focus, 6, yes)
     Sotd__EchoF ("FOV", sotd_FOV, 6, yes)
     Sotd__Echo_wall ("Front", sotd_Front)
@@ -1530,6 +1655,7 @@
     Sotd__EchoF ("Hills_max", sotd_Hills_max, 6, yes)
     Sotd__EchoF ("Hills_param", sotd_Hills_param, 6, yes)
     Sotd__EchoF ("Hills_res", sotd_Hills_res, 6, yes)
+    Sotd__Echo_lamp_style ("Lamp_style", sotd_Lamp_style)
     Sotd__Echo_wall ("Left", sotd_Left)
     Sotd__Echo_light_input
       ("Light", sotd_Light, sotd_hLight, sotd_sLight, sotd_vLight)
@@ -1683,7 +1809,11 @@
       )
     #end
     #if (sotd_Ph_load)
-      #debug concat ("      load_file \"", sotd_s_Photons_file, "\"\n")
+      #debug concat
+      ( "      ",
+        #if (!file_exists (sotd_s_Photons_file)) "// Unable to ", #end
+        "load_file \"", sotd_s_Photons_file, "\"\n"
+      )
     #end
     #if (sotd_Ph_save)
       #debug concat ("      save_file \"", sotd_s_Photons_file, "\"\n")
@@ -2707,20 +2837,25 @@
  * Arguments:
  *   v_Where   - Light source location
  *   c_Color   - Color of the light
+ *   Style_adj - A style-dependent adjustment to the brightness
  *   HueSat    - -1 for a standard illuminant, otherwise <hue, saturation>
  *   t_Fixture - A texture for the hood exterior and base
- *   Quality   - 0 = shadowless, no attenuation, no photons, no fixture
- *               1 = spotlight, shadows, inverse-squared attenuation, no fixture
- *               2 = fixture, shadows, inverse-squared attenuation
- *   Area      - If true and user has requested area lights and Quality is 1 or
- *               more, then it will be an area light
+ *   uv_Style  - <0, s> = no fixture, shadowless, no attenuation, no photons
+ *               <1, s> = no fixture, spotlight resembling fixture style s,
+ *                        shadows, inverse-squared attenuation
+ *               <2, s> = fixture style s, shadows, inverse-squared attenuation
+ *   Area      - If true and user has requested area lights and uv_Style.u is 1
+ *               or more, then it will be an area light
  *   Photons   - If false, photons will not be shot.
  */
-#macro Sotd__Lamp (v_Where, c_Color, HueSat, t_Fixture, Quality, Area, Photons)
+#macro Sotd__Lamp
+( v_Where, c_Color, Style_adj, HueSat, t_Fixture, uv_Style, Area, Photons
+)
   #local sotd_v_Aim = sotd_Height/2 * y;
   #local sotd_Cm = sotd_Unit * 100;
   #local sotd_Dist = vlength (v_Where - sotd_v_Aim);
-  #switch (Quality)
+  #switch (uv_Style.u)
+    //-------------------------------------------------------------
     #case (0) // shadowless, no attenuation, no photons, no fixture
       #if (!VZero (c_Color))
         light_source
@@ -2731,31 +2866,40 @@
         }
         #if (sotd_Debug >= 1)
           Sotd__Echo_light_source
-          ( v_Where, sotd_v_Aim, c_Color, true, 0, 0, 0, 0, 0
+          ( v_Where, sotd_v_Aim, c_Color, true, 0, 0, 0, 0, 0, 0, 0
           )
         #end
       #end
       #break
+    //----------------------------------------------------------------------
     #case (1) // spotlight, shadows, inverse-squared attenuation, no fixture
       #local sotd_rFade = Lamp_Fade / sotd_Cm;
       // Brightness formula: the inverse of POV's attenuation formula:
       #local sotd_Surface = pow (sotd_Dist/sotd_rFade, 2);
       #local sotd_Brightness = (1 + sotd_Surface) / 2;
-      #local sotd_Radius = // span where entire bulb is visible
-        90 - 2 * degrees (atan2 (3, 2.5 * SOTD__CM_PER_IN - 0.08));
-      #local sotd_Tightness = 0.25; // resembles DeskLamp render with area light
+      #local sotd_Spot = Sotd__SpotLt (uv_Style.v);
       light_source
-      { v_Where, c_Color * sotd_Brightness
+      { v_Where, c_Color * sotd_Brightness * Style_adj
         fade_power 2 fade_distance sotd_rFade
-        spotlight point_at sotd_v_Aim radius sotd_Radius falloff 90
-        tightness sotd_Tightness
-        #if (Area & sotd_Area)
-          #local sotd_dA =
-            6 / sotd_Cm * sotd_Area * Sotd__fn_Area_adj (sotd_Area_res);
-          area_light sotd_dA * x, sotd_dA * z, sotd_Area_res, sotd_Area_res
-          circular orient adaptive sotd_Area_adaptive jitter
-        #else
+        spotlight point_at sotd_v_Aim radius sotd_Spot.x falloff 90
+        tightness sotd_Spot.z
+        #if (!Area | !sotd_Area)
           #local sotd_dA = 0;
+        #else
+          #local sotd_dA = sotd_Area * Sotd__fn_Area_adj (sotd_Area_res)
+            * (uv_Style.v = SOTD_HOODED_LAMP? 6: SOTD__DEMIT) / sotd_Cm;
+          area_light
+          #if (uv_Style.v = SOTD_HOODED_LAMP)
+            sotd_dA * x, sotd_dA * y, sotd_Area_res, sotd_Area_res
+            circular orient
+          #else
+            #local sotd_V1 = 0;
+            #local sotd_V2 = 0;
+            Sotd__Orient (v_Where, sotd_v_Aim, sotd_dA, sotd_V1, sotd_V2)
+            sotd_V1, sotd_V2, sotd_Area_res, sotd_Area_res
+            #if (uv_Style.v != SOTD_SQUARE_PANEL_LAMP) circular #end
+          #end
+          adaptive sotd_Area_adaptive jitter
         #end
         #if
         ( !Photons | (c_Color.red = 0 & c_Color.green = 0 & c_Color.blue = 0)
@@ -2766,37 +2910,53 @@
       #if (sotd_Debug >= 1)
         Sotd__Echo_light_source
         ( v_Where, sotd_v_Aim, c_Color * sotd_Brightness, false,
-          sotd_rFade, sotd_Radius, sotd_Tightness, sotd_dA, Photons
+          sotd_rFade, sotd_Spot.x, sotd_Spot.z, sotd_dA,
+          (uv_Style.v = SOTD_SQUARE_PANEL_LAMP? false: true),
+          (uv_Style.v = SOTD_HOODED_LAMP? true: false),
+          Photons
         )
       #end
       #break
+    //----------------------------------------------------
     #else // fixture, shadows, inverse-squared attenuation
       #local sotd_HS = HueSat + <0, 0>;
       #local sotd_Dist = vlength (v_Where - sotd_v_Aim);
      // Is lamp hung from ceiling?
       #local sotd_From_ceil = (v_Where.y > sotd_v_Room_size.y * 2/3);
+     // dimensions:
+      #if (uv_Style.v = SOTD_HOODED_LAMP)
+        #local sotd_dLamp = SOTD__DLAMP;
+        #local sotd_zLamp = SOTD__ZLAMP;
+        #local sotd_hRigid = SOTD__HRIGID;
+        #local sotd_hUpper = SOTD__HUPPER;
+      #else
+        #local sotd_dLamp = SOTD__DPANEL;
+        #local sotd_zLamp = SOTD__ZPANEL;
+        #local sotd_hRigid = SOTD__HRIGIDP;
+        #local sotd_hUpper = SOTD__HUPPERP;
+      #end
      // angle from light source to aim position:
       #local sotd_Angle = sgn (sotd_v_Aim.y - v_Where.y)
         * VAngle (v_Where - sotd_v_Aim, (v_Where - sotd_v_Aim) * <1, 0, 1>);
       #if (sotd_Angle = 0)
-        #local sotd_AnchorPt = <0, -SOTD__HUPPER, -SOTD__DLAMP>;
+        #local sotd_AnchorPt = <0, -sotd_hUpper, -sotd_dLamp>;
       #else
         #local sotd_Sin = sin (sotd_Angle);
         #local sotd_Cos = cos (sotd_Angle);
         #local sotd_AnchorPt = // centimeters
           #if (sotd_From_ceil)
             < 0,
-              -SOTD__DLAMP * sotd_Sin + SOTD__HRIGID * sotd_Cos
+              -sotd_dLamp * sotd_Sin + sotd_hRigid * sotd_Cos
               + SOTD__HFLEX * sotd_Sin / sotd_Angle,
-              -SOTD__DLAMP * sotd_Cos - SOTD__HRIGID * sotd_Sin
-              - SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - SOTD__ZLAMP,
+              -sotd_dLamp * sotd_Cos - sotd_hRigid * sotd_Sin
+              - SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - sotd_zLamp,
             >;
           #else
             < 0,
-              -SOTD__DLAMP * sotd_Sin - SOTD__HRIGID * sotd_Cos
+              -sotd_dLamp * sotd_Sin - sotd_hRigid * sotd_Cos
               - SOTD__HFLEX * sotd_Sin / sotd_Angle,
-              -SOTD__DLAMP * sotd_Cos + SOTD__HRIGID * sotd_Sin
-              + SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - SOTD__ZLAMP,
+              -sotd_dLamp * sotd_Cos + sotd_hRigid * sotd_Sin
+              + SOTD__HFLEX * (1 - sotd_Cos) / sotd_Angle - sotd_zLamp,
             >;
           #end
       #end
@@ -2812,8 +2972,8 @@
       #local sotd_hLamp =  // centimeters
       ( sotd_From_ceil?
         sotd_v_Room_size.y * sotd_Cm - (v_Where.y * sotd_Cm + sotd_AnchorPt.y)
-          + SOTD__HUPPER:
-        v_Where.y * sotd_Cm + sotd_AnchorPt.y + SOTD__HUPPER
+          + sotd_hUpper:
+        v_Where.y * sotd_Cm + sotd_AnchorPt.y + sotd_hUpper
       );
       #if (sotd_hLamp < SOTD__HLAMP)
         #if (degrees (sotd_Angle) = -sotd_Light_alt)
@@ -2835,33 +2995,57 @@
       Sotd__DebugF ("Height  ", sotd_hLamp, 6)*/
       #local sotd_Max = VMax (c_Color);
       #local sotd_c_Bulb =
-      #if (sotd_HS.y < 0)
-        rgb 1;
-      #else #if (sotd_Max = 0)
-        CHSV2RGB (<sotd_HS.x, sotd_HS.y, 1>);
+        #if (sotd_HS.y < 0)
+          rgb 1;
+        #else #if (sotd_Max = 0)
+          CHSV2RGB (<sotd_HS.x, sotd_HS.y, 1>);
+        #else
+          c_Color / sotd_Max;
+        #end
+        #end
+      #if (sotd_HS.x < 0)
+        #local sotd_Color = c_Color;
+        #local sotd_Lum =
+          SOTD__LM_UNIT * Lamp_Luminance (c_Color) / sotd_Exposure;
       #else
-        c_Color / sotd_Max;
-      #end
+        #local sotd_Color = sotd__c_Illums [sotd__Whitex] [3];
+        #local sotd_Lum = -SOTD__LM_UNIT * sotd_Max / sotd_Exposure;
       #end
 
       object
-      { Lamp_Flexneck
-        ( sotd_hLamp, sotd_Basexz, (sotd_From_ceil? -y: y), sotd_v_Aim,
-          !VZero (c_Color),
-          #if (sotd_HS.x < 0)
-            c_Color, SOTD__LM_UNIT * Lamp_Luminance (c_Color) / sotd_Exposure,
+      { #switch (uv_Style.v)
+          #case (SOTD_HOODED_LAMP)
+            Lamp_Flexneck
+            ( sotd_hLamp, sotd_Basexz, (sotd_From_ceil? -y: y),
+              sotd_v_Aim, !VZero (c_Color), sotd_Color, sotd_Lum * Style_adj,
+              t_Fixture, Lamp_Bulb_A60, sotd_c_Bulb,
+              <(Area & sotd_Area), sotd_Area_res, sotd_Area_adaptive, 0>,
+              Photons, <1, 0>
+            )
+            #break
+          #case (SOTD_SQUARE_PANEL_LAMP)
+            Lamp_Flexneck_Rectangular
+            ( sotd_hLamp, SOTD__DBASE, sotd_Basexz, (sotd_From_ceil? -y: y),
+              sotd_v_Aim, !VZero (c_Color), sotd_Color, sotd_Lum * Style_adj,
+              SOTD__PANEL_TIGHTNESS, t_Fixture, sotd_c_Bulb, SOTD__DEMIT,
+              <(Area & sotd_Area), sotd_Area_res, sotd_Area_adaptive, 0>,
+              Photons, yes
+            )
+            #break
+          #case (SOTD_ROUND_PANEL_LAMP)
           #else
-            sotd__c_Illums [sotd__Whitex] [3],
-            -SOTD__LM_UNIT * sotd_Max / sotd_Exposure,
-          #end
-          t_Fixture, Lamp_Bulb_A60, sotd_c_Bulb,
-          <(Area & sotd_Area), sotd_Area_res, sotd_Area_adaptive, 0>,
-          Photons, <1, 0>
-        )
+            Lamp_Flexneck_Round
+            ( sotd_hLamp, SOTD__DBASE, sotd_Basexz, (sotd_From_ceil? -y: y),
+              sotd_v_Aim, !VZero (c_Color), sotd_Color, sotd_Lum * Style_adj,
+              SOTD__PANEL_TIGHTNESS, t_Fixture, sotd_c_Bulb, SOTD__DEMIT,
+              <(Area & sotd_Area), sotd_Area_res, sotd_Area_adaptive, 0>,
+              Photons, yes
+            )
+        #end
         interior { ior 1.49 }
       }
 
-  #end // #switch (Quality)
+  #end // #switch (uv_Style.u)
 #end //macro Sotd__Lamp
 
 /***********************************************************
@@ -3263,7 +3447,9 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
           #if (sotd_Ph_radius2) sotd_Ph_radius2 #end
           #if (sotd_Ph_radius4) , , sotd_Ph_radius4 #end
         #end
-        #if (sotd_Ph_load) load_file sotd_s_Photons_file #end
+        #if (sotd_Ph_load & file_exists (sotd_s_Photons_file))
+          load_file sotd_s_Photons_file
+        #end
         #if (sotd_Ph_save) save_file sotd_s_Photons_file #end
       }
     #end
@@ -3589,7 +3775,8 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
     }
     #if (sotd_Debug >= 1)
       Sotd__Echo_light_source
-      ( sotd_v_Sun, <0, 0, 0>, sotd_c_Sun, false, 0, 0, 0, sotd_dSun, yes
+      ( sotd_v_Sun, <0, 0, 0>, sotd_c_Sun, false, 0, 0, 0,
+        sotd_dSun, yes, yes, yes
       )
     #end
 
@@ -3979,22 +4166,24 @@ Sotd__Get_settings (no) //Check settings immediately upon #include.
     Sotd__Lamp
     ( sotd_v_Light,
       sotd__c_Light_unf * Sotd__Filter ((sotd_Light < 0), (sotd_Quality != 0)),
-      (sotd_Light < 0 ? -1: <sotd_hLight, sotd_sLight>),
-      sotd_t_Lamp, (sotd_Quality = 0? 1: 2), yes, yes
+      1, (sotd_Light < 0 ? -1: <sotd_hLight, sotd_sLight>),
+      sotd_t_Lamp, <(sotd_Quality = 0? 1: 2), sotd_Lamp_style>, yes, yes
     )
     Sotd__Lamp
     ( sotd_v_Fill1,
       sotd__c_Fill1_unf * sotd_Fill1_factor
         * Sotd__Filter ((sotd_Fill1 < 0), (sotd_Shadowless = 2)),
-      (sotd_Fill1 < 0 ? -1: <sotd_hFill1, sotd_sFill1>),
-      sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
+      sotd__Fill_adj, (sotd_Fill1 < 0 ? -1: <sotd_hFill1, sotd_sFill1>),
+      sotd_t_Lamp, <sotd_Shadowless, sotd_Fill_style>,
+      sotd_Fill_area, sotd_Fill_ph
     )
     Sotd__Lamp
     ( sotd_v_Fill2,
       sotd__c_Fill2_unf * sotd_Fill2_factor
         * Sotd__Filter ((sotd_Fill2 < 0), (sotd_Shadowless = 2)),
-      (sotd_Fill2 < 0 ? -1: <sotd_hFill2, sotd_sFill2>),
-      sotd_t_Lamp, sotd_Shadowless, sotd_Fill_area, sotd_Fill_ph
+      sotd__Fill_adj, (sotd_Fill2 < 0 ? -1: <sotd_hFill2, sotd_sFill2>),
+      sotd_t_Lamp, <sotd_Shadowless, sotd_Fill_style>,
+      sotd_Fill_area, sotd_Fill_ph
     )
     #declare Lamp_Debug = sotd_Lamp_debug; // restore user's DeskLamp setting
 

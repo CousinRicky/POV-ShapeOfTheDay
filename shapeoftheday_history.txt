@@ -1,6 +1,9 @@
+DEVELOPMENT HISTORY OF SHAPEOFTHEDAY
+
 ShapeOfTheDay is the fourth in a succession of prefabricated environments I
 have used over the years.  The first three generations have not been published.
 
+--Richard Callwood III
 ________________________________________________________________________________
 
 History of the 1st generation rig, environs.inc:
@@ -327,7 +330,7 @@ Vers.  Date         Comments
                     with screen.inc.
 1.9.6  2022-Sep-12  The 4000 K white point is changed to 4100 K.
 1.9.6  2022-Sep-12  Parameter sotd_Max_sample is introduced.  Sotd_Setup() now
-                    always creates a radiosity block if is argument is true.
+                    always creates a radiosity block if its argument is true.
 1.9.6  2022-Sep-12  Parameter sotd_Reflect is introduced.  Highlights on
                     internal textures are suppressed if sotd_Reflect is true.
 1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
@@ -335,7 +338,7 @@ Vers.  Date         Comments
                     realistic surface brightness for POV-Ray < 3.7.
 2.0-beta
        2022-Oct-13  The DeskLamp module is utilized.
-       2022-Oct-14  The GNU LGPL 2.1 is applied.
+       2022-Oct-14  The GNU LGPL 2.1 license is applied.
        2022-Oct-20  A completely fixture-less quality setting is added,
                     requiring a shifting of quality setting codes.
        2022-Oct-21  The brightnesses of the fill lamps are adjusted at call time
@@ -351,3 +354,7 @@ Vers.  Date         Comments
                     The color macros (and therefore, assumed_gamma) will remain
                     in shapeoftheday_ref.inc, on the principle that the user
                     should not be forced to deal directly with DeskLamp.
+       2024-Jan-24  No attempt is made to load a nonexistent photons file.
+2.1    2024-Aug-14  Lamp style can be selected: round and square flat-panel
+                    styles are available in addition to the hooded lamp, and the
+                    round flat-panel style is made the default.

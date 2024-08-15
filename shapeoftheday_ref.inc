@@ -1,10 +1,11 @@
-/* shapeoftheday_ref.inc version 2.0
+/* shapeoftheday_ref.inc version 2.1
  * Persistence of Vision Raytracer scene description include file
+ * POV-Ray Object Collection
  *
  * ShapeOfTheDay tools that may be needed prior to #including shapeoftheday.inc.
  *
- * Copyright (C) 2020 - 2022 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the CC-LGPL
+ * Copyright (C) 2020 - 2024 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
  * This library is free software; you can redistribute it and/or
@@ -20,8 +21,7 @@
  * Vers.  Date         Comments
  * -----  ----         --------
  * 1.8    2020-Nov-08  Created.
- * 1.9.7  2022-Sep-13  Last update.
- * 2.0    2022-Oct-14  Version match
+ * 2.1    2024-Aug-14  Lamp type codes are added.
  *
  * Implementation note: due to POV-Ray namespace scope leakage, local variables
  * and function parameters (other than x, y, and z) *must* be prefixed.
@@ -29,7 +29,7 @@
 #ifndef (ShapeOfTheDay_Ref_Inc_Temp)
 #declare ShapeOfTheDay_Ref_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY__REF_VERSION = 2.0;
+#declare SHAPEOFTHEDAY__REF_VERSION = 2.1;
 
 #ifdef (View_POV_Include_Stack)
   #debug "#include \"shapeoftheday_ref.inc\"\n"
@@ -88,6 +88,9 @@
 #declare SOTD_ENTRANCE_ON_LEFT = SOTD_DOOR_ON_LEFT;
 #declare SOTD_ENTRANCE_ON_RIGHT = SOTD_DOOR_ON_RIGHT;
 #declare SOTD_WINDOWS = 4;
+#declare SOTD_HOODED_LAMP = 0;
+#declare SOTD_SQUARE_PANEL_LAMP = 1;
+#declare SOTD_ROUND_PANEL_LAMP = 2;
 
 //------------------------ macros --------------------------
 

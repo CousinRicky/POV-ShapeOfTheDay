@@ -1,10 +1,11 @@
-/* shapeoftheday_cloudy.pov
+/* shapeoftheday_cloudy.pov version 2.1
  * Persistence of Vision Raytracer scene description file
+ * POV-Ray Object Collection
  *
  * A mirrored dome for coordinating ShapeOfTheDay clouds with solar position.
  *
- * Copyright  2019, 2021 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the CC-LGPL
+ * Copyright  2019 - 2024 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL
  * a.k.a. the GNU Lesser General Public License version 2.1.
  *
  * This library is free software; you can redistribute it and/or
@@ -17,8 +18,12 @@
  * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
  * the text of the GNU Lesser General Public License version 2.1.
  *
- * 2019-Sep-30  Created.
- * 2021-Jan-02  The z-shift is echoed.
+ * Vers  Date         Comments
+ * ----  ----         --------
+ *       2019-Sep-30  Created.
+ *       2021-Jan-02  The z-shift is echoed.
+ * 2.0   2022-Nov-01  Uploaded.
+ * 2.1   2024-Aug-14  No change.
  */
 #version max (3.5, min (3.8, version));
 
