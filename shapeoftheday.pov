@@ -1,27 +1,27 @@
-/* shapeoftheday.pov version 2.1
+/* shapeoftheday.pov version 2.1.1
  * Persistence of Vision Raytracer scene description include file
- * POV-Ray Object Collection demo.
+ * A proposed POV-Ray Object Collection demo.
  *
  * Demonstrates usage of shapeoftheday.inc.
  *
- * Copyright (C) 2022 - 2024 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the GNU-LGPL
- * a.k.a. the GNU Lesser General Public License version 2.1.
+ * Copyright (C) 2022 - 2025 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation.
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  Please
- * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
- * the text of the GNU Lesser General Public License version 2.1.
+ * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
+ * of the GNU Lesser General Public License version 3.
  *
- * Vers  Date         Notes
- * ----  ----         -----
- * 2.0   2022-Nov-01  Initial demo.
- * 2.1   2024-Aug-14  No change.
+ * Vers.  Date         Notes
+ * -----  ----         -----
+ * 2.0    2022-Nov-01  Initial demo.
+ * 2.1.1  2025-Oct-04  The license is upgraded to LGPL 3.
  */
 #version max (3.5, min (3.8, version));
 

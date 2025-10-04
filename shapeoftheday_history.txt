@@ -92,18 +92,18 @@ output, and growing disorganization within the code led me to start fresh with
 a new file.  Primary among the considerations were:
 
  - The debug stream output should contain enough information to reconstruct a
-   scene without this module (at least for indoor scenes).  This feature has
+   scene without this library (at least for indoor scenes).  This feature has
    already been used in several of the scene files I have posted, including the
    file rc3metal_brushed.pov in the Object Collection.
 
- - The module should be easily converted for Object Collection compliance,
+ - The library should be easily converted for Object Collection compliance,
    in case I decide to submit it to the Object Collection.  To that end, all
    introduced identifiers were given prefixes according to the Object Collection
    standard, which necessitated changing the names of the input parameters.
 
 Other considerations were:
 
- - Some features of the module should be available for determining parameter
+ - Some features of the library should be available for determining parameter
    values before the scene is set up.  In sotd.inc, this was done with a
    separate header include file, but only static values were available under
    that system.  For greater flexibility, setup should not be automatic, but
@@ -138,7 +138,7 @@ Vers.  Date         Comments
        2012-Aug-15  Pitch and yaw directions are reversed, for consistency
                     with camera and light source parameters.
        2012-Sep-27  Ambient values are estimated.
-1.0    2012-Sep-27  The module is deemed sufficiently complete to replace
+1.0    2012-Sep-27  The library is deemed sufficiently complete to replace
                     sotd.inc, although some features remain unimplemented
                     or incomplete.
 1.0.1  2012-Nov-05  The FOV parameter identifier name is changed.
@@ -241,14 +241,14 @@ Vers.  Date         Comments
        2020-Nov-07  Potential scene breaking change: the cloud position is
                     specified in meters.
        2020-Nov-08  The parameter reference codes are spun off into a separate
-                    include file.
-1.8    2020-Nov-08  A macro is added to convert non-linear color specifications
-                    to linear.
+                    include file, shapeoftheday_ref.inc.
+1.8    2020-Nov-08  A macro to convert non-linear color specifications to linear
+                    is added to shapeoftheday_ref.inc.
        2020-Nov-11  The patio is re-bricked, and the ambient is adjusted
                     accordingly.
        2020-Nov-13  Patio walls can have an entrance space.
 1.8.1  2020-Nov-16  A ramp is created for the door or entrance space.  The
-                    Object Collection module PipeMrg is utilized if available.
+                    Object Collection library PipeMrg is utilized if available.
        2020-Nov-22  The glow around the Sun is extended.
        2020-Nov-25  Bug fix: the open windows ambient is corrected.  (Left wall
                     windows were counted twice, at the expense of right wall
@@ -291,7 +291,7 @@ Vers.  Date         Comments
 1.9    2021-Feb-22  Potential scene breaking change: the units parameter is
                     changed from units per meter to meters per unit. This is
                     done for consistency with the SSLT global parameter and the
-                    future DeskLamp module; for cleaner values; and to more
+                    future DeskLamp library; for cleaner values; and to more
                     easily remember these values.
 1.9.1  2021-Apr-01  All unit identifiers longer than 1 meter are deleted; but
                     they are still recognized and echoed if debugging is on.
@@ -332,12 +332,13 @@ Vers.  Date         Comments
 1.9.6  2022-Sep-12  Parameter sotd_Max_sample is introduced.  Sotd_Setup() now
                     always creates a radiosity block if its argument is true.
 1.9.6  2022-Sep-12  Parameter sotd_Reflect is introduced.  Highlights on
-                    internal textures are suppressed if sotd_Reflect is true.
-1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
+                    built-in textures are suppressed if sotd_Reflect is true.
+1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added to file
+                    shapeoftheday_ref.inc.
        2022-Sep-18  With the incorporation of max_sample, the Sun can now have a
                     realistic surface brightness for POV-Ray < 3.7.
 2.0-beta
-       2022-Oct-13  The DeskLamp module is utilized.
+       2022-Oct-13  The DeskLamp library is utilized.
        2022-Oct-14  The GNU LGPL 2.1 license is applied.
        2022-Oct-20  A completely fixture-less quality setting is added,
                     requiring a shifting of quality setting codes.
@@ -358,3 +359,5 @@ Vers.  Date         Comments
 2.1    2024-Aug-14  Lamp style can be selected: round and square flat-panel
                     styles are available in addition to the hooded lamp, and the
                     round flat-panel style is made the default.
+       2024-Aug-21  Bug fix: Lamps near 90 degrees are positioned properly.
+2.1.1  2025-Oct-04  The license is upgraded to LGPL 3.

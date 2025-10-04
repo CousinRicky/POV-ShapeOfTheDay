@@ -1,24 +1,24 @@
-/* shapeoftheday.inc version 2.1
+/* shapeoftheday.inc version 2.1.1-beta.1
  * Persistence of Vision Raytracer scene description include file
- * POV-Ray Object Collection
+ * A proposed POV-Ray Object Collection module
  *
  * A prefab virtual environment for prototypes and experiments.
  *
- * Copyright (C) 2012 - 2024 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the GNU-LGPL
- * a.k.a. the GNU Lesser General Public License version 2.1.
+ * Copyright (C) 2012 - 2025 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation.
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  Please
- * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
- * the text of the GNU Lesser General Public License version 2.1.
+ * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
+ * of the GNU Lesser General Public License version 3.
  *
- * Version 2.1  2024-Aug-14
+ * Version 2.1.1-beta.1  2025-Oct-04
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -27,8 +27,8 @@
  */
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY_VERSION = 2.1;
-#declare SOTD__S_INCV = "-20240813"
+#declare SHAPEOFTHEDAY_VERSION = 2.11;
+#declare SOTD__S_INCV = "-beta.1-20251004"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -323,7 +323,7 @@
 // Panel (cm)
 #declare SOTD__DPANEL = SOTD__CM_PER_IN / 4; // light source to lamp neck
 #declare SOTD__DEMIT = 4 * SOTD__CM_PER_IN;  // emitting panel diameter
-#declare SOTD__ZPANEL = -1.25 * SOTD__CM_PER_IN; // lamp neck z-position
+#declare SOTD__ZPANEL = -1.25 * SOTD__CM_PER_IN; // lamp neck off-ctr z-position
 #declare SOTD__HRIGIDP =
   SOTD__DEMIT / 2 + 1.25 * SOTD__CM_PER_IN;  // panel radius + rigid upper neck
 #declare SOTD__HUPPERP = SOTD__HRIGIDP + SOTD__HFLEX;
@@ -477,9 +477,6 @@
  *   v_Target    - Location of light source's target
  *   v_Surface   - Representative point on surface
  *   v_Normal    - Surface normal
- *   Is_parallel - If true, light rays are parallel, with no distance
- *                 attenuation; if false, the light is a 45-90 spotlight,
- *                 with inverse squared attenuation
  *   Is_parallel - If true, light rays are parallel, with no distance
  *                 attenuation; if false, the light is a spotlight with inverse
  *                 squared attenuation
@@ -2960,9 +2957,10 @@
             >;
           #end
       #end
+      #local sotd_Zenith = (v_Where.x = 0 & v_Where.z = 0);
       #local sotd_Basexz =
-        #if (v_Where.x = 0 & v_Where.z = 0)
-          <0, 0, 0>;
+        #if (sotd_Zenith)
+          <0, 0, SOTD__HFLEX * 2 / pi + sotd_hRigid - sotd_zLamp>;
         #else
           vrotate (sotd_AnchorPt, degrees (atan2 (-v_Where.x, -v_Where.z)) * y);
         #end
@@ -3010,6 +3008,19 @@
       #else
         #local sotd_Color = sotd__c_Illums [sotd__Whitex] [3];
         #local sotd_Lum = -SOTD__LM_UNIT * sotd_Max / sotd_Exposure;
+      #end
+     // If the base of a ceiling lamp crosses the zenith, the signs reverse,
+     // causing DeskLamp to deviate from sotd_AnchorPt; therefore, we must aim
+     // by angle rather than by target.  A zenith light source also requires
+     // special treatment.
+      #if (sotd_From_ceil)
+        // sotd_Dist below is arbitrary, but is long enough to ensure that the
+        // aim direction is beyond the lamp's base.
+        #local sotd_v_Aim = <0, 0, 0, -degrees (sotd_Angle)>
+        + ( sotd_Zenith?
+            sotd_Dist * z:
+            vnormalize (<-v_Where.x, 0, -v_Where.z>) * sotd_Dist
+          );
       #end
 
       object

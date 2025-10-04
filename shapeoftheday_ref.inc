@@ -1,27 +1,29 @@
-/* shapeoftheday_ref.inc version 2.1
+/* shapeoftheday_ref.inc version 2.1.1-beta.1
  * Persistence of Vision Raytracer scene description include file
- * POV-Ray Object Collection
+ * Proposed for the POV-Ray Object Collection
  *
  * ShapeOfTheDay tools that may be needed prior to #including shapeoftheday.inc.
  *
- * Copyright (C) 2020 - 2024 Richard Callwood III.  Some rights reserved.
- * This file is licensed under the terms of the GNU-LGPL
- * a.k.a. the GNU Lesser General Public License version 2.1.
+ * Copyright (C) 2020 - 2025 Richard Callwood III.  Some rights reserved.
+ * This file is licensed under the terms of the GNU-LGPL.
  *
- * This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License version 2.1 as published by the Free Software Foundation.
+ * This library is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  Please
- * visit https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html for
- * the text of the GNU Lesser General Public License version 2.1.
+ * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
+ * of the GNU Lesser General Public License version 3.
  *
  * Vers.  Date         Comments
  * -----  ----         --------
  * 1.8    2020-Nov-08  Created.
+ * 1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
  * 2.1    2024-Aug-14  Lamp type codes are added.
+ * 2.1.1  2025-Oct-04  The license is upgraded to LGPL 3.
  *
  * Implementation note: due to POV-Ray namespace scope leakage, local variables
  * and function parameters (other than x, y, and z) *must* be prefixed.
@@ -29,10 +31,10 @@
 #ifndef (ShapeOfTheDay_Ref_Inc_Temp)
 #declare ShapeOfTheDay_Ref_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY__REF_VERSION = 2.1;
+#declare SHAPEOFTHEDAY__REF_VERSION = 2.11;
 
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"shapeoftheday_ref.inc\"\n"
+  #debug "#include \"shapeoftheday_ref.inc\" //version 2.1.1-beta.1\n"
 #end
 
 #include "math.inc"

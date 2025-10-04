@@ -1,3 +1,3 @@
-DeskLamp 2.0 or later, proposed for the Object Collection
-RoundEdge 2.0 or later, from the Object Collection
-PipeMrg (optional), from the Object Collection
+DeskLamp 2.0 or later, also from the Object Collection
+RoundEdge 2.0 or later, also from the Object Collection
+PipeMrg (optional), also from the Object Collection

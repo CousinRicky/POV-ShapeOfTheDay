@@ -2,21 +2,22 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShapeOfTheDay 2.1 User Manual | POV-Ray Object Collection (Proposed)</title>
+<title>ShapeOfTheDay 2.1.1-beta.1 User Manual | POV-Ray Object Collection (Proposed)</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
 </head>
 
 <body>
 
-<h1>ShapeOfTheDay 2.1 User&nbsp;Manual</h1>
+<h1>ShapeOfTheDay 2.1.1-beta.1 User&nbsp;Manual</h1>
 
 <h2>Abstract</h2>
 
 <p>
 <a href="shapeoftheday.jpg" class="demo"><img src="shapeoftheday_thumbnail.jpg" title="Larger demo image" alt="[Thumbnail which links to a larger demo image]"></a>
-ShapeOfTheDay is a library module from the
+ShapeOfTheDay is a proposed library module for the
 <a href="https://www.povray.org/">Persistence of Vision Raytracer (POV-Ray)</a>
-<a href="https://lib.povray.org/">Object Collection</a> that creates prefabricated virtual environments in which one can showcase or examine experimental models and prototypes.
+<a href="https://lib.povray.org/">Object Collection</a>
+that creates prefabricated virtual environments in which one can showcase or examine experimental models and prototypes.
 
 <h2 id="toc">Table of Contents</h2>
 
@@ -115,9 +116,6 @@ ShapeOfTheDay is a library module from the
   <th>File</th>
   <th>Description</th>
  </tr><tr>
-  <td><code>README<var>nnnnnn</var>.html</code></td>
-  <td>Important information about using the POV-Ray Object Collection</td>
- </tr><tr>
   <td><code>shapeoftheday_description.txt</code></td>
   <td>A brief description of ShapeOfTheDay</td>
  </tr><tr>
@@ -131,15 +129,13 @@ ShapeOfTheDay is a library module from the
   <td>Prerequisites</td>
  </tr><tr>
   <td><code>shapeoftheday.css</code></td>
-  <td rowspan="3">Other administrative files</td>
- </tr><tr>
-  <td><code>cc-LGPL-a.png</code></td>
- </tr><tr>
-  <td><code>Version<var>nnnnnn</var>.js</code></td>
+  <td>Formatting for this user manual</td>
  </tr>
 </table>
 
-<p>The italicized <var>nnnnnn</var> in some of the file names represents the 6-digit number that is in the name of the <code>.zip</code> file as downloaded from <a href="https://lib.povray.org/">lib.povray.org</a>. If you downloaded this module from some other repository, the files <code>cc-LGPL-a.png</code>, <code>README<var>nnnnnn</var>.html</code>, and <code>Version<var>nnnnnn</var>.js</code> may not be present. Please see the <a href="https://lib.povray.org/usersguide/02using.html">Object Collection User’s Guide</a> if <code>README<var>nnnnnn</var>.html</code> is not present.
+<p>Depending on where you obtained this library, there may be other administrative files included with this download,
+including one named <code>README<var>{series-of-digits}</var>.html</code> which contains important information about using the POV-Ray Object Collection.
+Please see the <a href="https://web.archive.org/web/20120419111948/http://lib.povray.org/usersguide/02using.html">Object Collection User Guide</a> if this file is not present.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -148,14 +144,16 @@ ShapeOfTheDay is a library module from the
 <p>ShapeOfTheDay requires:
 <ul>
  <li>POV-Ray version 3.5 or later
- <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=RoundEdge&amp;contributorTag=Cousin%20Ricky">RoundEdge</a> version 2.0 or later (<a href="https://github.com/CousinRicky/POV-RoundEdge">RoundEdge mirror</a>), from the POV-Ray Object Collection
- <li><a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp</a> version 2.0 or later, a module proposed for POV-Ray Object Collection
- <!--li><a href="http://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky">DeskLamp</a> version 2.0 or later (<a href="https://github.com/CousinRicky/POV-DeskLamp">DeskLamp mirror</a>), from the POV-Ray Object Collection-->
+ <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=RoundEdge&amp;contributorTag=Cousin%20Ricky" target="_blank">RoundEdge</a> version 2.0 or later
+  (<a href="https://github.com/CousinRicky/POV-RoundEdge" target="_blank">RoundEdge mirror</a>), from the POV-Ray Object Collection
+ <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky" target="_blank">DeskLamp</a> version 2.0 or later
+  (<a href="https://github.com/CousinRicky/POV-DeskLamp" target="_blank">DeskLamp mirror</a>), from the POV-Ray Object Collection
 </ul>
 
 <p>ShapeOfTheDay will use this if it is in your library path:
 <ul>
- <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=PipeMrg&amp;contributorTag=Tim%20A">PipeMrg</a> (<a href="https://github.com/LeForgeron/PovContributions/tree/master/pipemrg/tim%20a%202.0">PipeMrg mirror</a>), from the POV-Ray Object Collection
+ <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=PipeMrg&amp;contributorTag=Tim%20A" target="_blank">PipeMrg</a>
+  (<a href="https://github.com/LeForgeron/PovContributions/tree/master/pipemrg/tim%20a%202.0" target="_blank">PipeMrg mirror</a>), from the POV-Ray Object Collection
 </ul>
 
 <p><a href="#toc">Table of contents</a>
@@ -164,7 +162,11 @@ ShapeOfTheDay is a library module from the
 
 <h4>Compliance</h4>
 
-<p>All file names in this module and all global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> comply fully with the <a href="https://news.povray.org/470b46cb%241%40news.povray.org">Object Collection naming standards</a>, as <a href="https://news.povray.org/48ba92e8%241%40news.povray.org">revised August 2008</a> and <a href="https://news.povray.org/povray.object-collection/thread/%3Cweb.5018a69dae7e89cb85de7b680%40news.povray.org%3E/">proposed August 2012</a>. The files in this module may be safely stored in the same folder as other fully compliant Object Collection modules.
+<p>All file names in this module and all global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> comply fully with the
+<a href="https://news.povray.org/470b46cb%241%40news.povray.org">Object Collection naming standards</a>, as
+<a href="https://news.povray.org/48ba92e8%241%40news.povray.org">revised August 2008</a> and
+<a href="https://news.povray.org/povray.object-collection/thread/%3Cweb.5018a69dae7e89cb85de7b680%40news.povray.org%3E/">proposed August 2012</a>.
+The files in this module may be safely stored in the same folder as other fully compliant Object Collection modules.
 
 <p>The following prefixes, including any uppercase and lowercase variants, are reserved by ShapeOfTheDay and its prerequisites:
 <ul>
@@ -178,7 +180,11 @@ ShapeOfTheDay is a library module from the
 </ul>
 <p>To avoid conflicts, do not introduce into your scene description file any identifiers with any of these prefixes as names, or any identifiers that start with any of these prefixes plus an underscore.
 
-<p>In addition to identifiers from the prerequisites listed above, the standard include files <code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used, and RoundEdge uses <code>shapes.inc</code>. If <code>screen.inc</code> is included by the user, then macros from that file are called. The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
+<p>In addition to identifiers from the prerequisites listed above, the standard include files
+<code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used,
+and RoundEdge uses <code>shapes.inc</code>.
+If <code>screen.inc</code> is included by the user, then macros from that file are called.
+The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
 
 <h4>Prefix Conventions for Public Identifiers</h4>
 <p>These conventions are specific to ShapeOfTheDay, and do not apply to other Object Collection modules.
@@ -209,28 +215,37 @@ ShapeOfTheDay is a library module from the
 <h3 id="usage">Usage</h3>
 
 <ol>
- <li><p>To override the defaults for any of the <a href="#parameters">ShapeOfTheDay parameters</a>, you may set them at the top of your scene description file, in an INI file, or on the command line. If you wish to use some of the <a href="#reference">declared reference codes</a> in your scene description file prior to including the main include file, you can include the following file:
+ <li><p>To override the defaults for any of the <a href="#parameters">ShapeOfTheDay parameters</a>,
+  you may set them at the top of your scene description file, in an INI file, or on the command line.
+  If you wish to use some of the <a href="#reference">declared reference codes</a> in your scene description file prior to including the main include file, you can include the following file:
   <pre>#include "shapeoftheday_ref.inc"</pre>
   <p>Including this file automatically sets <code>assumed_gamma</code> to 1.
-  <p>Because the main include file <code>shapeoftheday.inc</code> also calls this file, it is not necessary to manually include it unless you want to use some of its identifiers at this early stage.
+  <p>Because the main include file <code>shapeoftheday.inc</code> also calls this file,
+   it is not necessary to manually include it unless you want to use some of its identifiers at this early stage.
 
- <li><p>You may optionally include <code>screen.inc</code>. If you do so, then ShapeOfTheDay will detect it and use it to set the camera. Be sure to include it <em>before</em> calling macro <code>Sotd_Setup()</code>, or it will interfere with ShapeOfTheDay.
+ <li><p>You may optionally include <code>screen.inc</code>.
+  If you do so, then ShapeOfTheDay will detect it and use it to set the camera.
+  Be sure to include it <em>before</em> calling macro <code>Sotd_Setup()</code> (step 5), or it will interfere with ShapeOfTheDay.
 
- <li><p>Include this file once<!--, after setting any ShapeOfTheDay parameters, but before using any of the other features-->:
+ <li><p>Include this file once:
   <pre>#include "shapeoftheday.inc"</pre>
   <p>Including the file more than once is harmless, though unnecessary.
   <p>Including this file automatically sets <code>assumed_gamma</code> to 1.
 
- <li><p><a href="#calculated">Calculated values</a> can be referenced at this point. Any last-minute modifications to ShapeOfTheDay parameters must be done now.
+ <li><p><a href="#calculated">Calculated values</a> can be referenced at this point.
+  Any last-minute modifications to ShapeOfTheDay parameters must be done now.
 
- <li><p>Call macro <code>Sotd_Setup()</code> to create the prefab scene. The camera, lights, scenery, and several global settings are set up automatically, according to the user parameters.
+ <li><p>Call macro <code>Sotd_Setup()</code> to create the prefab scene.
+  The camera, lights, scenery, and several global settings are set up automatically, according to the user parameters.
   <ul>
    <li>Before creating the scene, <code>Sotd_Setup()</code> recalculates the calculated values, in case there were last minute changes to the parameters.
-   <li><code>Sotd_Setup()</code> can create a very basic radiosity block, but creating a comprehensive radiosity block is the responsibility of the user. See the <a href="#Sotd_Setup">description of <code>Sotd_Setup()</code></a> for more information.
+   <li><code>Sotd_Setup()</code> can create a very basic radiosity block, but creating a comprehensive radiosity block is the responsibility of the user.
+    See the <a href="#Sotd_Setup">description of <code>Sotd_Setup()</code></a> for more information.
   </ul>
 
  <li><p>Create your shape of the day and place it in the scene.
-  <p>Because ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/" target="_blank">linear color space</a>, in order to get the colors you expect from <code>colors.inc</code> or from third party color pickers, you may have to use macro <a href="#Sotd_Color"><code>Sotd_Color()</code></a>.
+  <p>Because ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/" target="_blank">linear color space</a>,
+   in order to get the colors you expect from <code>colors.inc</code> or from third party color pickers, you may have to use macro <a href="#Sotd_Color"><code>Sotd_Color()</code></a>.
 </ol>
 
 <p><a href="#toc">Table of contents</a>
@@ -241,26 +256,44 @@ ShapeOfTheDay is a library module from the
 
 <h3 id="color_inputs">Color Inputs</h3>
 
-<p>Color parameters apply to the light sources and physical structures, such as floor tiles, that are created by ShapeOfTheDay. They do not apply to any objects or light sources you may create.
+<p>Color parameters apply to the light sources and physical structures, such as floor tiles, that are created by ShapeOfTheDay.
+They do not apply to any objects or light sources you may create.
 
-<p>In order to accommodate command line input, color parameters are encoded as floats. There are two methods of specifying them: by <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> or by <a href="https://en.wikipedia.org/wiki/Standard_illuminant" target="_blank">standard illuminant</a>. Pigment colors must be specified by HSV. Light source colors may be specified by either method.
+<p>In order to accommodate command line input, color parameters are encoded as floats.
+There are two methods of specifying them: by <a href="https://en.wikipedia.org/wiki/HSL_and_HSV" target="_blank">HSV</a> or by
+<a href="https://en.wikipedia.org/wiki/Standard_illuminant" target="_blank">standard illuminant</a>.
+Pigment colors must be specified by HSV. Light source colors may be specified by either method.
 
 <h4 id="hsv">HSV Encoding
 <img src="shapeoftheday_hsv.png" alt="[Illustration of an HSV color cylinder]" class="demo"></h4>
 
-<p>The format for HSV (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>v</strong>alue) encoding is <var>hhhsss.vvv</var>, with <var>sss</var> and <var>vvv</var> each having an implied decimal point after the first digit. For example, 120085.045 translates to HSV &lt;120, 0.85, 0.45>. Gradients are linear; that is, the gamma is 1.0.
+<p>The format for HSV (<strong>h</strong>ue, <strong>s</strong>aturation, <strong>v</strong>alue) encoding is <var>hhhsss.vvv</var>,
+with <var>sss</var> and <var>vvv</var> each having an implied decimal point after the first digit.
+For example, 120085.045 translates to HSV &lt;120, 0.85, 0.45>.
+Gradients are linear; that is, the gamma is 1.0.
 
-<p>Due to limitations of command line precision, auxiliary parameters are made available to refine the color inputs. The hue, saturation, and value varients of each color parameter are prefixed with <code>sotd_h</code>, <code>sotd_s</code>, and <code>sotd_v</code>, respectively. If defined, the auxiliary parameters override their respective section of the main parameter. For example, if parameter <code>sotd_Check1</code> is set to 30100.100 and parameter <code>sotd_vCheck1</code> is set to 0.5, then the 0.5 overrides <code>sotd_Check1</code>’s .100, and the HSV color &lt;30, 1.0, 0.5> is used.
+<p>Due to limitations of command line precision, auxiliary parameters are made available to refine the color inputs.
+The hue, saturation, and value varients of each color parameter are prefixed with <code>sotd_h</code>, <code>sotd_s</code>, and <code>sotd_v</code>, respectively.
+If defined, the auxiliary parameters override their respective section of the main parameter.
+For example, if parameter <code>sotd_Check1</code> is set to 30100.100 and parameter <code>sotd_vCheck1</code> is set to 0.5,
+then the 0.5 overrides <code>sotd_Check1</code>’s .100, and the HSV color &lt;30, 1.0, 0.5> is used.
 
 <p>The auxiliary parameters have no implied decimal point; their values are used as-is.
 
-<p>The value channel is not restricted to 3 digits, and the value auxiliary parameters are unrestricted in magnitude. For a light source color, value represents the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>.
+<p>The value channel is not restricted to 3 digits, and the value auxiliary parameters are unrestricted in magnitude.
+For a light source color, value represents the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>.
 
 <h4>Standard Illuminant Encoding</h4>
 
-<p>The format for standard illuminant encoding is <var>-iii.lll</var>, where <var>-iii</var> is an illuminant code (see the table below) and <var>lll</var> is the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>, with an implied decimal point after the first digit. For example, -602.050 represents a cool white fluorescent light at half brightness.
+<p>The format for standard illuminant encoding is <var>-iii.lll</var>,
+where <var>-iii</var> is an illuminant code (see the table below) and
+<var>lll</var> is the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>,
+with an implied decimal point after the first digit.
+For example, -602.050 represents a cool white fluorescent light at half brightness.
 
-<p>If an auxiliary value parameter (prefixed with <code>sotd_v</code>) is specified, it is interpreted as illuminance and overrides the <var>lll</var> of the main parameter. Any auxiliary hue or saturation parameter is ignored.
+<p>If an auxiliary value parameter (prefixed with <code>sotd_v</code>) is specified,
+it is interpreted as illuminance and overrides the <var>lll</var> of the main parameter.
+Any auxiliary hue or saturation parameter is ignored.
 
 <p>Illuminance is not restricted to 3 digits, and the illuminance (value) auxiliary parameters are unrestricted in magnitude.
 
@@ -373,7 +406,9 @@ ShapeOfTheDay is a library module from the
  </tr>
 </table>
 
-<p>*CCT is the <dfn>correlated color temperature</dfn>. The lower the CCT, the redder the illuminant, and the warmer its mood; the higher the CCT, the bluer the illuminant, and the cooler its mood. (If this seems backwards to you, remember that color temperature is a concept from physics, not art.)
+<p>*CCT is the <dfn>correlated color temperature</dfn>.
+The lower the CCT, the redder the illuminant, and the warmer its mood; the higher the CCT, the bluer the illuminant, and the cooler its mood.
+(If this seems backwards to you, remember that color temperature is a concept from physics, not art.)
 
 <p>&dagger;Presumably south sky in the southern hemisphere.
 
@@ -383,7 +418,10 @@ ShapeOfTheDay is a library module from the
 
 <h3 id="rotation">Rotation Inputs</h3>
 
-<p>In contrast to POV-Ray, ShapeOfTheDay does not follow the left-hand rule for rotations. Instead, the direction of each dimension of the rotation is determined individually <em>in relationship to the default camera</em> (from the &minus;<var>z</var> direction towards the +<var>z</var> direction), and applied <em>in the following order</em>:
+<p>In contrast to POV-Ray, ShapeOfTheDay does not follow the left-hand rule for rotations.
+Instead, the direction of each dimension of the rotation is determined individually <em>in relationship to the default camera</em>
+(from the &minus;<var>z</var> direction towards the +<var>z</var> direction),
+and applied <em>in the following order</em>:
 
 <dl>
  <dt>Pitch or altitude
@@ -420,7 +458,9 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Back</code></td>
   <td>float</td>
-  <td>The code for the wall features on the &minus;<var>z</var> side of the room. (See the <a href="#ref_wall">wall reference codes</a>.)</td>
+  <td>The code for the wall features on the &minus;<var>z</var> side of the room.
+   (See the <a href="#ref_wall">wall reference codes</a>.)
+  </td>
   <td>0 (no doors or windows)</td>
  </tr><tr>
   <td><code>sotd_Ceiling</code></td>
@@ -485,26 +525,34 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_xClouds</code>, <code>sotd_zClouds</code></td>
   <td>float</td>
-  <td>The amount, in meters, by which to shift the clouds in the <var>x</var>- and <var>z</var>-directions. These parameters can be changed if a cloud casts a shadow over your shape.
-   <p>Note that, just as in real life, moving the clouds will alter their shapes somewhat. Sorry about that. (This is a consequence of 2-D movement through a spherical atmospheric shell.)
+  <td>The amount, in meters, by which to shift the clouds in the <var>x</var>- and <var>z</var>-directions.
+   These parameters can be changed if a cloud casts a shadow over your shape.
+   <p>Note that, just as in real life, moving the clouds will alter their shapes somewhat.
+   Sorry about that.
+   (This is a consequence of 2-D movement through a spherical atmospheric shell.)
   </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Cloudy</code></td>
   <td>float</td>
   <td>The amount of cloud cover. This parameter is roughly, though not exactly, linear.
-   <p><strong>Warning:</strong> Overcast lighting is not finalized, and is subject to change. In future versions, your value for <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> may need to be increased for high values of <code>sotd_Cloudy</code>.
+   <p><strong>Warning:</strong> Overcast lighting is not finalized, and is subject to change.
+   In future versions, your value for <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> may need to be increased for high values of <code>sotd_Cloudy</code>.
   </td>
   <td>0.5</td>
  </tr><tr>
   <td><code>sotd_Diffuse</code></td>
   <td>float</td>
-  <td>The finish diffuse value to be set as the scene’s default. This will also be the finish diffuse for the tiles, indoor walls, and ceiling.</td>
+  <td>The finish diffuse value to be set as the scene’s default.
+   This will also be the finish diffuse for the tiles, indoor walls, and ceiling.
+  </td>
   <td>0.6</td>
  </tr><tr>
   <td><code>sotd_Front</code></td>
   <td>float</td>
-  <td>The code for the wall features on the +<var>z</var> side of the room. (See the <a href="#ref_wall">wall reference codes</a>.)</td>
+  <td>The code for the wall features on the +<var>z</var> side of the room.
+   (See the <a href="#ref_wall">wall reference codes</a>.)
+  </td>
   <td>0 (no doors or windows)</td>
  </tr><tr>
   <td><code>sotd_Gloss</code></td>
@@ -524,19 +572,26 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Hills_res</code></td>
   <td>float</td>
-  <td>The resolution of the height field used to implement the hills. Use a smaller value if you are short on memory.
-   <p>If this value is less than 2, then the hills will be implemented as an isosurface. Isosurface hills are very slow, so this should be used only when memory is tight.
+  <td>The resolution of the height field used to implement the hills.
+   Use a smaller value if you are short on memory.
+   <p>If this value is less than 2, then the hills will be implemented as an isosurface.
+   Isosurface hills are very slow, so this should be used only when memory is tight.
   </td>
   <td>between 100 and 1000 inclusive, based on <code>sotd_Hills_max</code></td>
  </tr><tr>
   <td><code>sotd_Left</code></td>
   <td>float</td>
-  <td>The code for the wall features on the &minus;<var>x</var> side of the room. (See the <a href="#ref_wall">wall reference codes</a>.)</td>
+  <td>The code for the wall features on the &minus;<var>x</var> side of the room.
+   (See the <a href="#ref_wall">wall reference codes</a>.)
+  </td>
   <td>4 (windows)</td>
  </tr><tr>
   <td><code>sotd_Max_windows</code></td>
   <td>float</td>
-  <td>If the room is so large that the number of windows exceeds this value, the window shutters will be simulated with a texture instead of modeled. This is to prevent excessive memory usage.</td>
+  <td>If the room is so large that the number of windows exceeds this value, the window shutters will be simulated with a texture instead of modeled.
+   This is to prevent excessive memory usage.
+   (The size of the room is determined by <a href="#camera">camera parameters</a>.)
+  </td>
   <td>20000</td>
  </tr><tr>
   <td><code>sotd_Microspace</code></td>
@@ -581,12 +636,16 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Right</code></td>
   <td>float</td>
-  <td>The code for the wall features on the +<var>x</var> side of the room. (See the <a href="#ref_wall">wall reference codes</a>.)</td>
+  <td>The code for the wall features on the +<var>x</var> side of the room.
+   (See the <a href="#ref_wall">wall reference codes</a>.)
+  </td>
   <td>2 (a door or patio entrance on the right)</td>
  </tr><tr>
   <td><code>sotd_Tile_spacing</code></td>
   <td>float</td>
-  <td>The width of the depressions between the flat surfaces of the tiles, in POV units. <em>Caution:</em> This is implemented as a texture normal, so large values tend to look fake.</td>
+  <td>The width of the depressions between the flat surfaces of the tiles, in POV units.
+   <em>Caution:</em> This is implemented as a texture normal, so large values tend to look fake.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Trees_density</code></td>
@@ -611,19 +670,26 @@ ShapeOfTheDay is a library module from the
     <dd>All trees are implemented. This is extremely memory intensive unless isosurface hills are used.
    </dl>
    The trees are very rudimentarily defined, and hardly look realistic.
-   <p>Trees are implemented as an isosurface when <code>sotd_Hills_res</code> is less than 2. The isosurface trees do not have well-defined forms. The isosurface function will be replaced in a future version.
+   <p>Trees are implemented as an isosurface when <code>sotd_Hills_res</code> is less than 2.
+    The isosurface trees do not have well-defined forms.
+    The isosurface function will be replaced in a future version.
    <p><strong>Warning:</strong> For levels 1 and 2 using the isosurface, the max gradient is unreliable for max hills less than 100.
   </td>
   <td>0 (implemented as a texture)</td>
  </tr><tr>
   <td><code>sotd_Unit</code></td>
   <td>float</td>
-  <td>The amount of meters per POV unit. Some units have <a href="#ref_units">pre-defined identifiers</a>.</td>
+  <td>The amount of meters per POV unit.
+   Some units have <a href="#ref_units">pre-defined identifiers</a>.
+  </td>
   <td>0.3048 (1 foot)</td>
  </tr><tr>
   <td><code>sotd_Wall</code></td>
   <td>float</td>
-  <td>The color of the indoor walls, in <a href="#hsv">float-encoded HSV</a> format. This color will also be used for the baseboards, doors, shutters, and window trim, and a darkened version will be used for the lamp fixtures. If <code>sotd_p_Wall</code> is defined, then this parameter defaults to an estimate sampled from <code>sotd_p_Wall</code>; otherwise, it defaults to 0.1 (white).</td>
+  <td>The color of the indoor walls, in <a href="#hsv">float-encoded HSV</a> format.
+   This color will also be used for the baseboards, doors, shutters, and window trim, and a darkened version will be used for the lamp fixtures.
+   If <code>sotd_p_Wall</code> is defined, then this parameter defaults to an estimate sampled from <code>sotd_p_Wall</code>; otherwise, it defaults to 0.1 (white).
+  </td>
   <td>(see description)</td>
  </tr><tr>
   <td><code>sotd_hWall</code></td>
@@ -650,7 +716,8 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_t_Wall</code></td>
   <td>texture</td>
-  <td>The indoor wall’s texture. If specified, this overrides the wall color and pigment parameters. Nevertheless, because ShapeOfTheDay cannot estimate a proper ambient color from a texture, a wall color or pigment parameter should still be set if radiosity is not used.
+  <td>The indoor wall’s texture. If specified, this overrides the wall color and pigment parameters.
+   Nevertheless, because ShapeOfTheDay cannot estimate a proper ambient color from a texture, a wall color or pigment parameter should still be set if radiosity is not used.
    <p>This texture will not be applied to the baseboards, doors, lamps, or windows.
   </td>
   <td>none</td>
@@ -658,14 +725,18 @@ ShapeOfTheDay is a library module from the
 </table>
 
 <h4>Diffuse Lighting Considerations</h4>
-<p>Macro <code>Sotd_Setup()</code> calculates some finish ambients and sets a default. These may or may not be adequate, depending on the setting:
+<p>Macro <code>Sotd_Setup()</code> calculates some finish ambients and sets a default.
+These may or may not be adequate, depending on the setting:
 <ul>
- <li>For sunny outdoor scenes (<code>sotd_Setting</code> less than 2.0) and indoor scenes with closed window shutters (<code>sotd_Setting</code> equal to 3.0), the ambients set by macro <code>Sotd_Setup()</code> are generally adequate, although radiosity is always an improvement.
- <li>Indoor scenes with open window shutters (<code>sotd_Setting</code> at least 2.0 but less than 3.0) may have a posterized appearance unless radiosity is used. For such scenes, the radiosity settings will need to be quite high for smooth results.
+ <li>For sunny outdoor scenes (<code>sotd_Setting</code> less than 2.0) and indoor scenes with closed window shutters (<code>sotd_Setting</code> equal to 3.0),
+  the ambients set by macro <code>Sotd_Setup()</code> are generally adequate, although radiosity is always an improvement.
+ <li>Indoor scenes with open window shutters (<code>sotd_Setting</code> at least 2.0 but less than 3.0) may have a posterized appearance unless radiosity is used.
+  For such scenes, the radiosity settings will need to be quite high for smooth results.
   <ul>
    <li>Remember to set <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> to a small value to reduce the amount of light from outdoors.
   </ul>
- <li>For outdoor scenes with the Sun behind a cloud (<code>sotd_Setting</code> less than 2.0), radiosity is essential to avoid a posterized look. Moderate radiosity settings will be adequate.
+ <li>For outdoor scenes with the Sun behind a cloud (<code>sotd_Setting</code> less than 2.0), radiosity is essential to avoid a posterized look.
+  Moderate radiosity settings will be adequate.
  <li>If macro <code>Sotd_Setup()</code> is informed that radiosity is used, then all calculated ambients will be set to zero.
 </ul>
 
@@ -673,8 +744,10 @@ ShapeOfTheDay is a library module from the
 
 <p>It is round, of course. However, ShapeOfTheDay models parts of the landscape as flat.
 <ul>
- <li>The central plain is flat. However, at a <code>sotd_Hills_max</code> of 1500, the realistic curvature from the origin to the foothills would be less than 2 meters.
- <li>Technically, the mountains are also flat, as they are computed with Cartesian mathematics; but at the limited scale of ShapeOfTheDay, the unevenness of the terrain far overwhelms the curvature of the Earth.
+ <li>The central plain is flat.
+  However, at a <code>sotd_Hills_max</code> of 1500, the realistic curvature from the origin to the foothills would be less than 2 meters.
+ <li>Technically, the mountains are also flat, as they are computed with Cartesian mathematics;
+  but at the limited scale of ShapeOfTheDay, the unevenness of the terrain far overwhelms the curvature of the Earth.
  <li>The blue sky, being implemented as a standard POV-Ray ground fog, is unavoidably flat.
  <li>Notwithstanding the blue sky, the clouds are modeled spherically. The Earth’s oblateness is disregarded.
 </ul>
@@ -689,7 +762,8 @@ ShapeOfTheDay is a library module from the
  <dt>Origin
  <dd>The point &lt;0, 0, 0&gt;.
  <dt id="rest_position">Rest position
- <dd>The camera <code>look_at</code> prior to any transformations. This point is a distance of one half <code>sotd_Height</code> (described below) directly above the origin.
+ <dd>The camera <code>look_at</code> prior to any transformations.
+  This point is a distance of one half <code>sotd_Height</code> (described below) directly above the origin.
 </dl>
 
 <h4>Parameters</h4>
@@ -700,7 +774,10 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Aperture</code></td>
   <td>float</td>
-  <td>The camera <code>aperture</code>, as would be used in a <code>camera</code> statement. The unit for this parameter is defined internally by POV-Ray, and is between 2 and 3 times the lens aperture in POV units. If zero, then depth of field is turned off.</td>
+  <td>The camera <code>aperture</code>, as would be used in a <code>camera</code> statement.
+   The unit for this parameter is defined internally by POV-Ray, and is between 2 and 3 times the lens aperture in POV units.
+   If zero, then depth of field is turned off.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Boom</code></td>
@@ -720,29 +797,41 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Dolly</code></td>
   <td>float</td>
-  <td>The camera azimuth in degrees, as measured horizontally around the rest position, with zero in the minus <var>z</var> direction. Positive values move the camera to the right; negative values to the left.</td>
+  <td>The camera azimuth in degrees, as measured horizontally around the rest position, with zero in the minus <var>z</var> direction.
+   Positive values move the camera to the right; negative values to the left.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Focus</code></td>
   <td>float</td>
-  <td>The distance from the camera look-at point to the focal plane. Negative values bring the focal plane closer to the camera, and positive values push the focal plane away from the camera.</td>
+  <td>The distance from the camera look-at point to the focal plane.
+   Negative values bring the focal plane closer to the camera, and positive values push the focal plane away from the camera.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_FOV</code></td>
   <td>float</td>
-  <td>The <em>vertical</em> field of view, excluding the margin (see <code>sotd_Margin</code>), in degrees. To use the orthographic camera, set this to zero and <em>do not</em> include <code>screen.inc</code>.
+  <td>The <em>vertical</em> field of view, excluding the margin (see <code>sotd_Margin</code>), in degrees.
+   The camera will be moved forward or backward to accommodate the given <code>sotd_Height</code> (q.v.) within the field of view.
+   To use the orthographic camera, set this to zero and <em>do not</em> include <code>screen.inc</code>.
    <p><code>sotd_FOV</code> must be non-negative and less than 180; for views 180° or wider, increase <code>sotd_Margin</code>.
   </td>
   <td>20</td>
  </tr><tr>
   <td><code>sotd_Height</code></td>
   <td>float</td>
-  <td>The amount of vertical space, in POV units, allowed for your shape of the day. (Your shape can exceed this size, but then it may not fit within the camera view or the scenery.)</td>
+  <td>The amount of vertical space, in POV units, allowed for your shape of the day.
+   (Your shape can exceed this size, but then it may not fit within the camera view or the scenery.)
+  </td>
   <td>2</td>
  </tr><tr>
   <td><code>sotd_Margin</code></td>
   <td>float</td>
-  <td>Additional padding around the nominal field of view (see <code>sotd_FOV</code>). This is expressed as a fraction of the nominal field; that is, if <code>sotd_FOV</code> is 30 and <code>sotd_Margin</code> is 0.5, then the actual vertical field of view will be about 45&deg;. (The exact value may be slightly different due to perspective foreshortening.)</td>
+  <td>Additional padding around the nominal field of view (see <code>sotd_FOV</code>).
+   This is expressed as a fraction of the nominal field;
+   that is, if <code>sotd_FOV</code> is 30 and <code>sotd_Margin</code> is 0.5, then the actual vertical field of view will be about 45&deg;.
+   (The exact value may be slightly different due to perspective foreshortening.)
+  </td>
   <td>0.5</td>
  </tr><tr>
   <td><code>sotd_Pan</code></td>
@@ -757,12 +846,18 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Samples</code></td>
   <td>float</td>
-  <td>The depth of field samples count. If 1, 2, or 3, then the corresponding hex blur value from the standard include file <code>consts.inc</code> is used; otherwise the value is used directly.</td>
+  <td>The depth of field samples count.
+   If 1, 2, or 3, then the corresponding hex blur value from the standard include file <code>consts.inc</code> is used;
+   otherwise the value is used directly.
+  </td>
   <td>2</td>
  </tr><tr>
   <td><code>sotd_Stereo</code></td>
   <td>float</td>
-  <td>The camera azimuth in POV units, as measured along a horizontal arc around the rest position. Positive values move the camera to the right; negative values to the left. N.B. This parameter was named for its utility in creating stereograms.</td>
+  <td>The camera azimuth in POV units, as measured along a horizontal arc around the rest position.
+   Positive values move the camera to the right; negative values to the left.
+   N.B. This parameter was named for its utility in creating stereograms.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Tilt</code></td>
@@ -778,7 +873,9 @@ ShapeOfTheDay is a library module from the
 </table>
 
 <h4>Room Size</h4>
-<p>There is a minimum wall length of 12 feet or approximately 3.66 meters, but the room or patio expands automatically to incorporate the camera. Parameter <code>sotd_FOV</code> affects the distance from the camera to the rest position, and can therefore change the size of the room or patio. Parameter <code>sotd_Margin</code> does not change the camera position, and therefore does not affect the room or patio size.
+<p>There is a minimum wall length of 12 feet or approximately 3.66 meters, but the room or patio expands automatically to incorporate the camera.
+Parameter <code>sotd_FOV</code> affects the distance from the camera to the rest position, and can therefore change the size of the room or patio.
+Parameter <code>sotd_Margin</code> does not change the camera position, and therefore does not affect the room or patio size.
 
 <h4>screen.inc</h4>
 <p>If <code>screen.inc</code> is used, then depth of field is disabled and the orthographic camera cannot be used.
@@ -893,12 +990,17 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Light_alt</code></td>
   <td>float</td>
-  <td>The altitude in degrees of the main indoor light, as measured vertically around the <a href="#rest_position">rest position</a>. If the setting is outdoors and <code>sotd_Sun_alt</code> has not been set, then this controls the Sun’s altitude instead.</td>
+  <td>The altitude in degrees of the main indoor light, as measured vertically around the <a href="#rest_position">rest position</a>.
+   If the setting is outdoors and <code>sotd_Sun_alt</code> has not been set, then this controls the Sun’s altitude instead.
+  </td>
   <td>45</td>
  </tr><tr>
   <td><code>sotd_Light_az</code></td>
   <td>float</td>
-  <td>The azimuth in degrees of the main indoor light, as measured horizontally around the <a href="#rest_position">rest position</a>, with zero in the minus <var>z</var> direction. If the setting is outdoors and <code>sotd_Sun_az</code> has not been set, then this controls the Sun’s azimuth instead.</td>
+  <td>The azimuth in degrees of the main indoor light, as measured horizontally around the <a href="#rest_position">rest position</a>,
+   with zero in the minus <var>z</var> direction.
+   If the setting is outdoors and <code>sotd_Sun_az</code> has not been set, then this controls the Sun’s azimuth instead.
+  </td>
   <td>-30</td>
  </tr><tr>
   <td><code>sotd_Sun_alt</code></td>
@@ -926,7 +1028,9 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Area</code></td>
   <td>float</td>
-  <td>The size of the area light, as compared to the size of the light source (light bulb or Sun). Use zero for a point light, 1.0 for realistic soft shadows, and larger values for even softer shadows.</td>
+  <td>The size of the area light, as compared to the size of the light source (light bulb or Sun).
+   Use zero for a point light, 1.0 for realistic soft shadows, and larger values for even softer shadows.
+  </td>
   <td>0</td>
  </tr><tr>
   <td><code>sotd_Area_adaptive</code></td>
@@ -941,7 +1045,10 @@ ShapeOfTheDay is a library module from the
  </tr><tr id="sotd_Exposure">
   <td><code>sotd_Exposure</code></td>
   <td>float</td>
-  <td>The illuminance of a light source of rgb 1 on an object at the <a href="#rest_position">rest position</a>. A low exposure (around 0.05) is useful for indoor scenes with open windows. Exposures of 1.5 to 2.0 are good for outdoor scenes.</td>
+  <td>The illuminance of a light source of rgb 1 on an object at the <a href="#rest_position">rest position</a>.
+   A low exposure (around 0.05) is useful for indoor scenes with open windows.
+   Exposures of 1.5 to 2.0 are good for outdoor scenes.
+  </td>
   <td>1</td>
  </tr><tr>
   <td><code>sotd_Max_sample</code></td>
@@ -1007,7 +1114,9 @@ ShapeOfTheDay is a library module from the
  </tr><tr>
   <td><code>sotd_Reflect</code></td>
   <td>float</td>
-  <td>If <code>false</code>, then light bulbs and the Sun will not appear in reflections. If <code>true</code>, then ShapeOfTheDay will omit specular highlights from its internal textures.</td>
+  <td>If <code>false</code>, then light bulbs and the Sun will not appear in reflections.
+   If <code>true</code>, then ShapeOfTheDay will omit specular highlights from its built-in textures.
+  </td>
   <td><code>false</code></td>
  </tr><tr>
   <td><code>sotd_Solar</code></td>
@@ -1026,21 +1135,28 @@ ShapeOfTheDay is a library module from the
     <dt>65 <dd>D65
     <dt>75 <dd>D75
    </dl>
-   This parameter applies to the light sources, lighting environment, and sky created by ShapeOfTheDay. It will not directly impact pigments or user-defined colors. If you use DeskLamp to create your own lamp, the lumens calculation may be affected.
+   This parameter applies to the light sources, lighting environment, and sky created by ShapeOfTheDay.
+   It will not directly impact pigments or user-defined colors.
+   If you use DeskLamp to create your own lamp, the lumens calculation may be affected.
   </td>
   <td>50</td>
  </tr>
 </table>
 
-<p>*For indoor scenes with open window shutters, the default may be higher than 20. The default is scaled according to <code>sotd_Exposure</code>.
+<p>*For indoor scenes with open window shutters, the default may be higher than 20.
+The default is scaled according to <code>sotd_Exposure</code>.
 
-<p>&dagger;For indoor scenes, the default solar value is calculated as the ratio of the Sun’s brightness to the illuminance by an <code>rgb 1</code> main indoor light upon the <a href="#rest_position">rest position</a>, assuming 1600 lumens for the main indoor light, and taking reflection off the lamp hood’s interior into account. This ratio varies with the distance from the light source to the rest position. With the default setup, the default is about 2770.
+<p>&dagger;For indoor scenes, the default solar value is calculated as the ratio of the Sun’s brightness to the illuminance by an <code>rgb 1</code> main indoor light upon the <a href="#rest_position">rest position</a>,
+assuming 1600 lumens for the main indoor light, and taking reflection off the lamp hood’s interior, if applicable, into account.
+This ratio varies with the distance from the light source to the rest position.
+With the default setup, the default ratio is about 933 for a panel lamp or 2770 for the hooded lamp.
 
 <p><a href="#toc">Table of contents</a>
 
 <h3 id="positioning">Object Positioning Parameters</h3>
 
-These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_std()</code></a>, which applies their respective transformations in the order listed.
+These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_std()</code></a>,
+which applies their respective transformations in the order listed.
 
 <table>
  <tr>
@@ -1109,7 +1225,8 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
 
 <h2 id="calculated">Calculated Values</h2>
 
-<p>These values are calculated by <code>shapeoftheday.inc</code> when it is included, and recalculated when macro <code>Sotd_Setup()</code> is called.
+<p>These values are calculated by <code>shapeoftheday.inc</code> when it is included,
+and recalculated when macro <code>Sotd_Setup()</code> is called.
 
 <table>
  <tr>
@@ -1117,7 +1234,8 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_c_Ambient</code></td>
   <td>color</td>
-  <td>A global ambient color, normalized for <code>diffuse 1</code>. Multiply this value by <code>sotd_Diffuse</code> to obtain the default ambient value that is preset by <code>Sotd_Setup()</code>.
+  <td>A global ambient color, normalized for <code>diffuse 1</code>.
+   Multiply this value by <code>sotd_Diffuse</code> to obtain the default ambient value that is preset by <code>Sotd_Setup()</code>.
   </td>
  </tr><tr>
   <td><code>sotd_Boom_final</code></td>
@@ -1134,7 +1252,9 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_Camera_distance</code></td>
   <td>float</td>
-  <td>The distance from the camera to the <a href="#rest_position">rest position</a>. This distance varies according to the <code>sotd_FOV</code> and <code>sotd_Height</code> parameters.</td>
+  <td>The distance from the camera to the <a href="#rest_position">rest position</a>.
+   This distance varies according to the <code>sotd_FOV</code> and <code>sotd_Height</code> parameters.
+  </td>
  </tr><tr>
   <td><code>sotd_v_Camera_location</code></td>
   <td>3-D vector</td>
@@ -1166,11 +1286,16 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_Dolly_final</code></td>
   <td>float</td>
-  <td>The final camera azimuth in degrees, as measured horizontally around the <a href="#rest_position">rest position</a>, with zero in the minus <var>z</var> direction. A positive value is to the right; a negative value is to the left.</td>
+  <td>The final camera azimuth in degrees, as measured horizontally around the <a href="#rest_position">rest position</a>,
+   with zero in the minus <var>z</var> direction.
+   A positive value is to the right; a negative value is to the left.
+  </td>
  </tr><tr>
   <td><code>sotd_c_Fill1</code></td>
   <td>color</td>
-  <td>The nominal color of the fill light 120° clockwise from the main indoor light. (The actual color is adjusted for the inverse-square implementation if <code>sotd_Quality</code> is 1 or greater.)</td>
+  <td>The nominal color of the fill light 120° clockwise from the main indoor light.
+   (The actual color is adjusted for the inverse-square implementation if <code>sotd_Quality</code> is 1 or greater.)
+  </td>
  </tr><tr>
   <td><code>sotd_v_Fill1</code></td>
   <td>3-D vector</td>
@@ -1178,7 +1303,9 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_c_Fill2</code></td>
   <td>color</td>
-  <td>The nominal color of the fill light 120° counterclockwise from the main indoor light. (The actual color is adjusted for the inverse-square implementation if <code>sotd_Quality</code> is 1 or greater.)</td>
+  <td>The nominal color of the fill light 120° counterclockwise from the main indoor light.
+   (The actual color is adjusted for the inverse-square implementation if <code>sotd_Quality</code> is 1 or greater.)
+  </td>
  </tr><tr>
   <td><code>sotd_v_Fill2</code></td>
   <td>3-D vector</td>
@@ -1190,7 +1317,9 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_c_Ground_ambient</code></td>
   <td>color</td>
-  <td>The ambient color used on the grassy plain and the outdoor tiled floor. It is normalized for <code>diffuse 1</code>, and scaled by <code>sotd_Diffuse</code> before being applied to the tiles.</td>
+  <td>The ambient color used on the grassy plain and the outdoor tiled floor.
+   It is normalized for <code>diffuse 1</code>, and scaled by <code>sotd_Diffuse</code> before being applied to the tiles.
+  </td>
  </tr><tr>
   <td><code>sotd_Lens</code></td>
   <td>float</td>
@@ -1217,7 +1346,12 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_v_Room_size</code></td>
   <td>3-D vector</td>
-  <td>The dimensions of the patio or room. The <var>x</var> and <var>z</var> components are half the width and half the depth, respectively, of the patio or room. The <var>y</var> component is the height of the ceiling, if present. (The patio does not have a ceiling.) The size of the patio or room is automatically expanded to accommodate the camera distance.</td>
+  <td>The dimensions of the patio or room.
+   The <var>x</var> and <var>z</var> components are half the width and half the depth, respectively, of the patio or room.
+   The <var>y</var> component is the height of the ceiling, if present.
+   (The patio does not have a ceiling.)
+   The size of the patio or room is automatically expanded to accommodate the camera distance.
+  </td>
  </tr><tr>
   <td><code>sotd_c_Sun</code></td>
   <td>color</td>
@@ -1225,11 +1359,17 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
  </tr><tr>
   <td><code>sotd_v_Sun</code></td>
   <td>3-D vector</td>
-  <td>The position of the Sun. (To avoid floating point precision issues, the Sun is placed much closer than the physically correct 150 million km, and is implemented as a parallel light.)</td>
+  <td>The position of the Sun.
+   (To avoid floating point precision issues, the Sun is placed much closer than the physically correct 150 million km, and is implemented as a parallel light.)
+  </td>
  </tr><tr>
   <td><code>sotd_c_Wall</code></td>
   <td>color</td>
-  <td>The average color of the indoor walls, derived from the wall color or estimated from the pigment parameter. This color is applied to the baseboards, doors, shutters, and window trim, and is used for estimating the ambient color. The texture parameter <code>sotd_t_Wall</code> has no effect on this value; therefore, if you are not using radiosity, to get a good ambient estimate, you should set a wall color to match the average color of the texture.</td>
+  <td>The average color of the indoor walls, derived from the wall color or estimated from the pigment parameter.
+   This color is applied to the baseboards, doors, shutters, and window trim, and is used for estimating the ambient color.
+   The texture parameter <code>sotd_t_Wall</code> has no effect on this value;
+   therefore, if you are not using radiosity, to get a good ambient estimate, you should set a wall color to match the average color of the texture.
+  </td>
  </tr>
 </table>
 
@@ -1239,16 +1379,23 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
 <ul>
  <li>The <code>#default</code> ambient for outdoor scenes is calculated assuming the default hills and cloud cover.
  <li>Outdoor upward-facing surfaces, such as the patio floor and the grassy plain, receive a separate ambient color because they do not contribute to their own diffuse lighting.
- <li>To accommodate older versions of POV-Ray, macro <code>Sotd_Setup()</code> sets all calculated ambient values to zero if it is informed that radiosity is used. It does not change the global <code>ambient_light</code> setting.
+ <li>To accommodate older versions of POV-Ray, macro <code>Sotd_Setup()</code> sets all calculated ambient values to zero if it is informed that radiosity is used.
+  It does not change the global <code>ambient_light</code> setting.
  <li>For sunny outdoor scenes and indoor scenes with closed window shutters, the computed ambient is generally adequate, although radiosity is always an improvement.
- <li>For indoor scenes with open window shutters, the outdoor illumination is considered in computing the <code>#default</code> ambient. This can overwhelm the indoor lamps and cause a flat, posterized appearance. For such scenes, radiosity is essential for a 3-D impression, and the radiosity settings will need to be quite high for smooth results.
+ <li>For indoor scenes with open window shutters, the outdoor illumination is considered in computing the <code>#default</code> ambient.
+  This can overwhelm the indoor lamps and cause a flat, posterized appearance.
+  For such scenes, radiosity is essential for a 3-D impression, and the radiosity settings will need to be quite high for smooth results.
   <ul>
    <li>Remember to set <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> to a small value to reduce the amount of light from outdoors.
   </ul>
- <li>For outdoor scenes with the Sun behind a cloud, radiosity is essential to avoid a posterized look. Moderate radiosity settings will be adequate.
- <li>If you create a finish that has its own diffuse value, multiply <code>sotd_c_Ambient</code> by that diffuse value <em>after</em> calling macro <code>Sotd_Setup()</code> to get an appropriate ambient. For example:
+ <li>For outdoor scenes with the Sun behind a cloud, radiosity is essential to avoid a posterized look.
+  Moderate radiosity settings will be adequate.
+ <li>If you create a finish that has its own diffuse value,
+  multiply <code>sotd_c_Ambient</code> by that diffuse value <em>after</em> calling macro <code>Sotd_Setup()</code> to get an appropriate ambient.
+  For example:
   <pre>finish { diffuse 0.75 ambient sotd_c_Ambient * 0.75 }</pre>
-  As noted above, if macro <code>Sotd_Setup()</code> is informed that radiosity is used, it will set <code>sotd_c_Ambient</code> to zero; therefore, this code would be appropriate with or without radiosity.
+  As noted above, if macro <code>Sotd_Setup()</code> is informed that radiosity is used, it will set <code>sotd_c_Ambient</code> to zero;
+  therefore, this code would be appropriate with or without radiosity.
  <li>If you set your own default finish, do so <em>after</em> calling <code>Sotd_Setup()</code>, otherwise <code>Sotd_Setup()</code> will override it.
 </ul>
 
@@ -1258,8 +1405,14 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
 
 <h3 id="Sotd_Color">Sotd_Color (Color), Sotd_Colour (Colour), </h3>
 
-<p>ShapeOfTheDay creates a <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/
-" target="_blank">linear color space</a>, but colors are traditionally specified with non-linear <a href="https://wiki.povray.org/content/Documentation:Tutorial_Section_3.3#Gamma_Handling">gamma 2.2 or sRGB</a> formats. This tends to make colors look washed out in ShapeOfTheDay. These macros convert a traditional color specification so that it looks correct with ShapeOfTheDay. Use either one of them on colors from <code>colors.inc</code>, on RGB values from color pickers, or on X11 color values before using them in the pigments applied to your shape of the day. The macros are the same, except for the spelling.
+<p>ShapeOfTheDay creates a
+<a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/" target="_blank">linear color space</a>,
+but colors are traditionally specified with non-linear
+<a href="https://wiki.povray.org/content/Documentation:Tutorial_Section_3.3#Gamma_Handling">gamma 2.2 or sRGB</a> formats.
+This tends to make colors look washed out in ShapeOfTheDay.
+These macros convert a traditional color specification so that it looks correct with ShapeOfTheDay.
+Use either one of them on colors from <code>colors.inc</code>, on RGB values from color pickers, or on X11 color values before using them in the pigments applied to your shape of the day.
+The macros are the same, except for the spelling.
 
 <p>These macros are defined in <code>shapeoftheday_ref.inc</code>, and thus may be used prior to including <code>shapeoftheday.inc</code>.
 
@@ -1275,6 +1428,7 @@ These parameters are used by <a href="#Sotd_Position_std"><code>Sotd_Position_st
 
 <h4>Example</h4>
 <pre>#include "colors.inc"
+#include "shapeoftheday.inc"
 union
 { object
   { MyObjectPart1
@@ -1289,9 +1443,11 @@ union
 
 <h4>Additional Notes</h4>
 <ul>
- <li>If any of the red, green, and blue components of the color are outside the domain 0...1, a parse warning will result. The American spelling of the macro will appear in the error message, regardless of which macro was called.
+ <li>If any of the red, green, and blue components of the color are outside the domain 0...1, a parse warning will result.
+  The American spelling of the macro will appear in the error message, regardless of which macro was called.
  <li>Filter and transmit components will not be altered.
- <li>A scalar argument will be promoted to a full 5-D color, which is probably not what you want. To convert, say, a medium gray, use <code>Sotd_Color (rgb 0.5)</code>, not <code>Sotd_Color (0.5)</code>.
+ <li>A scalar argument will be promoted to a full 5-D color, which is probably not what you want.
+  To convert, say, a medium gray, use <code>Sotd_Color (rgb 0.5)</code>, not <code>Sotd_Color (0.5)</code>.
 </ul>
 
 <p><a href="#toc">Table of contents</a>
@@ -1301,7 +1457,8 @@ union
 <p>Returns a transformation, which is typically used to position a user-defined shape.
 
 <h4>Arguments</h4>
-<p>The transformations specified by these arguments are applied in the order listed, followed by a translation to the  <a href="#rest_position">rest position</a>.
+<p>The transformations specified by these arguments are applied in the order listed,
+ followed by a translation to the  <a href="#rest_position">rest position</a>.
 <table>
  <tr><th>Formal Parameter</th> <th>Type</th> <th>Description</th></tr>
  <tr>
@@ -1335,7 +1492,9 @@ union
 
 <h3 id="Sotd_Position_std">Sotd_Position_std ()</h3>
 
-<p>Returns a transformation that transforms according to the <a href="#positioning">object positioning global parameters</a>, with a final translation to the <a href="#rest_position">rest position</a>. It is typically used to position a user-defined shape.
+<p>Returns a transformation that transforms according to the <a href="#positioning">object positioning global parameters</a>,
+with a final translation to the <a href="#rest_position">rest position</a>.
+It is typically used to position a user-defined shape.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -1343,15 +1502,26 @@ union
 
 <p>Creates the prefabricated scene according to <a href="#parameters">user-adjustable parameters</a>.
 
-<p>The camera, lights, and scenery are set up automatically. In global settings, <!--the assumed gamma is set to 1.0, and--> the maximum trace level and photons are set. For POV-Ray 3.7 and later, the subsurface light transport unit is set. A default ambient is calculated and applied using <code>#default</code>, but the global <code>ambient_light</code> is not changed. If the scenery includes a room or a patio, it is created large enough to accommodate the camera.
+<p>The camera, lights, and scenery are set up automatically.
+In global settings, the maximum trace level and photons are set.
+For POV-Ray 3.7 and later, the subsurface light transport unit is set.
+A default ambient is calculated and applied using <code>#default</code>, but the global <code>ambient_light</code> is not changed.
+If the scenery includes a room or a patio, it is created large enough to accommodate the camera.
 
-<p>If the <code>Uses_radiosity</code> argument is <code>true</code>, a basic radiosity block is created with <code>max_sample</code> set according to global parameter <code>sotd_Max_sample</code> and, if <code>sotd_Setting</code> is less than 3.0, with <code>media on</code>. Creating a radiosity block to flesh out the other radiosity settings remains the user’s responsibility.
+<p>If the <code>Uses_radiosity</code> argument is <code>true</code>,
+a basic radiosity block is created with <code>max_sample</code> set according to global parameter <code>sotd_Max_sample</code>
+and, if <code>sotd_Setting</code> is less than 3.0, with <code>media on</code>.
+Creating a radiosity block to flesh out the other radiosity settings remains the user’s responsibility.
 
-<p>The origin is set above the ground plane (checkered floor or grassy plain) at the height determined by parameter <code>sotd_Microspace</code>; that is, effectively on the ground plane with an allowance to avoid coincident surfaces. If the setting is a room or a patio, the structure will be centered on the <var>y</var>-axis.
+<p>The origin is set above the ground plane (checkered floor or grassy plain) at the height determined by parameter <code>sotd_Microspace</code>;
+that is, effectively on the ground plane with an allowance to avoid coincident surfaces.
+If the setting is a room or a patio, that structure will be centered on the <var>y</var>-axis.
 
-<p>If the user has included <code>screen.inc</code> prior to this point, then <code>Sotd_Setup()</code> calls that module for the camera, instead of setting the camera directly.
+<p>If the user has included <code>screen.inc</code> prior to this point,
+then <code>Sotd_Setup()</code> calls that module for the camera, instead of setting the camera directly.
 
-<p>If you wish change the default ambient and diffuse, do so <em>after</em> calling <code>Sotd_Setup()</code>, or this macro will override your setting. See <a href="#calculated">Calculated Values</a> for more information.
+<p>If you wish change the default ambient and diffuse, do so <em>after</em> calling <code>Sotd_Setup()</code>, or this macro will override your setting.
+See <a href="#calculated">Calculated Values</a> for more information.
 
 <p>Calling <code>Sotd_Setup()</code> more than once will cause a parse error.
 
@@ -1361,7 +1531,9 @@ union
  <tr>
   <td><code>Uses_radiosity</code></td>
   <td>float/Boolean</td>
-  <td>Set this to <code>true</code> if the scene uses radiosity. This will set the default ambient and all calculated ambient values to <code>rgb 0</code> and create a basic radiosity block.</td>
+  <td>Set this to <code>true</code> if the scene uses radiosity.
+   This will set the default ambient and all calculated ambient values to <code>rgb 0</code> and create a basic radiosity block.
+  </td>
  </tr>
 </table>
 
@@ -1369,7 +1541,10 @@ union
 
 <h3 id="Sotd_SunPos">Sotd_SunPos (Year, Month, Day, Hour, Minute, Lstm, LAT, LONG)</h3>
 
-<p>Sets the solar positioning parameters <code>sotd_Sun_alt</code> and <code>sotd_Sun_az</code> by calling macro <code>SunPos()</code> from the standard include file <code>sunpos.inc</code>. <code>Sotd_SunPos()</code> does not return the Sun’s final position; see the <a href="#calculated">calculated variable</a> <code>sotd_v_Sun</code> for this information.
+<p>Sets the solar positioning parameters <code>sotd_Sun_alt</code> and <code>sotd_Sun_az</code>
+by calling macro <code>SunPos()</code> from the standard include file <code>sunpos.inc</code>.
+<code>Sotd_SunPos()</code> does not return the Sun’s final position; see the
+<a href="#calculated">calculated variable</a> <code>sotd_v_Sun</code> for this information.
 
 <p><code>Sotd_SunPos()</code> must be called prior to calling <code>Sotd_Setup()</code> in order to have any effect.
 
@@ -1414,7 +1589,10 @@ union
 
 <h3 id="ref_illuminants">Illuminant Codes (Indoor Light Sources)</h3>
 
-<p>These values may be used to set indoor light colors. They are declared in file <code>shapeoftheday_ref.inc</code>. Remember to include the illuminance after the decimal point. Since all illuminant codes are negative, this means subtracting the illuminance. For example:
+<p>These values may be used to set indoor light colors.
+They are declared in file <code>shapeoftheday_ref.inc</code>.
+Remember to include the illuminance after the decimal point.
+Since all illuminant codes are negative, this means subtracting the illuminance. For example:
 
 <pre>#declare sotd_Light = SOTD_ILLUMINANT_F2 - 0.100;</pre>
 <p>Alternatively, you can set the illuminance auxiliary parameter:
@@ -1533,7 +1711,8 @@ union
 
 <h3 id="ref_lamp_styles">Lamp Style Codes</h3>
 
-<p>These values may be used for <code>sotd_Lamp_style</code> and <code>sotd_Fill_style</code>. They are declared in file <code>shapeoftheday_ref.inc</code>.
+<p>These values may be used for <code>sotd_Lamp_style</code> and <code>sotd_Fill_style</code>.
+They are declared in file <code>shapeoftheday_ref.inc</code>.
 
 <table>
  <tr>
@@ -1560,7 +1739,8 @@ union
 
 <h3 id="ref_settings">Scene Setting Codes</h3>
 
-<p>These values may be used for <code>sotd_Setting</code>. They are declared in file <code>shapeoftheday_ref.inc</code>.
+<p>These values may be used for <code>sotd_Setting</code>.
+They are declared in file <code>shapeoftheday_ref.inc</code>.
 
 <table>
  <tr>
@@ -1602,7 +1782,8 @@ union
 
 <h3 id="ref_units">Values for Units of Length</h3>
 
-<p>These values may be used for <code>sotd_Unit</code>. They are declared in file <code>shapeoftheday_ref.inc</code>.
+<p>These values may be used for <code>sotd_Unit</code>.
+They are declared in file <code>shapeoftheday_ref.inc</code>.
 
 <table>
  <tr>
@@ -1650,7 +1831,11 @@ union
  </tr>
 </table>
 
-<p>For units not defined here, you may download and use the Object Collection module <a href="https://lib.povray.org/searchcollection/index2.php?objectName=scaleconvert&amp;contributorTag=Charles%20C">scaleconvert</a> (<a href="https://github.com/LeForgeron/PovContributions/tree/master/scaleconvert/charles%20c%201.0">scaleconvert mirror</a>). Since the reference unit for ShapeOfTheDay is one meter, you would convert your scene’s unit to meters. For example, if you wish to work in rods, you would use:
+<p>For units not defined here, you may download and use the Object Collection module
+<a href="https://lib.povray.org/searchcollection/index2.php?objectName=scaleconvert&amp;contributorTag=Charles%20C" target="_blank">scaleconvert</a>
+(<a href="https://github.com/LeForgeron/PovContributions/tree/master/scaleconvert/charles%20c%201.0" target="_blank">scaleconvert mirror</a>).
+Since the reference unit for ShapeOfTheDay is one meter, you would convert your scene’s unit to meters.
+For example, if you wish to work in rods, you would use:
 <pre>#include "scaleconvert.inc"
 #declare sotd_Unit = ScaleConvert ("rod", "meter");</pre>
 
@@ -1658,7 +1843,9 @@ union
 
 <h3 id="ref_wall">Codes for Wall or Patio Railing Features</h3>
 
-<p>These values may be used for <code>sotd_Back</code>, <code>sotd_Front</code>, <code>sotd_Left</code>, and <code>sotd_Right</code>. They are declared in file <code>shapeoftheday_ref.inc</code>. The word “wall” in the descriptions may also refer to a railing on one side of the patio.
+<p>These values may be used for <code>sotd_Back</code>, <code>sotd_Front</code>, <code>sotd_Left</code>, and <code>sotd_Right</code>.
+They are declared in file <code>shapeoftheday_ref.inc</code>.
+The word “wall” in the descriptions may also refer to a railing on one side of the patio.
 
 <table>
  <tr>
@@ -1671,12 +1858,16 @@ union
  </tr><tr>
   <td><code>SOTD_DOOR_ON_LEFT</code>, <code>SOTD_ENTRANCE_ON_LEFT</code></td>
   <td>float</td>
-  <td>Specifies that a door or patio entrance be on the left side of the wall, as one faces the wall from the center of the room. The door is always closed.</td>
+  <td>Specifies that a door or patio entrance be on the left side of the wall, as one faces the wall from the center of the room.
+   The door is always closed.
+  </td>
   <td>1</td>
  </tr><tr>
   <td><code>SOTD_DOOR_ON_RIGHT</code>, <code>SOTD_ENTRANCE_ON_RIGHT</code></td>
   <td>float</td>
-  <td>Specifies that a door or patio entrance be on the right side of the wall, as one faces the wall from the center of the room. The door is always closed.</td>
+  <td>Specifies that a door or patio entrance be on the right side of the wall, as one faces the wall from the center of the room.
+   The door is always closed.
+  </td>
   <td>2</td>
  </tr><tr>
   <td><code>SOTD_WINDOWS</code></td>
@@ -1697,7 +1888,7 @@ union
   <td><code>SHAPEOFTHEDAY_VERSION</code></td>
   <td>float</td>
   <td>The ShapeOfTheDay version.</td>
-  <td>2.1</td>
+  <td>2.11</td>
  </tr>
 </table>
 
@@ -1707,15 +1898,20 @@ union
 
 <h3 id="Internal">Internal Identifiers</h3>
 
-<p>Any identifiers in the include files that are not documented in this manual are considered “private” and are subject to change or elimination in a future update.
+<p>Any identifiers in the include files that are not documented in this manual are considered “private”
+and are subject to change or elimination in a future update.
 
 <p><a href="#toc">Table of contents</a>
 
 <h2 id="cloudy">The Cloudy Scene</h2>
 
-<p>If the position of the Sun is changed from the default, the Sun may end up obscured by a cloud. For this reason, parameters <code>sotd_xClouds</code> and <code>sotd_zClouds</code> have been provided to shift the position of the cloud cover. Parameter <code>sotd_Cloudy</code> varies the amount of cloud cover.
+<p>If the position of the Sun is changed from the default, the Sun may end up obscured by a cloud.
+For this reason, parameters <code>sotd_xClouds</code> and <code>sotd_zClouds</code> have been provided to shift the position of the cloud cover.
+Parameter <code>sotd_Cloudy</code> varies the amount of cloud cover.
 
-<p>To facilitate the setting and coordination of these parameters, the scene <code>shapeoftheday_cloudy.pov</code> has been provided. This scene shows the sky reflected in a mirrored dome. The Sun position and cloud parameters may be set on the command line.
+<p>To facilitate the setting and coordination of these parameters, the scene <code>shapeoftheday_cloudy.pov</code> has been provided.
+This scene shows the sky reflected in a mirrored dome.
+The Sun position and cloud parameters may be set on the command line.
 
 <p><a href="#toc">Table of contents</a>
 
@@ -1745,9 +1941,12 @@ union
 <h2 id="about">About ShapeOfTheDay</h2>
 
 <address>
- <p>Copyright © 2012 &ndash; 2022 Richard Callwood III. Some rights reserved.
- <p>This library is free software; you can redistribute it and/or modify it under the terms of the <a href="https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html" target="_blank">GNU Lesser General Public License version 2.1</a> as published by the Free Software Foundation.
- <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ <p>Copyright © 2012 &ndash; 2025 Richard Callwood III. Some rights reserved.
+ <p>This library is free software: you can redistribute it and/or modify it under the terms of the
+ <a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">GNU Lesser General Public License</a>
+ as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
+ <p>This library is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 </address>
 
 <h3 id="Categories">Object Collection Categories</h3>
@@ -1776,7 +1975,8 @@ union
 
 <h3 id="changes">Change Log</h3>
 
-<p>This section lists the briefest outline of development. See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</code></a> for a more detailed development timeline.
+<p>This section lists the briefest outline of development.
+See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</code></a> for a more detailed development timeline.
 
 <table>
  <tr><th>Version</th> <th>Date</th> <th>Notes</th></tr>
@@ -1793,7 +1993,7 @@ union
   <td>2012 September 27</td>
   <td>
    <ul>
-    <li>The module is deemed sufficiently complete to replace my old include file, although some features remain unimplemented or incomplete.
+    <li>The library is deemed sufficiently complete to replace my old include file, although some features remain unimplemented or incomplete.
    </ul>
   </td>
  </tr><tr>
@@ -1802,7 +2002,7 @@ union
   <td>
    <ul>
     <li>Most features are complete. Formal submission to the Object Collection is expected at a later date.
-    <li>The DeskLamp module is utilized for indoor lights.
+    <li>The DeskLamp library is utilized for indoor lights.
    </ul>
   </td>
  </tr><tr>
@@ -1813,15 +2013,27 @@ union
     <li>Flat panel lamp styles are added.
    </ul>
   </td>
+ </tr><tr>
+  <td>2.1.1</td>
+  <td>2025 October 4</td>
+  <td>
+   <ul>
+    <li>Bug fix: Lamps near the room’s zenith are positioned correctly.
+   </ul>
+  </td>
  </tr>
 </table>
 
 <h3>Known Bugs</h3>
 
 <ul>
- <li>The lighting of the interior hood and/or bulb of lamps is incorrect under some circumstances. It is not known whether the bug is in ShapeOfTheDay or in DeskLamp.
- <li>Lamps with <code>sotd_Light_alt</code> near 90 are not positioned properly.
- <li>Caustics from lamps (indoor scenes at quality levels 1 or greater) appear abnormal when photons are used with beta versions of POV-Ray 3.8 and DeskLamp versions older than 2.0.1.
+ <li>The lighting of the interior hood and/or bulb of lamps is incorrect under some circumstances.
+  It is not known whether the bug is in ShapeOfTheDay or in DeskLamp.
+ <li>Caustics from lamps (indoor scenes at quality levels 1 or greater) appear abnormal when photon mapping is used with beta versions of POV-Ray 3.8 and DeskLamp 2.0.
+  Upgrading DeskLamp to 2.0.1 will fix this.
+ <li>Photon mapping can take forever (perhaps literally) when <code>sotd_Trees_level</code> is set greater than zero.
+  A workaround is to render a first pass with <code>sotd_Ph_save=1</code> and <code>sotd_Trees_level=0</code>,
+  then a second pass with <code>sotd_Ph_load=1</code> and <code>sotd_Trees_level</code> set to a positive number.
 </ul>
 
 <h3>Possible Future Development</h3>
@@ -1836,20 +2048,25 @@ union
  <li>Re-implement the sky with scattering and absorbing media.
  <li>Make ShapeOfTheDay compatible with LilySoft’s SpectralRender.
  <li>Find some way for ShapeOfTheDay to use Rune’s grass texture.
+ <li>Replace the doorknob with an accessible door handle.
 </ul>
 
 <h3 id="Links">Links</h3>
 
 <ul>
- <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=ShapeOfTheDay&amp;contributorTag=Cousin%20Ricky">Official ShapeOfTheDay repository</a> and <a href="https://github.com/CousinRicky/POV-ShapeOfTheDay">GitHub mirror</a>
+ <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=ShapeOfTheDay&amp;contributorTag=Cousin%20Ricky">Official ShapeOfTheDay repository</a>
+  and <a href="https://github.com/CousinRicky/POV-ShapeOfTheDay">GitHub mirror</a>
  <li><a href="https://news.povray.org/povray.object-collection/">Object Collection discussion</a>
 </ul>
 
 <h3>Acknowledgments</h3>
 
 <ul>
- <li>Michael Horvath’s <a href="https://lib.povray.org/searchcollection/index2.php?objectName=ColorSolid&amp;contributorTag=SharkD">ColorSolid</a> (<a href="https://github.com/LeForgeron/PovContributions/tree/master/colorsolid">ColorSolid mirror</a>) was used to generate the HSV cylinder illustration.
- <li><a href="http://www.ignorancia.org/index.php?page=lightsys" target="_blank">Lightsys IV</a>, in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments. Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the colors of the Sun and sky.
+ <li>Michael Horvath’s <a href="https://lib.povray.org/searchcollection/index2.php?objectName=ColorSolid&amp;contributorTag=SharkD" target="_blank">ColorSolid</a>
+  (<a href="https://github.com/LeForgeron/PovContributions/tree/master/colorsolid" target="_blank">ColorSolid mirror</a>) was used to generate the HSV cylinder illustration.
+ <li><a href="http://www.ignorancia.org/index.php?page=lightsys" target="_blank">Lightsys IV</a>,
+  in particular the portion contributed by Ive, was used to compute the illuminant values and white point adjustments.
+  Solar data from Lightsys IV was compared with graphs of solar spectra and modified to compute the colors of the Sun and sky.
 </ul>
 
 <p><a href="#toc">Table of contents</a>
