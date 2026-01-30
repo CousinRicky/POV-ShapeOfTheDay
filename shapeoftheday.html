@@ -162,11 +162,11 @@ Please see the <a href="https://web.archive.org/web/20120419111948/http://lib.po
 
 <h4>Compliance</h4>
 
-<p>All file names in this module and all global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> comply fully with the
+<p>All file names in this library and all global and local identifiers defined in <code>shapeoftheday.inc</code> and <code>shapeoftheday_ref.inc</code> comply fully with the
 <a href="https://news.povray.org/470b46cb%241%40news.povray.org">Object Collection naming standards</a>, as
 <a href="https://news.povray.org/48ba92e8%241%40news.povray.org">revised August 2008</a> and
 <a href="https://news.povray.org/povray.object-collection/thread/%3Cweb.5018a69dae7e89cb85de7b680%40news.povray.org%3E/">proposed August 2012</a>.
-The files in this module may be safely stored in the same folder as other fully compliant Object Collection modules.
+The files in this library may be safely stored in the same folder as other fully compliant Object Collection contributions.
 
 <p>The following prefixes, including any uppercase and lowercase variants, are reserved by ShapeOfTheDay and its prerequisites:
 <ul>
@@ -178,7 +178,8 @@ The files in this module may be safely stored in the same folder as other fully 
  <li>ShapeOfTheDay
  <li>sotd
 </ul>
-<p>To avoid conflicts, do not introduce into your scene description file any identifiers with any of these prefixes as names, or any identifiers that start with any of these prefixes plus an underscore.
+<p>To avoid conflicts, do not introduce into your scene description file any identifiers with any of these prefixes as names,
+or any identifiers that start with any of these prefixes plus an underscore.
 
 <p>In addition to identifiers from the prerequisites listed above, the standard include files
 <code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used,
@@ -187,7 +188,7 @@ If <code>screen.inc</code> is included by the user, then macros from that file a
 The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
 
 <h4>Prefix Conventions for Public Identifiers</h4>
-<p>These conventions are specific to ShapeOfTheDay, and do not apply to other Object Collection modules.
+<p>These conventions are specific to ShapeOfTheDay, and do not apply to other Object Collection contributions.
 <dl>
  <dt><code>SHAPEOFTHEDAY_</code>, <code>SOTD_</code> (all caps)
  <dd>Fixed reference codes and “magic” numbers.
@@ -1518,7 +1519,7 @@ that is, effectively on the ground plane with an allowance to avoid coincident s
 If the setting is a room or a patio, that structure will be centered on the <var>y</var>-axis.
 
 <p>If the user has included <code>screen.inc</code> prior to this point,
-then <code>Sotd_Setup()</code> calls that module for the camera, instead of setting the camera directly.
+then <code>Sotd_Setup()</code> calls <code>screen.inc</code> for the camera, instead of setting the camera directly.
 
 <p>If you wish change the default ambient and diffuse, do so <em>after</em> calling <code>Sotd_Setup()</code>, or this macro will override your setting.
 See <a href="#calculated">Calculated Values</a> for more information.
@@ -1831,7 +1832,7 @@ They are declared in file <code>shapeoftheday_ref.inc</code>.
  </tr>
 </table>
 
-<p>For units not defined here, you may download and use the Object Collection module
+<p>For units not defined here, you may download and use the Object Collection library
 <a href="https://lib.povray.org/searchcollection/index2.php?objectName=scaleconvert&amp;contributorTag=Charles%20C" target="_blank">scaleconvert</a>
 (<a href="https://github.com/LeForgeron/PovContributions/tree/master/scaleconvert/charles%20c%201.0" target="_blank">scaleconvert mirror</a>).
 Since the reference unit for ShapeOfTheDay is one meter, you would convert your scene’s unit to meters.
@@ -2046,7 +2047,7 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
  <li>Determine more realistic lighting levels for overcast skies.
  <li>Vary the Sun and sky colors according to the Sun’s altitude.
  <li>Re-implement the sky with scattering and absorbing media.
- <li>Make ShapeOfTheDay compatible with LilySoft’s SpectralRender.
+ <li>Make ShapeOfTheDay compatible with LILYsoft’s SpectralRender.
  <li>Find some way for ShapeOfTheDay to use Rune’s grass texture.
  <li>Replace the doorknob with an accessible door handle.
 </ul>

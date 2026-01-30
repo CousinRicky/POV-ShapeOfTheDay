@@ -113,11 +113,12 @@ Other considerations were:
    Object Collection feasibility, and with most of the features of common.inc
    having already found their way into the Object Collection anyway, I decided
    that the new file should not depend on it.  (The cores of Caption and
-   RC3Metal, parts of RoundEdge, and the undocumented number-to-string macro in
-   several of my Object Collection modules were first developed in common.inc.)
+   RC3Metal, parts of RoundEdge, and the undocumented number-to-string macro
+   in several of my Object Collection contributions were first developed in
+   common.inc.)
 
    Ultimately, ShapeOfTheDay prerequisites should be limited to standard POV-Ray
-   3.5 include files and current or proposed Object Collection modules.
+   3.5 include files and current or proposed Object Collection contributions.
 
 Vers.  Date         Comments
 -----  ----         --------
