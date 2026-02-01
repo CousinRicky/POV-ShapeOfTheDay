@@ -11,12 +11,14 @@ History of the 1st generation rig, environs.inc:
 This was my first attempt at a prefabricated environment.  It set up a checkered
 plane, a non-graduated plain light blue background, and the lighting.
 
+This library has not been published.
+
 Vers  Date         Comments
 ----  ----         --------
 none  2003-Oct-03  Created on or before.
 none  2003-Oct-16  Last update.
-none  2018-Apr-14  The file is cleaned up for the sake of the legacy scenes that
-                   still use it, then formally deprecated:
+none  2018-Apr-14  The library is cleaned up for the sake of the legacy scenes
+                   that still use it, then formally deprecated:
                     - The standard include file wrapper is added, with the POV
                       version set at 3.5.
 
@@ -24,11 +26,13 @@ ________________________________________________________________________________
 
 History of the 2nd generation rig, quickndirty.inc:
 
-This file introduced templates for transparent and specular materials.  Key was
-a workaround for a bug in POV-Ray 3.5's Fresnel dispersion.  I also added a
+This library introduced templates for transparent and specular materials.  Key
+was a workaround for a bug in POV-Ray 3.5's Fresnel dispersion.  I also added a
 camera with optional depth of field, some basic mathematical functions, and a
 lot more lighting options, including an area light and photons.  Oddly, I did
 not include a physical setting or a sky.
+
+This library has not been published.
 
 Vers  Date         Comments
 ----  ----         --------
@@ -38,8 +42,8 @@ none  2003-Nov-14  Timestamp on an archived file.
 none    unknown    Photon count option and non-photon caustics are added.
 none  2004-Jan-30  Likely after this date: the camera aspect option is deleted.
 none  2006-Aug-03  Timestamp on the file before the 2012 closure.
-none  2012-Dec-28  The file is cleaned up for the sake of the legacy scenes that
-                   still use it, then formally deprecated:
+none  2012-Dec-28  The library is cleaned up for the sake of the legacy scenes
+                   that still use it, then formally deprecated:
                     - A bug in function Cube() is fixed.
                     - The camera aspect option is restored.
                     - The POV version is set (at 3.5).
@@ -51,6 +55,8 @@ History of the 3rd generation rig, sotd.inc:
 Change of focus: quickndirty.inc materials are not brought over (probably due
 to the Fresnel dispersion bug fix in 3.6), and some of its other features are
 spun off into a new include file, common.inc, to be called by sotd.inc.
+
+This library has not been published.
 
 Solutions to checkered plane moire patterns:
  - add an indoor option to limit the extent of the checker pattern
@@ -79,8 +85,8 @@ Vers  Date         Comments
 3.0   2008-Jan-18  New major version.
 3.1   2011-Feb-18  New minor version.
       2011-Aug-23  Last 3.* update.
-      2012-Nov-04  The file is formally deprecated, retroactive to 2012-Sep-28.
-                   (One day after ShapeOfTheDay 1.0.)
+      2012-Nov-04  The library is formally deprecated, retroactive to
+                   2012-Sep-28.  (One day after ShapeOfTheDay 1.0.)
       2016-Jan-04  A deprecation warning is added.
 
 ________________________________________________________________________________
@@ -89,12 +95,12 @@ History of the 4th generation rig, shapeoftheday.inc:
 
 Issues with sotd.inc in POV-Ray 3.7, the ad hoc nature of sotd.inc's #debug
 output, and growing disorganization within the code led me to start fresh with
-a new file.  Primary among the considerations were:
+a new library.  Primary among the considerations were:
 
  - The debug stream output should contain enough information to reconstruct a
    scene without this library (at least for indoor scenes).  This feature has
-   already been used in several of the scene files I have posted, including the
-   file rc3metal_brushed.pov in the Object Collection.
+   already been used in several of the scene description files I have posted,
+   including the file rc3metal_brushed.pov in the Object Collection.
 
  - The library should be easily converted for Object Collection compliance,
    in case I decide to submit it to the Object Collection.  To that end, all
@@ -112,7 +118,7 @@ Other considerations were:
  - File sotd.inc is heavily dependent on common.inc.  With half an eye towards
    Object Collection feasibility, and with most of the features of common.inc
    having already found their way into the Object Collection anyway, I decided
-   that the new file should not depend on it.  (The cores of Caption and
+   that the new library should not depend on it.  (The cores of Caption and
    RC3Metal, parts of RoundEdge, and the undocumented number-to-string macro
    in several of my Object Collection contributions were first developed in
    common.inc.)
@@ -122,7 +128,7 @@ Other considerations were:
 
 Vers.  Date         Comments
 -----  ----         --------
-0.9    2012-Aug-01  The file is coded anew, and renamed because it is totally
+0.9    2012-Aug-01  The library is coded anew, and renamed because it is totally
                     incompatible with sotd.inc.
                      - Parameters are expanded to full words.
                      - Setup is no longer automatic.
@@ -338,8 +344,10 @@ Vers.  Date         Comments
                     shapeoftheday_ref.inc.
        2022-Sep-18  With the incorporation of max_sample, the Sun can now have a
                     realistic surface brightness for POV-Ray < 3.7.
+2.0-alpha (initial GitHub upload)
+       2022-Oct-12  The DeskLamp library is utilized.
+       2022-Oct-13  High lamps are ceiling-mounted.
 2.0-beta
-       2022-Oct-13  The DeskLamp library is utilized.
        2022-Oct-14  The GNU LGPL 2.1 license is applied.
        2022-Oct-20  A completely fixture-less quality setting is added,
                     requiring a shifting of quality setting codes.
