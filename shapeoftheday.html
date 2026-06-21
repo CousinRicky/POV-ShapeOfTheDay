@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShapeOfTheDay 2.1.1-beta.2 User Manual | POV-Ray Object Collection (Proposed)</title>
+<title>ShapeOfTheDay 2.1.1-rc.1 User Manual | POV-Ray Object Collection (Proposed)</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
 </head>
 
 <body>
 
-<h1>ShapeOfTheDay 2.1.1-beta.2 User&nbsp;Manual</h1>
+<h1>ShapeOfTheDay 2.1.1-rc.1 User&nbsp;Manual</h1>
 
 <h2>Abstract</h2>
 
@@ -147,7 +147,7 @@ Please see the <a href="https://web.archive.org/web/20120419111948/http://lib.po
  <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=RoundEdge&amp;contributorTag=Cousin%20Ricky" target="_blank">RoundEdge</a> version 2.0 or later
   (<a href="https://github.com/CousinRicky/POV-RoundEdge" target="_blank">RoundEdge mirror</a>), from the POV-Ray Object Collection
  <li><a href="https://lib.povray.org/searchcollection/index2.php?objectName=DeskLamp&amp;contributorTag=Cousin%20Ricky" target="_blank">DeskLamp</a> version 2.0 or later
-  (<a href="https://github.com/CousinRicky/POV-DeskLamp" target="_blank">DeskLamp mirror</a>), from the POV-Ray Object Collection
+  (<a href="https://github.com/CousinRicky/POV-DeskLamp" target="_blank">DeskLamp mirror</a>), proposed for the POV-Ray Object Collection
 </ul>
 
 <p>ShapeOfTheDay will use this if it is in your library path:
@@ -185,7 +185,8 @@ or any identifiers that start with any of these prefixes plus an underscore.
 <code>colors.inc</code>, <code>consts.inc</code>, <code>functions.inc</code>, <code>math.inc</code>, <code>sunpos.inc</code>, and <code>transforms.inc</code> are used,
 and RoundEdge uses <code>shapes.inc</code>.
 If <code>screen.inc</code> is included by the user, then macros from that file are called.
-The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>, although <code>debug.inc</code> itself is not used.
+The identifier <code>View_POV_Include_Stack</code> from the standard include file <code>debug.inc</code> is referenced by <code>shapeoftheday.inc</code>,
+although <code>debug.inc</code> itself is not used.
 
 <h4>Prefix Conventions for Public Identifiers</h4>
 <p>These conventions are specific to ShapeOfTheDay, and do not apply to other Object Collection contributions.
@@ -1942,7 +1943,7 @@ The Sun position and cloud parameters may be set on the command line.
 <h2 id="about">About ShapeOfTheDay</h2>
 
 <address>
- <p>Copyright © 2012 &ndash; 20?? Richard Callwood III. Some rights reserved.
+ <p>Copyright © 2012 &ndash; 2026 Richard Callwood III. Some rights reserved.
  <p>This library is free software: you can redistribute it and/or modify it under the terms of the
  <a href="https://www.gnu.org/licenses/lgpl-3.0.html" target="_blank">GNU Lesser General Public License</a>
  as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -2015,8 +2016,8 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
    </ul>
   </td>
  </tr><tr>
-  <td>2.1.1</td>
-  <td>20?? ??? ??</td>
+  <td>2.1.1-rc.1</td>
+  <td>2026 June 20</td>
   <td>
    <ul>
     <li>Bug fix: Lamps near the room’s zenith are positioned correctly.
@@ -2028,10 +2029,10 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
 <h3>Known Bugs</h3>
 
 <ul>
- <li>The lighting of the interior hood and/or bulb of lamps is incorrect under some circumstances.
-  It is not known whether the bug is in ShapeOfTheDay or in DeskLamp.
  <li>Caustics from lamps (indoor scenes at quality levels 1 or greater) appear abnormal when photon mapping is used with beta versions of POV-Ray 3.8 and DeskLamp 2.0.
-  Upgrading DeskLamp to 2.0.1 will fix this.
+  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases"  target="_blank">DeskLamp to 2.0.1</a> will fix this.
+ <li>The lighting of the interior hood and bulb of HSV-colored lamps is incorrect in non-radiosity scenes.
+  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases"  target="_blank">DeskLamp to 2.0.2</a> will fix this.
  <li>Photon mapping can take forever (perhaps literally) when <code>sotd_Trees_level</code> is set greater than zero.
   A workaround is to render a first pass with <code>sotd_Ph_save=1</code> and <code>sotd_Trees_level=0</code>,
   then a second pass with <code>sotd_Ph_load=1</code> and <code>sotd_Trees_level</code> set to a positive number.

@@ -1,10 +1,10 @@
-/* shapeoftheday.inc version 2.1.1-beta.2
+/* shapeoftheday.inc version 2.1.1-rc.1  2026-Jun-20
  * Persistence of Vision Raytracer scene description include file
  * A proposed POV-Ray Object Collection module
  *
  * A prefab virtual environment for prototypes and experiments.
  *
- * Copyright (C) 2012 - 20?? Richard Callwood III.  Some rights reserved.
+ * Copyright (C) 2012 - 2026 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the GNU-LGPL.
  *
  * This library is free software: you can redistribute it and/or modify it
@@ -18,7 +18,7 @@
  * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
  * of the GNU Lesser General Public License version 3.
  *
- * Version 2.1.1-beta.2  20??-???-??
+ * Version 2.1.1-rc.1  2026-Jun-20
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,7 +28,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.11;
-#declare SOTD__S_INCV = "-beta.2-20260201"
+#declare SOTD__S_INCV = "-rc.1-20260620"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),

@@ -1,10 +1,10 @@
-/* shapeoftheday.pov version 2.1.1-beta.2
+/* shapeoftheday.pov version 2.1.1-rc.1  2026-Jun-20
  * Persistence of Vision Raytracer scene description include file
  * A proposed POV-Ray Object Collection demo.
  *
  * Demonstrates usage of shapeoftheday.inc.
  *
- * Copyright (C) 2022 - 20?? Richard Callwood III.  Some rights reserved.
+ * Copyright (C) 2022 - 2026 Richard Callwood III.  Some rights reserved.
  * This file is licensed under the terms of the GNU-LGPL.
  *
  * This library is free software: you can redistribute it and/or modify it
