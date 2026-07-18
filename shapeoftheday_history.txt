@@ -324,7 +324,7 @@ Vers.  Date         Comments
                     they duplicate macros in DeskLamp, which is a proposed
                     prerequisite for ShapeOfTheDay.
        2021-May-15  The finish diffuse is made a parameter.
-       2021-May-17  Bug fix: pixel aspect is fixed.
+       2021-May-17  Bug fix: pixel aspect is corrected.
        2021-May-31  The fatal error for out-of-domain arguments to the non-
                     linear color conversion macros is reduced to a warning.
        2021-Jul-13  Luminance-by-white point vectors are defined in preparation
