@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShapeOfTheDay 2.1.1-rc.1 User Manual | POV-Ray Object Collection (Proposed)</title>
+<title>ShapeOfTheDay 2.1.1 User Manual | POV-Ray Object Collection (Proposed)</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
 </head>
 
 <body>
 
-<h1>ShapeOfTheDay 2.1.1-rc.1 User&nbsp;Manual</h1>
+<h1>ShapeOfTheDay 2.1.1 User&nbsp;Manual</h1>
 
 <h2>Abstract</h2>
 
@@ -197,16 +197,16 @@ although <code>debug.inc</code> itself is not used.
  <dd>Macro names.
  <dt><code>sotd_</code> (all lowercase)
  <dd>User-set parameters and automatically calculated values.
- <dt><code>sotd_c_</code>
- <dd>Calculated colors.
  <dt><code>sotd_h</code>
  <dd>Hue parameters.
  <dt><code>sotd_s</code>
  <dd>Color saturation parameters.
- <dt><code>sotd_s_</code>
- <dd>Calculated strings.
  <dt><code>sotd_v</code>
  <dd>Color value or illuminance parameters.
+ <dt><code>sotd_c_</code>
+ <dd>Calculated RGBFT colors.
+ <dt><code>sotd_s_</code>
+ <dd>Calculated strings.
  <dt><code>sotd_v_</code>
  <dd>Calculated points or 3D vectors.
 </dl>
@@ -273,9 +273,11 @@ Pigment colors must be specified by HSV. Light source colors may be specified by
 with <var>sss</var> and <var>vvv</var> each having an implied decimal point after the first digit.
 For example, 120085.045 translates to HSV &lt;120, 0.85, 0.45>.
 Gradients are linear; that is, the gamma is 1.0.
+(Why linear? Because the brightness scale for light sources needs to be linear,
+especially for values greater than one.)
 
 <p>Due to limitations of command line precision, auxiliary parameters are made available to refine the color inputs.
-The hue, saturation, and value varients of each color parameter are prefixed with <code>sotd_h</code>, <code>sotd_s</code>, and <code>sotd_v</code>, respectively.
+The hue, saturation, and value variants of each color parameter are prefixed with <code>sotd_h</code>, <code>sotd_s</code>, and <code>sotd_v</code>, respectively.
 If defined, the auxiliary parameters override their respective section of the main parameter.
 For example, if parameter <code>sotd_Check1</code> is set to 30100.100 and parameter <code>sotd_vCheck1</code> is set to 0.5,
 then the 0.5 overrides <code>sotd_Check1</code>’s .100, and the HSV color &lt;30, 1.0, 0.5> is used.
@@ -284,6 +286,8 @@ then the 0.5 overrides <code>sotd_Check1</code>’s .100, and the HSV color &lt;
 
 <p>The value channel is not restricted to 3 digits, and the value auxiliary parameters are unrestricted in magnitude.
 For a light source color, value represents the illuminance of the lamp on a perpendicular surface at the <a href="#rest_position">rest position</a>.
+
+<p>HSV light source colors are calibrated for the D50 white point.
 
 <h4>Standard Illuminant Encoding</h4>
 
@@ -737,7 +741,7 @@ These may or may not be adequate, depending on the setting:
   <ul>
    <li>Remember to set <a href="#sotd_Exposure"><code>sotd_Exposure</code></a> to a small value to reduce the amount of light from outdoors.
   </ul>
- <li>For outdoor scenes with the Sun behind a cloud (<code>sotd_Setting</code> less than 2.0), radiosity is essential to avoid a posterized look.
+ <li>For outdoor scenes (<code>sotd_Setting</code> less than 2.0) with the Sun behind a cloud, radiosity is essential to avoid a posterized look.
   Moderate radiosity settings will be adequate.
  <li>If macro <code>Sotd_Setup()</code> is informed that radiosity is used, then all calculated ambients will be set to zero.
 </ul>
@@ -1320,7 +1324,8 @@ and recalculated when macro <code>Sotd_Setup()</code> is called.
   <td><code>sotd_c_Ground_ambient</code></td>
   <td>color</td>
   <td>The ambient color used on the grassy plain and the outdoor tiled floor.
-   It is normalized for <code>diffuse 1</code>, and scaled by <code>sotd_Diffuse</code> before being applied to the tiles.
+   It is normalized for <code>diffuse 1</code>,
+   and scaled by <code>sotd_Diffuse</code> before being applied to the tiles.
   </td>
  </tr><tr>
   <td><code>sotd_Lens</code></td>
@@ -1329,7 +1334,8 @@ and recalculated when macro <code>Sotd_Setup()</code> is called.
    <ul>
     <li>If <code>screen.inc</code> was used, then the perspective camera was used;
     <li>otherwise, if <code>sotd_FOV</code> was set to zero, then the orthographic camera was used;
-    <li>otherwise, if the final horizontal or vertical camera angle is greater than approximately 67.38°, then the ultra wide angle camera was used;
+    <li>otherwise, if the final horizontal or vertical camera angle is greater than approximately 67.38°,
+     then the ultra wide angle camera was used;
     <li>otherwise, the perspective camera was used.
    </ul>
   </td>
@@ -1362,15 +1368,20 @@ and recalculated when macro <code>Sotd_Setup()</code> is called.
   <td><code>sotd_v_Sun</code></td>
   <td>3-D vector</td>
   <td>The position of the Sun.
-   (To avoid floating point precision issues, the Sun is placed much closer than the physically correct 150 million km, and is implemented as a parallel light.)
+   (To avoid floating point precision issues,
+   the Sun is placed much closer than the physically correct 150 million km,
+   and is implemented as a parallel light.)
   </td>
  </tr><tr>
   <td><code>sotd_c_Wall</code></td>
   <td>color</td>
-  <td>The average color of the indoor walls, derived from the wall color or estimated from the pigment parameter.
-   This color is applied to the baseboards, doors, shutters, and window trim, and is used for estimating the ambient color.
+  <td>The average color of the indoor walls,
+   derived from the wall color parameters or estimated from the pigment parameter.
+   This color is applied to the baseboards, doors, shutters, and window trim,
+   and is used for estimating the ambient color.
    The texture parameter <code>sotd_t_Wall</code> has no effect on this value;
-   therefore, if you are not using radiosity, to get a good ambient estimate, you should set a wall color to match the average color of the texture.
+   therefore, if you are not using radiosity, to get a good ambient estimate,
+   you should set a wall color to match the average color of the texture.
   </td>
  </tr>
 </table>
@@ -1434,11 +1445,11 @@ The macros are the same, except for the spelling.
 union
 { object
   { MyObjectPart1
-    pigment { Sotd_Color (MediumSpringGreen) } // colors.inc identifier
+    pigment { Sotd_Color (MediumSpringGreen) } <span class="comment">// colors.inc identifier</span>
   }
   object
   { MyObjectPart2
-    pigment { Sotd_Color (&lt;153, 255, 51> / 255) } // from a color picker
+    pigment { Sotd_Color (&lt;153, 255, 51> / 255) } <span class="comment">// from a color picker</span>
   }
   Sotd_Position_std()
 }</pre>
@@ -2016,8 +2027,8 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
    </ul>
   </td>
  </tr><tr>
-  <td>2.1.1-rc.1</td>
-  <td>2026 June 20</td>
+  <td>2.1.1</td>
+  <td>2026 November 21</td>
   <td>
    <ul>
     <li>Bug fix: Lamps near the room’s zenith are positioned correctly.
@@ -2030,9 +2041,9 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
 
 <ul>
  <li>Caustics from lamps (indoor scenes at quality levels 1 or greater) appear abnormal when photon mapping is used with beta versions of POV-Ray 3.8 and DeskLamp 2.0.
-  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases"  target="_blank">DeskLamp to 2.0.1</a> will fix this.
+  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases" target="_blank">DeskLamp to 2.0.1 or later</a> will fix this.
  <li>The lighting of the interior hood of HSV-colored lamps is incorrect in non-radiosity scenes.
-  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases"  target="_blank">DeskLamp to 2.0.2</a> will fix this.
+  Upgrading <a href="https://github.com/CousinRicky/POV-DeskLamp/releases" target="_blank">DeskLamp to 2.0.2 or later</a> will fix this.
  <li>Photon mapping can take forever (perhaps literally) when <code>sotd_Trees_level</code> is set greater than zero.
   A workaround is to render a first pass with <code>sotd_Ph_save=1</code> and <code>sotd_Trees_level=0</code>,
   then a second pass with <code>sotd_Ph_load=1</code> and <code>sotd_Trees_level</code> set to a positive number.
@@ -2042,14 +2053,15 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
 
 <ul>
  <li>Create a new function for isosurface trees.
- <li>Implement mesh trees.
  <li>Implement LED standard illuminants.
  <li>Develop a more realistic sky gradient with more realistic atmospheric attenuation.
- <li>Determine more realistic lighting levels for overcast skies.
  <li>Vary the Sun and sky colors according to the Sun’s altitude.
- <li>Re-implement the sky with scattering and absorbing media.
  <li>Make ShapeOfTheDay compatible with LILYsoft’s SpectralRender.
+ <li>Accommodate Ben Chambers’ grass.
  <li>Find some way for ShapeOfTheDay to use Rune’s grass texture.
+ <li>Implement mesh trees.
+ <li>Determine more realistic lighting levels for overcast skies.
+ <li>Re-implement the sky with scattering and absorbing media.
  <li>Replace the doorknob with an accessible door handle.
 </ul>
 

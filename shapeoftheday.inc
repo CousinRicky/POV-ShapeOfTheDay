@@ -1,4 +1,4 @@
-/* shapeoftheday.inc version 2.1.1-rc.1  2026-Jun-20
+/* shapeoftheday.inc version 2.1.1  2026-Nov-21
  * Persistence of Vision Raytracer scene description include file
  * A proposed POV-Ray Object Collection module
  *
@@ -18,7 +18,7 @@
  * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
  * of the GNU Lesser General Public License version 3.
  *
- * Version 2.1.1-rc.1  2026-Jun-20
+ * Version 2.1.1  2026-Nov-21
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -28,7 +28,7 @@
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
 #declare SHAPEOFTHEDAY_VERSION = 2.11;
-#declare SOTD__S_INCV = "-rc.1-20260620"
+#declare SOTD__S_INCV = "-20261121"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -117,7 +117,7 @@
 //----------------- lighting and colors --------------------
 
 // Light-and-shadow adjustments:
-#declare SOTD__GRASS_SHADE = 0.975;
+#declare SOTD__GRASS_SHADE = (sotd__Debug_shade? 1: 0.975);
 #declare SOTD__FAKE_FOREST_SHADE = (sotd__Debug_shade? 1: 0.55);
 
 // Diffuse 1.0 pigment colors:
@@ -411,10 +411,10 @@
  * vvv each have an implied decimal point after the first digit.
  */
 #macro Sotd__Encode_color (Hue, Sat, Value)
-  #local sotd_Hue = mod(Hue,360);
+  #local sotd_Hue = mod (Hue + 0.5, 360);
   #if (sotd_Hue < 0) #local sotd_Hue = sotd_Hue + 360; #end
-  (   floor (sotd_Hue + 0.5) * 1000
-    + floor (min(max(Sat,0),1) * 100 + 0.5)
+  (   floor (sotd_Hue) * 1000
+    + floor (min (max (Sat, 0),1) * 100 + 0.5)
     + min (max (Value * 0.1, 0), 0.999)
   )
 #end

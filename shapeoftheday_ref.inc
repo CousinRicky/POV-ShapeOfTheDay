@@ -1,4 +1,4 @@
-/* shapeoftheday_ref.inc version 2.1.1-rc.1  2026-Jun-20
+/* shapeoftheday_ref.inc version 2.1.1  2026-Nov-21
  * Persistence of Vision Raytracer scene description include file
  * Proposed for the POV-Ray Object Collection
  *
@@ -34,7 +34,7 @@
 #declare SHAPEOFTHEDAY__REF_VERSION = 2.11;
 
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"shapeoftheday_ref.inc\" //version 2.1.1-rc.1\n"
+  #debug "#include \"shapeoftheday_ref.inc\" //version 2.1.1\n"
 #end
 
 #include "math.inc"

@@ -369,4 +369,5 @@ Vers.  Date         Comments
                     styles are available in addition to the hooded lamp, and the
                     round flat-panel style is made the default.
        2024-Aug-21  Bug fix: Lamps near 90 degrees are positioned properly.
-2.1.1  2025-Oct-04  The license is upgraded to LGPL 3.
+       2025-Oct-04  The license is upgraded to LGPL 3.
+2.1.1  2026-Nov-21  A boundary issue is corrected in Sotd__Encode_color().
