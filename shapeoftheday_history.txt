@@ -371,3 +371,9 @@ Vers.  Date         Comments
        2024-Aug-21  Bug fix: Lamps near 90 degrees are positioned properly.
        2025-Oct-04  The license is upgraded to LGPL 3.
 2.1.1  2026-Nov-21  A boundary issue is corrected in Sotd__Encode_color().
+       2026-Nov-22  Sotd__Encode_color() is moved to shapeoftheday_ref.inc,
+                    modified, renamed to Sotd_Encode_HSV(), and documented.
+       2026-Nov-22  Sotd_Encode_color() is created to encode RGB to hhhsss.vvv.
+       20??-???-??  The grass texture is darkened to better account for shadows
+                    among the blades.
+2.2    20??-???-??  Ben Chambers' Grass library can be incorporated.

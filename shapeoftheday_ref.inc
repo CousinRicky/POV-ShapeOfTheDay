@@ -1,4 +1,4 @@
-/* shapeoftheday_ref.inc version 2.1.1  2026-Nov-21
+/* shapeoftheday_ref.inc version 2.2-alpha.20261121  2026-Nov-22
  * Persistence of Vision Raytracer scene description include file
  * Proposed for the POV-Ray Object Collection
  *
@@ -24,6 +24,9 @@
  * 1.9.7  2022-Sep-13  An interface to sunpos.inc::SunPos() is added.
  * 2.1    2024-Aug-14  Lamp type codes are added.
  * 2.1.1  2025-Oct-04  The license is upgraded to LGPL 3.
+ *        2026-Nov-22  The HSV to hhhsss.vvv macro from shapeoftheday.inc is
+ *                     moved to this file and renamed to Sotd_Encode_HSV().
+ * 2.2    2026-Nov-22  Sotd_Encode_Color() is added to encode RGB to hhhsss.vvv.
  *
  * Implementation note: due to POV-Ray namespace scope leakage, local variables
  * and function parameters (other than x, y, and z) *must* be prefixed.
@@ -31,12 +34,13 @@
 #ifndef (ShapeOfTheDay_Ref_Inc_Temp)
 #declare ShapeOfTheDay_Ref_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY__REF_VERSION = 2.11;
+#declare SHAPEOFTHEDAY__REF_VERSION = 2.2;
 
 #ifdef (View_POV_Include_Stack)
-  #debug "#include \"shapeoftheday_ref.inc\" //version 2.1.1\n"
+  #debug "#include \"shapeoftheday_ref.inc\" //version 2.2\n"
 #end
 
+#include "colors.inc"
 #include "math.inc"
 #include "sunpos.inc"
 
@@ -100,6 +104,8 @@ global_settings
 { assumed_gamma 1 // Prevent the first two macros from aborting in v3.7+
 }
 
+//--------------------------------------
+
 #macro Sotd_Color (Color)
   #local sotd_C = color Color;
   #if (VMin (sotd_C) < 0 | VMax (sotd_C) > 1)
@@ -125,6 +131,30 @@ global_settings
 #macro Sotd_Colour (Colour)
   Sotd_Color (Colour)
 #end
+
+//--------------------------------------
+
+#macro Sotd_Encode_HSV (hsv_Color)
+  #local sotd_C = <0,0,0> + hsv_Color;
+  #local sotd_Hue = mod (sotd_C.x + 0.5, 360);
+  #if (sotd_Hue < 0) #local sotd_Hue = sotd_Hue + 360; #end
+  (   floor (sotd_Hue) * 1000
+    + floor (min (max (sotd_C.y, 0),1) * 100 + 0.5)
+    + min (max (sotd_C.z * 0.1, 0), 0.999)
+  )
+#end
+
+//--------------------------------------
+
+#macro Sotd_Encode_color (Color)
+  Sotd_Encode_HSV (CRGB2HSV (Color))
+#end
+
+#macro Sotd_Encode_colour (Colour)
+  Sotd_Encode_HSV (CRGB2HSV (Colour))
+#end
+
+//--------------------------------------
 
 #macro Sotd_SunPos (Year, Month, Day, Hour, Minute, Lstm, LAT, LONG)
   #local sotd_Dummy = SunPos (Year, Month, Day, Hour, Minute, Lstm, LAT, LONG);

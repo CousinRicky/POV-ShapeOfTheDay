@@ -1,4 +1,4 @@
-/* shapeoftheday.inc version 2.1.1  2026-Nov-21
+/* shapeoftheday.inc version 2.2-alpha.20261121  2026-Nov-22
  * Persistence of Vision Raytracer scene description include file
  * A proposed POV-Ray Object Collection module
  *
@@ -18,7 +18,7 @@
  * visit https://www.gnu.org/licenses/lgpl-3.0.html for the text
  * of the GNU Lesser General Public License version 3.
  *
- * Version 2.1.1  2026-Nov-21
+ * Version 2.2-alpha.20261121  2026-Nov-22
  *
  * See shapeoftheday_history.txt for development history.
  *
@@ -27,8 +27,8 @@
  */
 #ifndef (ShapeOfTheDay_Inc_Temp) #declare ShapeOfTheDay_Inc_Temp = version;
 #version max (3.5, min (3.8, version)); // Bracket the POV version.
-#declare SHAPEOFTHEDAY_VERSION = 2.11;
-#declare SOTD__S_INCV = "-20261121"
+#declare SHAPEOFTHEDAY_VERSION = 2.2;
+#declare SOTD__S_INCV = "-alpha.20261121"
 
 #declare SHAPEOFTHEDAY_S_VERSION = concat
 ( str (floor (SHAPEOFTHEDAY_VERSION * 10) / 10, 0, 1),
@@ -42,7 +42,6 @@
   #debug concat ("  #version ", str(version,0,2), ";\n")
 #end
 
-#include "colors.inc"
 #include "consts.inc"
 #include "functions.inc"
 #include "transforms.inc"
@@ -409,7 +408,7 @@
 /***********************************************************
  * Converts HSV values to input format, hhhsss.vvv.  sss and
  * vvv each have an implied decimal point after the first digit.
- */
+
 #macro Sotd__Encode_color (Hue, Sat, Value)
   #local sotd_Hue = mod (Hue + 0.5, 360);
   #if (sotd_Hue < 0) #local sotd_Hue = sotd_Hue + 360; #end
@@ -417,7 +416,7 @@
     + floor (min (max (Sat, 0),1) * 100 + 0.5)
     + min (max (Value * 0.1, 0), 0.999)
   )
-#end
+#end @@*/
 
 /***********************************************************
  * Converts HSV values or an illuminant code to input format,
@@ -429,7 +428,8 @@
   #if (sotd_I < SOTD__NILLUMS)
     ceil (Code) - min (max (Value * 0.1, 0), 0.999) // standard illuminant
   #else
-    Sotd__Encode_color (Hue, Sat, Value) // HSV
+   //@@ Sotd__Encode_color (Hue, Sat, Value) // HSV
+    Sotd_Encode_HSV (<Hue, Sat, Value>) // HSV
   #end
 )
 #end
@@ -1005,8 +1005,9 @@
     #local sotd_c_Wallpaper = sotd_c_Wallpaper / 1000;
     #ifndef (sotd_Wall)
       #local sotd_hsv_Wp = CRGB2HSV (sotd_c_Wallpaper);
-      #declare sotd_Wall =
-        Sotd__Encode_color (sotd_hsv_Wp.x, sotd_hsv_Wp.y, sotd_hsv_Wp.z);
+/*@@      #declare sotd_Wall =
+        Sotd_Encode__color (sotd_hsv_Wp.x, sotd_hsv_Wp.y, sotd_hsv_Wp.z);*/
+      #declare sotd_Wall = Sotd_Encode_HSV (sotd_hsv_Wp);
       #if (sotd_Debug >= 1)
         #debug "ShapeOfTheDay: sotd_Wall is estimated from sotd_p_Wall.\n"
       #end

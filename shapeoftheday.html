@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>ShapeOfTheDay 2.1.1 User Manual | POV-Ray Object Collection (Proposed)</title>
+<title>ShapeOfTheDay 2.2-alpha User Manual | POV-Ray Object Collection (Proposed)</title>
 <link rel="stylesheet" type="text/css" href="shapeoftheday.css">
 </head>
 
 <body>
 
-<h1>ShapeOfTheDay 2.1.1 User&nbsp;Manual</h1>
+<h1>ShapeOfTheDay 2.2-alpha User&nbsp;Manual</h1>
 
 <h2>Abstract</h2>
 
@@ -50,6 +50,8 @@ that creates prefabricated virtual environments in which one can showcase or exa
     <li><a href="#macros">Macros</a>
      <ul>
       <li><a href="#Sotd_Color">Sotd_Color, Sotd_Colour</a>
+      <li><a href="#Sotd_Encode_color">Sotd_Encode_color, Sotd_Encode_colour</a>
+      <li><a href="#Sotd_Encode_HSV">Sotd_Encode_HSV</a>
       <li><a href="#Sotd_Position">Sotd_Position</a>
       <li><a href="#Sotd_Position_std">Sotd_Position_std</a>
       <li><a href="#Sotd_Setup">Sotd_Setup</a>
@@ -276,7 +278,7 @@ Gradients are linear; that is, the gamma is 1.0.
 (Why linear? Because the brightness scale for light sources needs to be linear,
 especially for values greater than one.)
 
-<p>Due to limitations of command line precision, auxiliary parameters are made available to refine the color inputs.
+<p id="auxiliary">Due to limitations of command line precision, auxiliary parameters are made available to refine the color inputs.
 The hue, saturation, and value variants of each color parameter are prefixed with <code>sotd_h</code>, <code>sotd_s</code>, and <code>sotd_v</code>, respectively.
 If defined, the auxiliary parameters override their respective section of the main parameter.
 For example, if parameter <code>sotd_Check1</code> is set to 30100.100 and parameter <code>sotd_vCheck1</code> is set to 0.5,
@@ -1416,7 +1418,7 @@ and recalculated when macro <code>Sotd_Setup()</code> is called.
 
 <h2 id="macros">Macros</h2>
 
-<h3 id="Sotd_Color">Sotd_Color (Color), Sotd_Colour (Colour), </h3>
+<h3 id="Sotd_Color">Sotd_Color (Color), Sotd_Colour (Colour)</h3>
 
 <p>ShapeOfTheDay creates a
 <a href="https://blog.johnnovak.net/2016/09/21/what-every-coder-should-know-about-gamma/" target="_blank">linear color space</a>,
@@ -1462,6 +1464,65 @@ union
  <li>A scalar argument will be promoted to a full 5-D color, which is probably not what you want.
   To convert, say, a medium gray, use <code>Sotd_Color (rgb 0.5)</code>, not <code>Sotd_Color (0.5)</code>.
 </ul>
+
+<p><a href="#toc">Table of contents</a>
+
+<h3 id="Sotd_Encode_color">Sotd_Encode_color (Color), Sotd_Encode_colour (Colour)</h3>
+
+<p>If you have no need to set color parameters on the command line,
+you may use one of these macros to convert a regular RGB color into ShapeOfTheDay’s expected <var>hhhsss.vvv</var> input format.
+The macros are the same, except for the spelling.
+
+<p>These macros are defined in <code>shapeoftheday_ref.inc</code>.
+They should be used prior to including <code>shapeoftheday.inc</code>,
+to avoid <code>shapeoftheday.inc</code> using incorrect defaults for <a href="#auxiliary">auxiliary parameters.</a>
+
+<h4>Argument</h4>
+<table>
+ <tr><th>Formal Parameter</th> <th>Type</th> <th>Description</th></tr>
+ <tr>
+  <td><code>Color</code> or <code>Colour</code></td>
+  <td>color</td>
+  <td>The color in RGBFT format. The filter and transmit components are discarded.</td>
+ </tr>
+</table>
+
+<h4>Example</h4>
+<pre>#include "colors.inc"
+#include "shapeoftheday_ref.inc"
+#declare sotd_Check1 = Sotd_Encode_color (Sotd_Color (NeonPink)); <span class="comment">// pink floor tiles</span>
+#declare sotd_Check2 = Sotd_Encode_color (rgb &lt;0.4, 0.7, 1.0>); <span class="comment">// light blue floor tiles</span>
+#include "shapeoftheday.inc"
+Sotd_Setup (no)
+</pre>
+
+<p><a href="#toc">Table of contents</a>
+
+<h3 id="Sotd_Encode_HSV">Sotd_Encode_HSV (hsv_Color)</h3>
+
+<p>If you have no need to set color parameters on the command line,
+you may use this macro to convert an HSV color into ShapeOfTheDay’s expected <var>hhhsss.vvv</var> input format.
+
+<p>This macro is defined in <code>shapeoftheday_ref.inc</code>.
+It should be used prior to including <code>shapeoftheday.inc</code>,
+to avoid <code>shapeoftheday.inc</code> using incorrect defaults for <a href="#auxiliary">auxiliary parameters.</a>
+
+<h4>Argument</h4>
+<table>
+ <tr><th>Formal Parameter</th> <th>Type</th> <th>Description</th></tr>
+ <tr>
+  <td><code>hsv_Color</code></td>
+  <td>3-D vector</td>
+  <td>The color in HSV format. Any filter and transmit components are discarded.</td>
+ </tr>
+</table>
+
+<h4>Example</h4>
+<pre>#include "shapeoftheday_ref.inc"
+#declare sotd_Check2 = Sotd_Encode_HSV (&lt;135, 1.0, 0.4>); <span class="comment">// green floor tiles</span>
+#include "shapeoftheday.inc"
+Sotd_Setup (no)
+</pre>
 
 <p><a href="#toc">Table of contents</a>
 
@@ -1901,7 +1962,7 @@ The word “wall” in the descriptions may also refer to a railing on one side 
   <td><code>SHAPEOFTHEDAY_VERSION</code></td>
   <td>float</td>
   <td>The ShapeOfTheDay version.</td>
-  <td>2.11</td>
+  <td>2.2</td>
  </tr>
 </table>
 
@@ -2032,6 +2093,15 @@ See file <a href="shapeoftheday_history.txt"><code>shapeoftheday_history.txt</co
   <td>
    <ul>
     <li>Bug fix: Lamps near the room’s zenith are positioned correctly.
+   </ul>
+  </td>
+ </tr><tr>
+  <td>2.2-&alpha;.20261122</td>
+  <td>2026 November 22</td>
+  <td>
+   <ul>
+    <li>Macros are added to convert colors to <var>hhhsss.vvv</var> format.
+    <li>More to come...
    </ul>
   </td>
  </tr>
